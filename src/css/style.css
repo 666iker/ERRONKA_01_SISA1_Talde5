@@ -1,0 +1,64 @@
+/* Estilo Orokorrak */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-color: #1a365d;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #3182ce;
+}
+
+/* Menu Nav - Display Flex */
+nav {
+    background-color: #2b6cb0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    background-color: #2c5282;
+}
+
+/* Main Content */
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+/* Footer */
+footer {
+    background-color: #1a365d;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
