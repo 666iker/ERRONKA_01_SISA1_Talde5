@@ -1,0 +1,1 @@
+que pondremos todo lo que tenga que ver con el documento (TODO EN ARCHIVO.md OBLIGATORIO) aparte pondremos las fotos y todo tipo de cosas separadas entre ellas dentro de la carpeta de docs/ estaran todos los archuvos.md que al final haran toda la documentacion
