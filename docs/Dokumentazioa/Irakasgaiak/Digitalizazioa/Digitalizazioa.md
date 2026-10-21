@@ -23,7 +23,7 @@ Gaur egungo azpiegitura teknologikoetan ezinbestekoa da Informazioaren Teknologi
 
 **Integrazioaren garrantzia:** Proiektu honetan, kableatze fisikoa (OT) eta Windows Server / IIS zerbitzaria zein datu-basea (IT) lotzen dira, azpiegitura osoak gailu mugikorren bidez komunikatzeko ahalmena izateko.
 
-![IT eta OT Konbergentzia](/Dokumentazioa/img/it-ot.jpg)
+![IT eta OT Konbergentzia](/docs/Dokumentazioa/img/it-ot.jpg)
 
 *1. irudia: IT eta OT teknologien arteko konbergentzia eta integrazioa.*
 ### 3. TGD-ak (Teknologia Garatu Berriak / Transformazio Digitaleko Gakoak) eta THD
