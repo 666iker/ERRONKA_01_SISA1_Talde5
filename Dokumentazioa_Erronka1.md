@@ -31,7 +31,6 @@ Webgunera sartzeko saio-hasiera orri bat prestatu da:
 
 - **Erabiltzailea:** `5Taldea`
 - **Pasahitza:** `Admin123`
-- **Hautatzeko Rolak:** `Rol Pertsonala`, `Rol Familiarra`, `Rol Infantila`
 
 ---
 
