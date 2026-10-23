@@ -8,44 +8,185 @@
 
 ## Aurkibidea
 
-1. [Proiektuaren Sarrera eta Web Sarbidea](#1-proiektuaren-sarrera-eta-web-sarbidea)
-2. [Sareak: OSI 1. eta 2. Mailak, CRC-6-GSM eta Modulazioak](#2-sareak-osi-1-eta-2-mailak-crc-6-gsm-eta-modulazioak)
-3. [Digitalizazioa: IT/OT, THD eta Cloud Kontzeptuak](#3-digitalizazioa-itot-thd-eta-cloud-kontzeptuak)
-4. [Datu-Basea: ER Diagrama, Eredu Erlazionala eta Ofimatika](#4-datu-basea-er-diagrama-eredu-erlazionala-eta-ofimatika)
-5. [Windows Server Azpiegitura, Planifikazioa eta Taldea](#5-windows-server-azpiegitura-planifikazioa-eta-taldea)
+1. [Proiektuaren Sarrera](#1-proiektuaren-sarrera)
+2. [Webgunea: Garapen Teknikoa eta Inplementazioa](#2-webgunea-garapen-teknikoa-eta-inplementazioa)
+3. [Sareak: OSI 1. eta 2. Mailak, CRC-6-GSM eta Modulazioak](#3-sareak-osi-1-eta-2-mailak-crc-6-gsm-eta-modulazioak)
+4. [Digitalizazioa: IT/OT, THD eta Cloud Kontzeptuak](#4-digitalizazioa-itot-thd-eta-cloud-kontzeptuak)
+5. [Datu-Basea: ER Diagrama, Eredu Erlazionala eta Ofimatika](#5-datu-basea-er-diagrama-eredu-erlazionala-eta-ofimatika)
+6. [Windows Server Azpiegitura, Planifikazioa eta Taldea](#6-windows-server-azpiegitura-planifikazioa-eta-taldea)
 
 ---
 
-## 1. Proiektuaren Sarrera eta Web Sarbidea
+## 1. Proiektuaren Sarrera
 
-Webgune estatiko honen bitartez, **SISA1 zikloko 5. Taldeak** 1. Erronkan garatutako dokumentazio teknikoa eta emaitzak publikatu ditu. Proiektuan honako lau arlo nagusi hauek landu dira:
+Webgune estatiko honen bitartez, **SISA1 zikloko 5. Taldeak** 1. Erronkan garatutako dokumentazio teknikoa eta emaitzak publikatu ditu. Proiektuan streaming eduki-plataforma baten beharrei erantzuten dien azpiegitura osoa landu da, arlo hauetan banatuta:
 
-- **Sareak (OSI 1-2):** Kableatua Patch Panelera eta Switchera, pasahitza ASCIIra, CRC-6-GSM, Manchester eta ASK/FSK/PSK marrazkiak eta Wi-Fi proba.
-- **Digitalizazioa:** IT eta OT sistemen arteko desberdintasunak eta konbergentzia, THD teknologiak eta Cloud Computing ereduak.
-- **Datu-Basea:** Streaming plataforma baten beharretarako ER diagrama, eredu erlazional normalizatua (taulak) eta ofimatika inplementazioa.
-- **Windows Server:** IIS web-zerbitzaria, RAID bolumenen konfigurazioa, segurtasun politikak eta planifikazioaren jarraipena.
-
-### Saio-Hasiera (`login.html`)
-
-Webgunera sartzeko saio-hasiera orri bat prestatu da:
-
-- **Erabiltzailea:** `5Taldea`
-- **Pasahitza:** `Admin123`
+- **Sareak (OSI 1-2):** UTP Cat6 kableatua Patch Panelera eta Switchera, pasahitza ASCIIra bihurtzea, CRC-6-GSM errore-detekzioa, Manchester kodifikazioa, ASK/FSK/PSK modulazioak eta Wi-Fi bidezko konektagarritasun-proba.
+- **Digitalizazioa:** IT eta OT sistemen arteko desberdintasunak eta konbergentzia, THD teknologia gaituak (AI, Big Data, IoT, Zibersegurtasuna) eta Cloud Computing ereduak (IaaS, PaaS, SaaS; Hodei Pribatua, Publikoa eta Hibridoa).
+- **Datu-Basea:** Streaming plataforma baten datu-eredua, Entitate-Erlazio (ER) diagrama, 3. Forma Normaleko (3FN) eredu erlazionala (7 taula normalizatu, rol bidezko bistaratze-logikarekin) eta ofimatika inplementazioa.
+- **Windows Server Azpiegitura:** Web Server (IIS) zerbitzaria 80 atakan, disko dinamikoen kudeaketa (RAID-1 ispilu bolumena eta RAID-5 parekidetasuna), segurtasun-politikak (pasahitzak, kontu-blokeoa, NTFS baimenak) eta planifikazioaren digitalizazioa.
 
 ---
 
-## 2. Sareak: OSI 1. eta 2. Mailak, CRC-6-GSM eta Modulazioak
+## 2. Webgunea: Garapen Teknikoa eta Inplementazioa
+
+Atal honetan webgunea garatzeko erabili den **kodea, arkitektura eta inplementazio-metodoak** azaltzen dira, gainerako gaietako eduki teorikoak errepikatu gabe.
+
+### 2.1. Egitura eta Fitxategien Antolaketa
+
+Webgunea arkitektura modular estatiko batekin antolatu da:
+
+```text
+Erronka1 html/
+│
+├── index.html                  # Hasierako orria eta aurkezpen orokorra
+├── sareak.html                 # Sareetako garapen teknikoa
+├── digitalizazioa.html         # Digitalizazioaren eta Cloud kontzeptuak
+├── datubasea.html              # Datu-basearen ER diagrama eta taulak
+├── kontaktua.html              # Azpiegitura, planifikazioa eta formularioa
+├── DOKUMENTAZIOA.md            # Proiektuaren dokumentazio tekniko osoa
+│
+├── css/
+│   └── style.css               # Diseinu-sistema eta estilo-orri zentralizatua
+│
+└── img/
+    ├── logo.svg                # Webguneko logotipo bektoriala (E1)
+    ├── modulazioa-manchester.svg # Seinale digitalen eta analogikoen bektorea
+    └── er-diagrama.svg         # Datu-basearen ER eskema grafikoa
+```
+
+### 2.2. HTML5 Semantika eta Orrien Egituraketa
+
+Webguneko orri guztiek egitura semantiko bera jarraitzen dute, irisgarritasuna eta nabigazio arina bermatzeko:
+
+- **Goiburua eta Nabigazio Menua (`<header>` / `<nav>`):** 
+  Orri guztietan goiburua finko mantentzen da. Nabigazio-menuan orrialde aktiboa `.aktiboa` klasearen bidez nabarmentzen da erabiltzailea non dagoen jakin dezan:
+  ```html
+  <header>
+      <div class="container nav-bar">
+          <div class="logo">
+              <a href="index.html"><img src="img/logo.svg" alt="1. Erronka Logotipoa"></a>
+          </div>
+          <nav>
+              <ul class="menu-zerrenda">
+                  <li><a href="index.html" class="aktiboa">Hasiera</a></li>
+                  <li><a href="sareak.html">Sareak (OSI 1-2)</a></li>
+                  <li><a href="digitalizazioa.html">Digitalizazioa</a></li>
+                  <li><a href="datubasea.html">Datu-Basea</a></li>
+                  <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+              </ul>
+          </nav>
+      </div>
+  </header>
+  ```
+- **Eduki Nagusia (`<main>` eta `<section>`):**
+  Eduki guztiak `.container` edukiontzi zentralizatu baten barruan kokatzen dira, zabalera maximo kontrolatuarekin (`max-width: 1120px`). Atal bakoitza `<section>` etiketarekin banatuta dago.
+- **Datuen Bistaratzeko Egiturak:**
+  - `<table>`, `<thead>`, `<tbody>`: Datu-baseko erregistroak, ASCII bihurketak eta konparaketak gelaxka garbietan bistaratzeko.
+  - `<div class="kode-kutxa">`: Karaktere-zabalera finkoko iturriekin (`Courier New`) zatiketa bitarrak eta eskema erlazionalak terminal itxurarekin erakusteko.
+  - `<form>` (`kontaktua.html`): Formulario semantikoa `<label>`, `<input>`, `<select>` eta `<textarea>` eremuekin, balidazio estandarrekin (`required`).
+- **Oin-orria (`<footer>`):**
+  Zentroaren, ikasturtearen eta orriaren esteken informazioa hiru zutabetan banatzen du, behean copyright oharrarekin.
+
+### 2.3. CSS3 Estilo Sistema eta Diseinua (`css/style.css`)
+
+Estilo-orrian diseinu moderno iluna (Netflix plataforman inspiratua) eraiki da, honako teknika nagusiekin:
+
+1. **Kolore-Paleta eta Tipografia:**
+   - Atzeko plano nagusia: `#141414` (beltz iluna).
+   - Txartel eta edukiontziak: `#1f1f1f` eta `#262626` (gris ilun sakona).
+   - Kolore korporatiboa / nabarmentzea: `#e50914` (gorri bizia).
+   - Testuak: `#ffffff` (izenburuak) eta `#cccccc` (paragrafoak).
+   - Tipografia: `Arial, Helvetica, sans-serif`.
+
+2. **Flexbox Bidezko Lerrokatzeak (`display: flex`):**
+   - Nabigazio-barra (`.nav-bar`): Logoaren eta menuaren arteko banaketa (`justify-content: space-between`).
+   - Hero koadroa (`.hero-kutxa`): Testuaren eta irudiaren banaketa malgua.
+   - Rol-txartelak (`.rol-sarea`): Txartelak erdian zentratuta eta tarte berdinarekin (`gap: 20px`, `justify-content: center`).
+   - Oin-orria (`.footer-edukia`): Atal ezberdinak zutabe malguetan antolatzea.
+
+3. **CSS Grid Sistema (`display: grid`):**
+   Katalogoko txartelak dinamikoki kokatzen dira pantailaren zabalerara egokituz:
+   ```css
+   .txartel-sarea {
+       display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+       gap: 15px;
+   }
+   ```
+
+4. **Diseinu Erantzunkorra (Responsive Web Design):**
+   Mugikorretan eta tabletetan nabigazioa hautsi ez dadin, media query espezifikoa aplikatu da:
+   ```css
+   @media (max-width: 768px) {
+       .nav-bar {
+           flex-direction: column;
+           align-items: flex-start;
+       }
+       .menu-zerrenda {
+           width: 100%;
+       }
+       .hero-kutxa {
+           flex-direction: column;
+       }
+       h1 {
+           font-size: 23px;
+       }
+   }
+   ```
+
+5. **Gakoak eta Taula-Osagaiak Nabarmentzeko Klaseak:**
+   - `.gako-pk`: Gako nagusiak hondo laranjarekin (`#f59e0b`) markatzeko etiketa.
+   - `.gako-fk`: Gako arrotzak hondo urdinarekin (`#38bdf8`) identifikatzeko etiketa.
+   - `tr:nth-child(even)`: Taula-errenkada bikoitietan atzeko plano ilunagoa irakurgarritasuna errazteko.
+
+### 2.4. Irudi Bektorialak (SVG)
+
+Irudi guztiak SVG formatu bektorialean integratu dira, pexelatu gabe eta erresoluzio handiko pantailetan zorrotz bistaratzeko:
+- **`img/logo.svg`:** Erronkaren logotipo pertsonalizatua (E1 ikonoa, Netflix estiloko distira gorriarekin eta SISA1 tipografiarekin).
+- **`img/modulazioa-manchester.svg`:** Seinale digitala (NRZ), Manchester kodifikazioa eta ASK/FSK/PSK modulazioen uhinak zehaztasun handiz marrazten dituen grafikoa.
+
+### 2.5. Saio-Hasiera (Login) Sistemaren Ezabaketa
+
+Hasieran orri bakoitzak saio-kontrol bat zeukan, `sessionStorage` bidez funtzionatzen zuena:
+```html
+<!-- AURREKO KODEA (EZABATUA): -->
+<script>
+    try {
+        if (sessionStorage.getItem('saioa_aktibo') !== 'bai') {
+            window.location.replace('login.html');
+        }
+    } catch (e) {}
+</script>
+```
+**Egindako aldaketa teknikoa:**
+1. Script hori kendu egin da 5 HTML orrietako `<head>` ataletik.
+2. Nabigazio-menutik `<li><a href="login.html" class="saioa-itxi">Saioa Itxi</a></li>` esteka ezabatu da.
+3. `css/style.css`-tik login-kutxari eta formularioari lotutako estilo guztiak ezabatu dira (`.login-orria`, `.login-kutxa`, `.login-goiburua`, `.login-errorea`, `.login-botoia`, `.login-laguntza`, `.saioa-itxi`).
+4. Horrela, webgunea zuzenean eta inolako erregistrorik edo autentifikaziorik gabe atzitu daiteke `index.html` irekitzean.
+
+### 2.6. Kodeko Ohar eta Iruzkin Guztien Garbiketa
+
+Kodea ekoizpen-mailan eta txukun uzteko:
+- **HTML:** `<!-- ... -->` iruzkin guztiak (atalen izenak, egiletzak, azalpen didaktikoak) ezabatu dira orri guztietatik.
+- **CSS:** Irakasleari zuzendutako ohar guztiak (adib. `/* MARGIN: Berezko tarteak kendu */`, `/* PADDING: ... */`, `/* DISPLAY: ... */`, atalen izenburuak) ezabatu dira.
+- **SVG:** Bektore-grafikoko barne-iruzkinak garbitu dira.
+- **Kodeketa:** Fitxategi guztiak **UTF-8 BOM gabe** formatuan gorde dira, karaktere bereziek (ñ, tildeak, marrak) hutsik egin ez dezaten.
+
+---
+
+## 3. Sareak: OSI 1. eta 2. Mailak, CRC-6-GSM eta Modulazioak
 
 Atal honetan 1. Erronkako Windows Server zerbitzaria eta klaseko ekipoak sarera konektatzeko erabili den azpiegitura fisikoa (OSI 1. maila) eta datu-lotura maila (OSI 2. maila) azaltzen dira.
 
-### 2.1. OSI Ereduaren Lehen Bi Mailak: Patch Panel eta Switch Lotura
+### 3.1. OSI Ereduaren Lehen Bi Mailak: Patch Panel eta Switch Lotura
 
 Klasean ikasleok egindako UTP Cat6 kableekin (T568B estandarra jarraituz) ekipoak **Patch Panelera** konektatu dira, eta bertatik latiguillo bidez **Switchera**:
 
 - **1. Maila — Maila Fisikoa (Physical Layer):** Bitak seinale elektriko edo elektromagnetiko bihurtzeaz arduratzen da. Proiektuan ikasleok grimpatutako RJ-45 konektoreak, UTP kableak, **Patch Panela**, Manchester kodifikazioa eta ASK/FSK/PSK modulazioak maila honetan kokatzen dira.
 - **2. Maila — Datu-Lotura Maila (Data Link Layer):** Bitak trametan (frames) antolatzen ditu, gailuen **MAC helbideak** kudeatzen ditu **Switch**-aren bidez eta transmisio-erroreak detektatzen ditu **CRC (Cyclic Redundancy Check)** algoritmoa erabiliz.
 
-### 2.2. Pasahitza ASCIIra Bihurtzea eta CRC-6-GSM Gehitzea
+### 3.2. Pasahitza ASCIIra Bihurtzea eta CRC-6-GSM Gehitzea
 
 Sistemara sartzeko erabilitako pasahitzetako bat **`Kuper-67`** da. Karaktere bakoitzaren ASCII bihurketa:
 
@@ -93,7 +234,7 @@ BIDALIKO DEN TRAMA OSOA (Mezua + CRC-6):
 [ 01001011 ] + [ 001010 ] = 01001011001010 (14 bit)
 ```
 
-### 2.3. Manchester Kodifikazioa eta Modulazioen Marrazkiak (ASK, FSK, PSK)
+### 3.3. Manchester Kodifikazioa eta Modulazioen Marrazkiak (ASK, FSK, PSK)
 
 Lortutako 14 biteko trama (**`01001011 001010`**) kabletik eta uhinetatik bidaltzeko kodifikazio eta modulazio grafikoa:
 
@@ -106,7 +247,7 @@ Lortutako 14 biteko trama (**`01001011 001010`**) kabletik eta uhinetatik bidalt
 | Modulazio Analogikoa | **FSK (Frequency Shift Keying)** | Uhinaren **maiztasuna (frekuentzia)** aldatzen da: **0** bitak maiztasun baxua du (ziklo gutxi) eta **1** bitak maiztasun altua (ziklo bikoitza). |
 | Modulazio Analogikoa | **PSK (Phase Shift Keying)** | Uhin garraiatzailearen **fasea** 180 gradu aldatzen da bit-aldaketa dagoenean (**1** fase positiboan hasten da eta **0** alderantzizko fasean). |
 
-### 2.4. Hari Gabeko Gailu Batetik Testeatzea (Mugikorra eta Eramangarria)
+### 3.4. Hari Gabeko Gailu Batetik Testeatzea (Mugikorra eta Eramangarria)
 
 1. **Windows Server IIS konfigurazioa:** Webgune estatikoa zerbitzari lokalean jarri da martxan (`192.168.1.10:80`).
 2. **Hari gabeko konexioa (Wi-Fi):** Telefono mugikorra eta ordenagailu eramangarria klaseko Wi-Fi sarera konektatu dira (sare bereko IP helbidea jasoz, adib. `192.168.1.55`).
@@ -115,11 +256,11 @@ Lortutako 14 biteko trama (**`01001011 001010`**) kabletik eta uhinetatik bidalt
 
 ---
 
-## 3. Digitalizazioa: IT/OT, THD eta Cloud Kontzeptuak
+## 4. Digitalizazioa: IT/OT, THD eta Cloud Kontzeptuak
 
 Eraldaketa digitala osatzen duten hiru kontzeptu nagusiak aztertu eta dokumentatu dira: **IT/OT inguruneak**, **THD (Teknologia Gaitu Digitalak)** eta **Cloud Computing (Hodeia)**.
 
-### 3.1. IT (Information Technology) eta OT (Operational Technology)
+### 4.1. IT (Information Technology) eta OT (Operational Technology)
 
 - **IT (Informazioaren Teknologiak):** Datuak sortu, prozesatu, gorde eta babesteko erabiltzen diren software eta hardware sistemak dira. Proiektuan: Windows Server web-zerbitzaria (IIS), erabiltzaileen eta rolen datu-base erlazionala, sareko protokoloak eta segurtasun-politikak.
 - **OT (Eragiketa Teknologiak):** Ekipamendu fisikoak, prozesu industrialak eta azpiegiturak monitorizatu eta kontrolatzeko hardware eta softwarea da. Proiektuan: Zerbitzari-gelako (CPD) hozte-sistemak, tenperatura eta hezetasun sentsoreak, SAI/UPS energia-sistemak eta rack-eko sarbide fisikoak.
@@ -130,14 +271,14 @@ Eraldaketa digitala osatzen duten hiru kontzeptu nagusiak aztertu eta dokumentat
 | **Lehentasuna** | Konfidentzialtasuna, Osotasuna eta Erabilgarritasuna (CIA) | Erabilgarritasuna, Denbora Erreala eta Segurtasun Fisikoa |
 | **Adibidea Proiektuan** | Windows Server IIS webgunea, RAID bolumenak eta datu-basea | Zerbitzari-gelako klimatizazioa, UPS/SAI eta energia-sentsoreak |
 
-### 3.2. THD — Teknologia Gaitu Digitalak
+### 4.2. THD — Teknologia Gaitu Digitalak
 
 1. **Adimen Artifiziala (AI) eta Machine Learning:** Datu-basean erabiltzaileak saioa hastean aukeratzen duen rolaren arabera (*Infantila, Pertsonala edo Familiarra*) eta bere bistaratze-erregistroaren arabera, eduki egokienak gomendatzeko algoritmoak.
 2. **Big Data (Datu Masiboen Analisia):** Milaka bistaratze-erregistro, ikusitako minutuak eta ordutegiak aztertzen ditu, zerbitzarien karga aurreikusteko eta estatistikak ateratzeko.
 3. **Zibersegurtasuna:** Windows Server-eko segurtasun-politikak, pasahitzen babesa, CRC bidezko errore-detekzioa eta baimenen kontrola bermatzeko.
 4. **IoT (Gauzen Interneta) eta Hari Gabeko Sareak:** Sareko edozein gailu konektatutatik (mugikorra, eramangarria, Smart TV) edukia atzitzeko eta CPDko sentsoreak urrunetik monitorizatzeko.
 
-### 3.3. Cloud Computing (Hodeiko Konputazioa)
+### 4.3. Cloud Computing (Hodeiko Konputazioa)
 
 #### Zerbitzu Ereduak (IaaS, PaaS eta SaaS)
 
@@ -155,7 +296,7 @@ Eraldaketa digitala osatzen duten hiru kontzeptu nagusiak aztertu eta dokumentat
 
 ---
 
-## 4. Datu-Basea: ER Diagrama, Eredu Erlazionala eta Ofimatika
+## 5. Datu-Basea: ER Diagrama, Eredu Erlazionala eta Ofimatika
 
 1. Erronkako jarraibideen arabera, diseinatu beharreko datu-baseak **streaming eduki plataforma baten beharrak** asetu behar ditu:
 
@@ -165,7 +306,7 @@ Eraldaketa digitala osatzen duten hiru kontzeptu nagusiak aztertu eta dokumentat
 - **Edukiak:** Katalogoak *Pelikulak*, *Serieak* eta *Dokumentalak* biltzen ditu.
 - **Ofimatika Suitean Inplementatua:** Diseinatutako eredu erlazionala ofimatika suite batean (Microsoft Access / LibreOffice Base) inplementatu da.
 
-### 4.1. Entitate-Erlazio Diagrama (ER) eta Eskema Erlazionala (3FN)
+### 5.1. Entitate-Erlazio Diagrama (ER) eta Eskema Erlazionala (3FN)
 
 ```text
 EREDU ERLAZIONAL NORMALIZATUA (TAULEN ESKEMA):
@@ -178,7 +319,7 @@ EREDU ERLAZIONAL NORMALIZATUA (TAULEN ESKEMA):
 7. BISTARATZEAK (id_bistaratzea [PK], id_profila [FK], id_edukia [FK], bistaratze_data, ikusitako_minutuak, amaituta)
 ```
 
-### 4.2. Eredu Erlazionaleko Taulak (Normalizatuak)
+### 5.2. Eredu Erlazionaleko Taulak (Normalizatuak)
 
 #### 1. `ERABILTZAILEAK` Taula
 
@@ -244,7 +385,7 @@ EREDU ERLAZIONAL NORMALIZATUA (TAULEN ESKEMA):
 | **B004** | PR05 (Alex - **Rol Pertsonala**) | E01 (Irati - Pelikula) | 2026-10-21 16:20 | 90 min | Ez |
 | **B005** | PR06 (Jokin - **Rol Familiarra**) | E04 (Teknologiaren Ispilua - Dokumentala) | 2026-10-21 20:00 | 75 min | Bai |
 
-### 4.3. Ofimatika Suitean Inplementazioa (Access)
+### 5.3. Ofimatika Suitean Inplementazioa (Access)
 
 1. **Datu-base fitxategia sortu:** LibreOffice Base (`Erronka1_Streaming_DB.odb`) edo Microsoft Access (`Erronka1_Streaming_DB.accdb`) ireki eta datu-base berria sortu da.
 2. **7 Taulak diseinu-ikuspegian sortu:** Eremu bakoitzari bere datu-mota egokia (`VARCHAR`, `INTEGER`, `DECIMAL`, `DATE`, `BOOLEAN`) eta gako nagusia (`PK`) esleitu zaizkio.
@@ -253,9 +394,9 @@ EREDU ERLAZIONAL NORMALIZATUA (TAULEN ESKEMA):
 
 ---
 
-## 5. Windows Server Azpiegitura, Planifikazioa eta Taldea
+## 6. Windows Server Azpiegitura, Planifikazioa eta Taldea
 
-### 5.1. Windows Server Azpiegitura: IIS, RAID Bolumenak eta Segurtasun Politika
+### 6.1. Windows Server Azpiegitura: IIS, RAID Bolumenak eta Segurtasun Politika
 
 | Azpiegitura Osagaia | Konfigurazio Teknikoa Windows Server-en | Helburua Proiektuan |
 | :--- | :--- | :--- |
@@ -265,7 +406,7 @@ EREDU ERLAZIONAL NORMALIZATUA (TAULEN ESKEMA):
 | **Segurtasun Politika (Pasahitzak)** | Gutxienez 8 karaktere, konplexutasuna aktibatuta, blokeoa 3 saiakera okerren ondoren (15 min) | Baimenik gabeko sarbideak eta indarrezko erasoak (*brute-force*) saihestea. |
 | **NTFS Baimenak eta Firewall** | Administratzaileak: *Kontrol Osoa* \| `IIS_IUSRS`: *Irakurketa soilik* \| Firewall: 80 ataka irekita | Erabiltzaileek webgunea ikusi ahal izatea baina fitxategiak aldatzeko aukerarik gabe. |
 
-### 5.2. Planifikazioaren Digitalizazioa eta Taldekideen Ardurak
+### 6.2. Planifikazioaren Digitalizazioa eta Taldekideen Ardurak
 
 Paperean jasotako hasierako plangintza digitalizatu ondoren, hona hemen 5. Taldeko kide bakoitzaren arloa eta egindako lanaren jarraipena:
 
@@ -274,3 +415,4 @@ Paperean jasotako hasierako plangintza digitalizatu ondoren, hona hemen 5. Talde
 | **Sareak (OSI 1-2, CRC-6, Modulazioa)** | Axular Muñoz | Kableak (Patch Panel -> Switch), ASCII, CRC-6-GSM, Manchester/ASK/FSK/PSK eta Wi-Fi proba |
 | **Datu-Basea (ER, 3FN, Ofimatika)** | Jokin Martinez | ER diagrama, 7 taula normalizatuak (rolak, bistaratzeak...) eta Access |
 | **Digitalizazioa eta Windows Server** | Iker Monkayola, Alex Sierra | IT/OT, THD, Cloud, Windows Server IIS, RAID bolumenak eta Segurtasun Politika |
+
