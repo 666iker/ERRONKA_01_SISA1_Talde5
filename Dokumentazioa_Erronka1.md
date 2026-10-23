@@ -146,18 +146,6 @@ Irudi guztiak SVG formatu bektorialean integratu dira, pexelatu gabe eta erresol
 - **`img/logo.svg`:** Erronkaren logotipo pertsonalizatua (E1 ikonoa, Netflix estiloko distira gorriarekin eta SISA1 tipografiarekin).
 - **`img/modulazioa-manchester.svg`:** Seinale digitala (NRZ), Manchester kodifikazioa eta ASK/FSK/PSK modulazioen uhinak zehaztasun handiz marrazten dituen grafikoa.
 
-### 2.5. Saio-Hasiera (Login) Sistemaren Ezabaketa
-
-Hasieran orri bakoitzak saio-kontrol bat zeukan, `sessionStorage` bidez funtzionatzen zuena:
-```html
-<!-- AURREKO KODEA (EZABATUA): -->
-<script>
-    try {
-        if (sessionStorage.getItem('saioa_aktibo') !== 'bai') {
-            window.location.replace('login.html');
-        }
-    } catch (e) {}
-</script>
 ```
 **Egindako aldaketa teknikoa:**
 1. Script hori kendu egin da 5 HTML orrietako `<head>` ataletik.
