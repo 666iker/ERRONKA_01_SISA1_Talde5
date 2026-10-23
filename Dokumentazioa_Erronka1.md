@@ -146,21 +146,6 @@ Irudi guztiak SVG formatu bektorialean integratu dira, pexelatu gabe eta erresol
 - **`img/logo.svg`:** Erronkaren logotipo pertsonalizatua (E1 ikonoa, Netflix estiloko distira gorriarekin eta SISA1 tipografiarekin).
 - **`img/modulazioa-manchester.svg`:** Seinale digitala (NRZ), Manchester kodifikazioa eta ASK/FSK/PSK modulazioen uhinak zehaztasun handiz marrazten dituen grafikoa.
 
-```
-**Egindako aldaketa teknikoa:**
-1. Script hori kendu egin da 5 HTML orrietako `<head>` ataletik.
-2. Nabigazio-menutik `<li><a href="login.html" class="saioa-itxi">Saioa Itxi</a></li>` esteka ezabatu da.
-3. `css/style.css`-tik login-kutxari eta formularioari lotutako estilo guztiak ezabatu dira (`.login-orria`, `.login-kutxa`, `.login-goiburua`, `.login-errorea`, `.login-botoia`, `.login-laguntza`, `.saioa-itxi`).
-4. Horrela, webgunea zuzenean eta inolako erregistrorik edo autentifikaziorik gabe atzitu daiteke `index.html` irekitzean.
-
-### 2.6. Kodeko Ohar eta Iruzkin Guztien Garbiketa
-
-Kodea ekoizpen-mailan eta txukun uzteko:
-- **HTML:** `<!-- ... -->` iruzkin guztiak (atalen izenak, egiletzak, azalpen didaktikoak) ezabatu dira orri guztietatik.
-- **CSS:** Irakasleari zuzendutako ohar guztiak (adib. `/* MARGIN: Berezko tarteak kendu */`, `/* PADDING: ... */`, `/* DISPLAY: ... */`, atalen izenburuak) ezabatu dira.
-- **SVG:** Bektore-grafikoko barne-iruzkinak garbitu dira.
-- **Kodeketa:** Fitxategi guztiak **UTF-8 BOM gabe** formatuan gorde dira, karaktere bereziek (ñ, tildeak, marrak) hutsik egin ez dezaten.
-
 ---
 
 ## 3. Sareak: OSI 1. eta 2. Mailak, CRC-6-GSM eta Modulazioak
@@ -403,4 +388,5 @@ Paperean jasotako hasierako plangintza digitalizatu ondoren, hona hemen 5. Talde
 | **Sareak (OSI 1-2, CRC-6, Modulazioa)** | Axular Muñoz | Kableak (Patch Panel -> Switch), ASCII, CRC-6-GSM, Manchester/ASK/FSK/PSK eta Wi-Fi proba |
 | **Datu-Basea (ER, 3FN, Ofimatika)** | Jokin Martinez | ER diagrama, 7 taula normalizatuak (rolak, bistaratzeak...) eta Access |
 | **Digitalizazioa eta Windows Server** | Iker Monkayola, Alex Sierra | IT/OT, THD, Cloud, Windows Server IIS, RAID bolumenak eta Segurtasun Politika |
+
 
