@@ -85,19 +85,19 @@ Diagraman notazio bikoitz akademikoa erabili da:
 Eredu kontzeptuala taula fisikoetara pasatu ondoren, lortutako eredu erlazionalaren eskema:
 # ERLAZIONALA
 
-* **Plana** (**`PlanID`**, `izena`, `prezioa`, **`erabiltzaileID`**, `Hasiera data`, `amaiera data`)
-* **Erabiltzaile** (**`Erabiltzaile ID`**, `sortze_data`, `pasahitza`, `Posta`)
-* **Profila** (**`ProfilID`**, `Izena`, `mota`, `erabiltzaile ID`)
+* **Erabiltzaile** (**`ErabiltzaileID`**, `sortze_data`, `pasahitza`, `posta`)
+* **Plana** (**`PlanID`**, `izena`, `prezioa`, `Hasiera_data`, `Amaiera_data`, `ErabiltzaileID`*)
+* **Profila** (**`ProfilID`**, `izena`, `mota`, `ErabiltzaileID`*)
 * **Gailuak** (**`GailuID`**, `mota`, `izena`)
-* **Edukiak** (**`Edukia ID`**, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
-* **Bistaratzea** (**`Ikustaldi_denbora`**, `ProfilID`, `GailuID`, `EdukiaID`)
-* **Generoa** (**`GeneroID`**, `izena`, `subgenero`)
-* **Eduki-Genero** (**`Genero_nagusia`**, `EdukiaID`, `generoID`)
-* **Dokumentala** (**`Gaia`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
-* **Serieak** (**`Denboraldi_kopurua`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
-* **Pelikulak** (**`Iraupena`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
-* **Denboraldiak** (**`denboraldiID`**, `Sinopsia`, `estrenatze data`, `EdukiaID`)
-* **Episodioak** (**`Titulua`**, `Episodio zenbakia`, `iraupena`, `denboraldiID`)
+* **Edukiak** (**`EdukiaID`**, `titulua`, `estrenatze_data`, `adin_gutxienekoa`)
+* **Pelikulak** (**`EdukiaID`***, `iraupena`)
+* **Serieak** (**`EdukiaID`***, `denboraldi_kopurua`)
+* **Dokumentalak** (**`EdukiaID`***, `gaia`)
+* **Denboraldiak** (**`denboraldiID`**, `sinopsia`, `estrenatze_data`, `EdukiaID`*)
+* **Episodioak** (**`denboraldiID`***, **`episodio_zenbakia`**, `titulua`, `iraupena`)
+* **Generoa** (**`GeneroID`**, `izena`, `aita_GeneroID`*)
+* **Eduki-Genero** (**`EdukiaID`***, **`GeneroID`***, `Genero_nagusia`)
+* **Bistaratzea** (**`ProfilID`***, **`GailuID`***, **`EdukiaID`***, `Ikustaldi_denbora`)
 
 ---
 
@@ -141,7 +141,7 @@ Datu-basearen taulak optimizatzeko eta erredundantziak ezabatzeko egindako norma
 ```text
 ┌─────────────────┐
 │ Profil ID       │
-├─────────────────┤ ──► Dana hemendik
+├─────────────────┤ ──► izena, mota
 │ Erabiltzaile ID │
 └─────────────────┘
 ```
@@ -217,19 +217,19 @@ Datu-basearen taulak optimizatzeko eta erredundantziak ezabatzeko egindako norma
 ---
 
 ### 9. Dokumentalak
-* **Hasierako egitura:** `Dokumentalak (Gaia, Edukia ID, titulo, adin_gutxienekoa, estrenatze date)`
+* **Hasierako egitura:** `Dokumentalak (Gaia, Edukia ID, titulo, adin_gutxienekoa, estrenatze data)`
 * **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
 
 ---
 
 ### 10. Serieak
-* **Hasierako egitura:** `Serieak (Denboraldi_Kopurua, Goiko =)`
+* **Hasierako egitura:** `Serieak (Denboraldi_Kopurua, Goiko Edukia ID, titulo, adin_gutxienekoa, estrenatze data)`
 * **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
 
 ---
 
 ### 11. Pelikulak
-* **Hasierako egitura:** `Pelikulak (iraupena, Goiko =)`
+* **Hasierako egitura:** `Pelikulak (iraupena, Edukia ID, titulo, adin_gutxienekoa, estrenatze data)`
 * **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
 
 ---
@@ -262,53 +262,65 @@ Datu-basearen taulak optimizatzeko eta erredundantziak ezabatzeko egindako norma
 
 ## 6. Inplementazioa Microsoft Access-en
 
-Eredu erlazionala prest dagoenean, Microsoft Access datu-baseen kudeatzailera igarotzeko urrats hauek jarraitu dira:
+Eredu erlazionala prest dagoenean, Microsoft Access datu-baseen kudeatzailera igarotzeko urrats hauek jarraitu dira
+
+
+* **Tauleen Diseinua eta Egitura:** Diseinu-ikuspegia erabiliz, proiektuko 13 taulak sortu dira Access-en, bakoitzari bere datu-mota egokiena esleituz (`Autozenbakia`, `Testu laburra`, `Zenbakia`, `Data/Ordua`, `Moneta`, `Bai/Ez`) eta eremuen deskribapen pertsonalizatuak gehituz.
+* **Gako Nagusiak eta Konposatuak:** Taula bakoitzaren gako nagusia (`PK`) zehaztu da. Subtipoetan (`Pelikulak`, `Serieak`, `Dokumentalak`), entitate ahulean (`Episodioak`) eta N:M zein ternarioetan (`Eduki-Genero`, `Bistaratzea`) gako konposatuak eta kanpo-gakoak (`FK`) egoki konfiguratu dira.
+* **Erreferentzia-Osotasuna eta Erlazioak:** Access-eko Erlazioen leihoan 13 tauleen arteko konexio guztiak ezarri dira, *Erreferentzia-osotasuna behartu* aukera hautatuz datu orfanoak edo inkonsekuenteak saihesteko.
+* **Baliozkotze Arauak (Reglas de Validación):** Eremuen propietateetan murriztapen-arauak ezarri dira; esaterako, `adin_gutxienekoa` eremuan `>= 18` baldintza eta abisu-testu pertsonalizatua jarri dira adin-muga bermatzen dela ziurtatzeko.
+* **Datu-Proben Txertaketa Ordenatua:** Datu-basearen funtzionamendua egiaztatzeko erregistroak txertatu dira exekuzio-ordena zorrotz bati jarraituz (entitate independenteetatik hasi eta tarteko zein entitate ahuletaraino), osotasun-akatsik ez gertatzea ziurtatuz.
+
+---
 
 ### 6.1. Datu-Moten Ezarpena Access-en
 Taulak sortzerakoan (`Diseinu-ikuspegia` / *Vista Diseño* erabiliz), zutabe bakoitzari dagokion datu-mota egokia ezarri zaio:
 
-* **Identifikatzaileak / Gako Nagusiak (PK):** `Autozenbakia` (*Autonumeración*) erabili da zenbakiak automatikoki sortzeko (adib. `erabiltzaile_id`, `plan_id`, `edukia_id`...).
+* **Identifikatzaileak / Gako Nagusiak (PK):** `Autozenbakia` (*Autonumeración*) erabili da zenbakiak automatikoki sortzeko (adib. `ErabiltzaileID`, `PlanID`, `EdukiaID`...).
 * **Testuak:**
   * Testu laburrak (`posta`, `pasahitza`, `izena`, `titulua`): `Testu laburra` (*Texto corto* - gehienez 255 karaktere).
 * **Zenbakiak:**
-  * Zenbaki osoak (`iraupena`, `pantailak`, `denboraldi_kopurua`): `Zenbakia` (*Número* $\rightarrow$ *Entero largo*).
+  * Zenbaki osoak (`iraupena`, `denboraldi_kopurua`, `adin_gutxienekoa`): `Zenbakia` (*Número* $\rightarrow$ *Entero largo*).
 * **Egutegia eta Denbora:**
-  * Datak (`sortze_data`, `hasiera_data`, `estreinatze_data`): `Data/Ordua` (*Fecha/Hora*).
+  * Datak (`sortze_data`, `Hasiera_data`, `estrenatze_data`, `Ikustaldi_denbora`): `Data/Ordua` (*Fecha/Hora*).
 * **Dirua:**
   * Prezioak (`prezioa`): `Moneta` (*Moneda*).
 * **Balio boolearrak:**
-  * Genero nagusia den ala ez adierazteko (`nagusia`): `Bai/Ez` (*Sí/No*).
+  * Genero nagusia den ala ez adierazteko (`Genero_nagusia`): `Bai/Ez` (*Sí/No*).
 
 ---
 
 ### 6.2. Gako Nagusiak (PK) eta Konposatuak
 Access-en taulak sortzerakoan gako nagusiak zehaztu dira:
 1. **Gako bakunak:** Zutabean eskuineko botoiaz klik egin eta `Gako nagusia` (*Clave principal*) hautatuz.
-2. **Gako konposatuak (Entitate ahulean eta Tarteko tauletan):**
-   * **`Episodioak`:** `denboraldi_id` eta `episodio_zenbakia` zutabe biak batera hautatu dira gako nagusi konposatua ezartzeko.
-   * **`Eduki_Generoak`:** `edukia_id` eta `genero_id` zutabe biak batera hautatu dira gako nagusi konposatua sortzeko.
+2. **Gako konposatuak (Entitate ahulean, N:M eta Ternariotan):**
+   * **`Episodioak`:** `denboraldiID` eta `episodio_zenbakia` zutabe biak batera hautatu dira gako nagusi konposatua ezartzeko.
+   * **`Eduki-Genero`:** `EdukiaID` eta `GeneroID` zutabe biak batera hautatu dira gako nagusi konposatua sortzeko.
+   * **`Bistaratzea`:** `ProfilID`, `GailuID` eta `EdukiaID` hiru zutabeak batera hautatu dira gako nagusi ternarioa sortzeko.
 
 ---
 
 ### 6.3. Erlazioen Leihoa eta Erreferentzia-Osotasuna (*Relaciones e Integridad Referencial*)
 
-Access-eko **`Datu-baseko tresnak``Erlazioak`** (*Herramientas de base de datos Relaciones*) atalean tauletako gakoak elkarren artean lotu dira:
+Access-eko **`Datu-baseko tresnak` $\rightarrow$ `Erlazioak`** atalean tauletako gakoak elkarren artean lotu dira:
 
 1. **Erlazioak sortzea:** Jatorrizko taulako Gako Nagusia (PK) klikatu eta saguaz arrastatu da helburuko taulako Kanpo-Gakoraino (FK).
 2. **Erreferentzia-osotasuna bermatzea (*Exigir integridad referencial*):**
-   * Aukera hau **beharrezkoa da beti markatzea**. Honi esker, ezingo da sortu adibidez lehendik existitzen ez den erabiltzaile baten profil bat, ezta existitzen ez den plan baten suskripzioa ere.
+   * Aukera hau beti markatu da. Honi esker, ezingo da sortu existitzen ez den erabiltzaile baten profil bat, ezta existitzen ez den plan baten suskripzioa ere.
 3. **Kaskadan ezabatzea eta eguneratzea (*Actualizar/Eliminar en cascada*):**
-   * **`Serieak`  `Denboraldiak`  `Episodioak`** loturetan kaskadan ezabatzeko aukera aktibatu da: serie bat ezabatzen denean, bere denboraldi eta kapitulu guztiak automatikoki ezabatuko dira datu-basea garbi mantentzeko.
-  
-   * ### 6.4. Datuak Sartzeko eta Ezabatzeko Prozedura
+   * **`Serieak` $\rightarrow$ `Denboraldiak` $\rightarrow$ `Episodioak`** loturetan kaskadan ezabatzeko aukera aktibatu da: serie bat ezabatzen denean, bere denboraldi eta kapitulu guztiak automatikoki ezabatuko dira datu-basea garbi mantentzeko.
 
-Access-en erreferentzia-osotasuna aktibatuta dagoenez, datuak manipulatzeko ordena zehatz bat jarraitu behar da:
+---
+
+### 6.4. Datuak Sartzeko eta Ezabatzeko Prozedura
+
+Access-en erreferentzia-osotasuna aktibatuta dagoenez, datuak manipulatzeko ordena zehatz bat jarraitu da:
 
 #### Datuak Sartzeko Ordena (Txertaketa):
-1. **Hasierako entitate independenteak:** Lehenik `Erabiltzaile`, `Gailuak` eta `Generoa` tauletan sartu behar dira datuak (ez dutelako Kanpo-Gakorik / FK).
-2. **Dependentzia zuzena dutenak:** Ondoren `Plana` eta `Profila` (ErabiltzaileID behar dute), eta `Edukiak` taulan.
-3. **Herentzia eta serieak:** Jarraian `Pelikulak`, `Dokumentalak` eta `Serieak` beteko dira (`EdukiaID` erabiliz), eta ondoren `Denboraldiak` (`Serieak` bidez).
-4. **Entitate ahulek eta tarteko taulak:** Azkenik `Episodioak`, `Eduki-Genero` eta `Bistaratzea` tauletan sartuko dira datuak.
+1. **Hasierako entitate independenteak:** Lehenik `Erabiltzaile`, `Gailuak` eta `Generoa` tauletan sartu dira datuak.
+2. **Dependentzia zuzena dutenak:** Ondoren `Plana` eta `Profila` (`ErabiltzaileID` behar dute), eta `Edukiak` taulan.
+3. **Herentzia eta serieak:** Jarraian `Pelikulak`, `Dokumentalak` eta `Serieak` bete dira (`EdukiaID` erabiliz), eta ondoren `Denboraldiak`.
+4. **Entitate ahulek eta tarteko taulak:** Azkenik `Episodioak`, `Eduki-Genero` eta `Bistaratzea` tauletan sartu dira datuak.
 
 #### Datuak Ezabatzeko Ordena:
-* **Ume-tauletatik aita-tauletara:** Lehenik ume-tauletako erregistroak ezabatu behar dira (`Episodioak`, `Bistaratzea`, `Eduki-Genero`) aita-taulakoak (`Denboraldiak`, `Profila`, `Edukiak`) ezabatu ahal izateko, erreferentzia-osotasunaren errorea ez agertzeko.
+* **Ume-tauletatik aita-tauletara:** Lehenik ume-tauletako erregistroak ezabatu behar dira (`Episodioak`, `Bistaratzea`, `Eduki-Genero`) aita-taulakoak (`Denboraldiak`, `Profila`, `Edukiak`) ezabatu ahal izateko.
