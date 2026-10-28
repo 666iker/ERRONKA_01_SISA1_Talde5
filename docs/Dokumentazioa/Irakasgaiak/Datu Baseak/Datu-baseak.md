@@ -67,8 +67,21 @@ Diagraman notazio bikoitz akademikoa erabili da:
 ## 4. Eredu Erlazionala
 
 Eredu kontzeptuala taula fisikoetara pasatu ondoren, lortutako eredu erlazionalaren eskema:
+# ERLAZIONALA
 
-![Eredu Erlazionala](./irudiak/eredu_erlazionala.png)
+* **Plana** (**`PlanID`**, `izena`, `prezioa`, **`erabiltzaileID`**, `Hasiera data`, `amaiera data`)
+* **Erabiltzaile** (**`Erabiltzaile ID`**, `sortze_data`, `pasahitza`, `Posta`)
+* **Profila** (**`ProfilID`**, `Izena`, `mota`, `erabiltzaile ID`)
+* **Gailuak** (**`GailuID`**, `mota`, `izena`)
+* **Edukiak** (**`Edukia ID`**, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
+* **Bistaratzea** (**`Ikustaldi_denbora`**, `ProfilID`, `GailuID`, `EdukiaID`)
+* **Generoa** (**`GeneroID`**, `izena`, `subgenero`)
+* **Eduki-Genero** (**`Genero_nagusia`**, `EdukiaID`, `generoID`)
+* **Dokumentala** (**`Gaia`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
+* **Serieak** (**`Denboraldi_kopurua`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
+* **Pelikulak** (**`Iraupena`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
+* **Denboraldiak** (**`denboraldiID`**, `Sinopsia`, `estrenatze data`, `EdukiaID`)
+* **Episodioak** (**`Titulua`**, `Episodio zenbakia`, `iraupena`, `denboraldiID`)
 
 ---
 
@@ -76,7 +89,153 @@ Eredu kontzeptuala taula fisikoetara pasatu ondoren, lortutako eredu erlazionala
 
 Datu-basearen taulak optimizatzeko eta erredundantziak ezabatzeko egindako normalizazio prozesuaren egiaztapena:
 
-![Normalizazioa](./irudiak/normalizazioa.png)
+# Normalizazio Prozesua (Koadernoko Oharrak)
+
+---
+
+### 1. Plana
+* **Hasierako egitura:** `Plana (Plan ID, izena, prezioa, Erabiltzaile ID, Hasiera Data, Amaiera Data)`
+* **Hasierako egoera:** 1FN ✓ | 2FN ✗
+
+**Mendekotasun Taula:**
+```text
+┌─────────────────┐
+│ Plan ID         │ ──► izena, prezioa, Erabiltzaile ID, Hasiera Data, Amaiera Data
+├─────────────────┤
+│ Erabiltzaile ID │
+└─────────────────┘
+```
+
+* **Emaitza:** `Plana (Plan ID, izena, prezioa, Hasiera D, Amaiera D)`
+* **Emaitzaren egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 2. Erabiltzaile
+* **Hasierako egitura:** `Erabiltzaile (Erabiltzaile ID, sortze_Data, pasahitza, Posta)`
+* **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 3. Profila
+* **Hasierako egitura:** `Profil (Profil ID, izena, mota, Erabiltzaile ID)`
+* **Hasierako egoera:** 1FN ✓ | 2FN ✗
+
+**Mendekotasun Taula:**
+```text
+┌─────────────────┐
+│ Profil ID       │
+├─────────────────┤ ──► Dana hemendik
+│ Erabiltzaile ID │
+└─────────────────┘
+```
+
+* **Emaitza:** `Profil (Profil ID, izena, mota)`
+* **Emaitzaren egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 4. Gailuak
+* **Hasierako egitura:** `Gailuak (Gailu ID, mota, izena)`
+* **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 5. Edukiak
+* **Hasierako egitura:** `Edukiak (Edukia ID, titulua, estrenatze_Date, adin-gutxienekoa)`
+* **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 6. Bistaratzeak
+* **Hasierako egitura:** `Bistaratzeak (Ikustaldi_Denbora, Profil ID, Gailu ID, Edukia ID)`
+
+**Mendekotasun Taula:**
+```text
+┌───────────┐
+│ Profil    │
+├───────────┤
+│ Gailu     │ ──► Ikustaldi_Denbora
+├───────────┤
+│ Edukia    │
+└───────────┘
+```
+
+* **Emaitza:** `Bistaratzeak (Ikustaldi_Denbora)`
+* **Emaitzaren egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 7. Genero
+* **Hasierako egitura:** `Genero (Genero ID, izena, aita-Genero ID)`
+* **Hasierako egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+**Mendekotasun Taula:**
+```text
+┌─────────────────┐
+│ Genero ID       │ ──► izena
+├─────────────────┤
+│ aita-Genero ID  │
+└─────────────────┘
+```
+
+* **Emaitza (Eskuineko karratua):** `Genero (Genero ID, izena, aita Genero ID)`
+
+---
+
+### 8. Eduki-Genero
+* **Hasierako egitura:** `Eduki-Genero (genero nagusia, Edukia ID, genero ID)`
+
+**Mendekotasun Taula:**
+```text
+┌───────────┐
+│ Edukia    │ ──► Genero nagusia
+├───────────┤
+│ Genero    │
+└───────────┘
+```
+
+* **Emaitza:** `Eduki Generoa (genero nagusia)`
+* **Emaitzaren egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 9. Dokumentalak
+* **Hasierako egitura:** `Dokumentalak (Gaia, Edukia ID, titulo, adin_gutxienekoa, estrenatze date)`
+* **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 10. Serieak
+* **Hasierako egitura:** `Serieak (Denboraldi_Kopurua, Goiko =)`
+* **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 11. Pelikulak
+* **Hasierako egitura:** `Pelikulak (iraupena, Goiko =)`
+* **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+---
+
+### 12. Denboraldiak
+* **Hasierako egitura:** `Denboraldiak (Denboraldi ID, Sinopsia, estrenatze data, Edukia ID)`
+```text
+┌───────────────┐
+│ Denboraldi ID │ ──► Sinopsia, Estrenatze Data
+├───────────────┤
+│ Edukia ID     │
+└───────────────┘
+```
+
+* **Emaitza:** `Denboraldi (Sin Denboraldi ID, Sinopsia, estrenatze data)`
+* **Emaitzaren egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
+
+### 13. Episodioak
+* **Hasierako egitura:** `Episodioak (Titula, episodio zenbakia, iraupena, denboraldi ID)`
+* **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
+
 
 ### Normalizazio Mailak:
 * **Lehen Forma Normala (1FN):** Atributu guztiek balio atomikoak (bakarrak) dituzte. Pelikula batek genero bat baino gehiago izateko, `Eduki_Generoak` taula tartekoa sortu da, zerrendak zutabe bakarrean ez gordetzeko.
