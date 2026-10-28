@@ -1,8 +1,13 @@
 # Proiektuaren Dokumentazioa
 
 ## Irakasgaiak
-- 🌐 [1. Sareak](./Irakasgaiak/Sareak.md)
-- 🗄️ [2. Datu-baseak](./Irakasgaiak/Datu-baseak.md)
-- 💡 [3. Digitalizazioa](./Irakasgaiak/Digitalizazioa.md)
-- 🖥️ [4. Sistemak](./Irakasgaiak/Sistemak.md)
-- 📝 [5. Markatze-lengoaiak](./Irakasgaiak/Markatze.md)
+
+- 🌐 [1. Sareak](./docs/Dokumentazioa/Irakasgaiak/Sareak/SAREAK.md)
+- 🗄️ [2. Datu-baseak](./docs/Dokumentazioa/Irakasgaiak/Datu%20Baseak/Datu-baseak.md)
+- 💡 [3. Digitalizazioa](./docs/Dokumentazioa/Irakasgaiak/Digitalizazioa/Digitalizazioa.md)
+- 🖥️ [4. Sistemak](./docs/Dokumentazioa/Irakasgaiak/Sistemak/Sistemak.md)
+- 📝 [5. Markatze-lengoaiak](./docs/Dokumentazioa/Irakasgaiak/Markatze/Markatze.md)
+
+## Webgunea
+
+- 🔴 [Webgunera joan](./src/index.html)
