@@ -4,16 +4,6 @@ Dokumentu honek `Erronka1 html` karpetako **HTML eta CSS garapen osoa** azaltzen
 
 ---
 
-## 0. Errubrikaren Irizpideak: Markatze Lengoaiak
-
-| Ikasketa Emaitza (IE) | Ebaluazio Irizpidea | Aurreratua (10) Mailaren Eskakizuna | Non eta Nola Bete da Proiektuan? |
-| :--- | :--- | :--- | :--- |
-| **IE 1** *(Pisua: 0.09)*<br>Markatzeko lengoaien ezaugarriak ezagutzen ditu, eta kode zatiak aztertu eta interpretatzen ditu. | **1.1. HTML Egitura:** Orria hiru atal nagusitan banatzen du: goiburua, gorputza eta oina (`header`, `main`/`body`, `footer`). | Egitura oso argia eta koherentea du; atal bakoitzak bere funtzioa betetzen du eta semantika zehatz aplikatzen da (`header`/`nav`/`main`/`footer`). | 5 HTML fitxategietan txantiloi semantiko bera erabili da: `<header>`, `<nav>`, `<main>`, `<section>` eta `<footer>`. |
-| **IE 1** *(Pisua: 0.09)* | **1.2. CSS Antolaketa:** CSSan etiketen, IDen eta klaseen bidez estiloak antolatzen eta aplikatzen ditu modu egokian. | CSS antolatua eta garbia da; `class` eta `ID` izenak argiak eta funtzionalak dira, eta estiloak egiturarekin bat datoz. | `css/style.css` fitxategi bakarrean zentralizatuta, euskarazko klase eta ID izen deskriptiboekin. |
-| **IE 2** *(Pisua: 0.14)*<br>Markatzeko lengoaiak erabiltzen ditu informazioa web-aren bitartez transmititzeko, dokumentuen egitura aztertuz. | **2.1. Web Egitura eta Nabigazio-Menua:** Web orriaren egitura eta nabigazio-menua diseinatzen eta martxan jartzen du, atalak elkartuz. | Nabigazioa intuitiboa eta eraginkorra da; diseinua garbia da. | Goiburu finkoa (`sticky`), 5 orrien arteko lotura gurutzatua, `.aktiboa` klasea orri aktiboa markatzeko eta orri-oineko bigarren menua. |
-
----
-
 ## 1. IE 1 — 1. Irizpidea: HTML Orrien Hiru Atal Nagusiak eta Egitura Semantikoa (`header`, `main`, `footer`)
 
 Webguneko 5 orriek (`index.html`, `sareak.html`, `digitalizazioa.html`, `datubasea.html` eta `kontaktua.html`) egitura semantiko berbera eta koherentea erabiltzen dute `<body>` barruan:
