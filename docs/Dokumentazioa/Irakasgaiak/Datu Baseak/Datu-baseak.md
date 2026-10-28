@@ -105,7 +105,7 @@ Eredu kontzeptuala taula fisikoetara pasatu ondoren, lortutako eredu erlazionala
 
 Datu-basearen taulak optimizatzeko eta erredundantziak ezabatzeko egindako normalizazio prozesuaren egiaztapena:
 
-# Normalizazio Prozesua (Koadernoko Oharrak)
+
 
 ---
 
