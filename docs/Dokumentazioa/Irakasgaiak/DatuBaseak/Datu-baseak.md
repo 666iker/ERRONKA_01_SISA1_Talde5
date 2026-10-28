@@ -217,19 +217,19 @@ Datu-basearen taulak optimizatzeko eta erredundantziak ezabatzeko egindako norma
 ---
 
 ### 9. Dokumentalak
-* **Hasierako egitura:** `Dokumentalak (Gaia, Edukia ID, titulo, adin_gutxienekoa, estrenatze date)`
+* **Hasierako egitura:** `Dokumentalak (Gaia, Edukia ID, titulo, adin_gutxienekoa, estrenatze data)`
 * **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
 
 ---
 
 ### 10. Serieak
-* **Hasierako egitura:** `Serieak (Denboraldi_Kopurua, Goiko =)`
+* **Hasierako egitura:** `Serieak (Denboraldi_Kopurua, Goiko Edukia ID, titulo, adin_gutxienekoa, estrenatze data)`
 * **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
 
 ---
 
 ### 11. Pelikulak
-* **Hasierako egitura:** `Pelikulak (iraupena, Goiko =)`
+* **Hasierako egitura:** `Pelikulak (iraupena, Edukia ID, titulo, adin_gutxienekoa, estrenatze data)`
 * **Egoera:** 1FN ✓ | 2FN ✓ | 3FN ✓
 
 ---
