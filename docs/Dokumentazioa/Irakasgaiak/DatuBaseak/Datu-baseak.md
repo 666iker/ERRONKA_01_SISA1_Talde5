@@ -302,8 +302,25 @@ Access-en taulak sortzerakoan gako nagusiak zehaztu dira:
 
 ### 6.3. Erlazioen Leihoa eta Erreferentzia-Osotasuna (*Relaciones e Integridad Referencial*)
 
-Access-eko **`Datu-baseko tresnak` $\rightarrow$ `Erlazioak`** (*Herramientas de base de datos $\rightarrow$ Relaciones*) atalean tauletako gakoak elkarren artean lotu dira:
+Access-eko **`Datu-baseko tresnak` $\rightarrow$ `Erlazioak`** atalean tauletako gakoak elkarren artean lotu dira:
 
 1. **Erlazioak sortzea:** Jatorrizko taulako Gako Nagusia (PK) klikatu eta saguaz arrastatu da helburuko taulako Kanpo-Gakoraino (FK).
 2. **Erreferentzia-osotasuna bermatzea (*Exigir integridad referencial*):**
-   * Aukera hau beti markatu da. Honi esker, e
+   * Aukera hau beti markatu da. Honi esker, ezingo da sortu existitzen ez den erabiltzaile baten profil bat, ezta existitzen ez den plan baten suskripzioa ere.
+3. **Kaskadan ezabatzea eta eguneratzea (*Actualizar/Eliminar en cascada*):**
+   * **`Serieak` $\rightarrow$ `Denboraldiak` $\rightarrow$ `Episodioak`** loturetan kaskadan ezabatzeko aukera aktibatu da: serie bat ezabatzen denean, bere denboraldi eta kapitulu guztiak automatikoki ezabatuko dira datu-basea garbi mantentzeko.
+
+---
+
+### 6.4. Datuak Sartzeko eta Ezabatzeko Prozedura
+
+Access-en erreferentzia-osotasuna aktibatuta dagoenez, datuak manipulatzeko ordena zehatz bat jarraitu da:
+
+#### Datuak Sartzeko Ordena (Txertaketa):
+1. **Hasierako entitate independenteak:** Lehenik `Erabiltzaile`, `Gailuak` eta `Generoa` tauletan sartu dira datuak.
+2. **Dependentzia zuzena dutenak:** Ondoren `Plana` eta `Profila` (`ErabiltzaileID` behar dute), eta `Edukiak` taulan.
+3. **Herentzia eta serieak:** Jarraian `Pelikulak`, `Dokumentalak` eta `Serieak` bete dira (`EdukiaID` erabiliz), eta ondoren `Denboraldiak`.
+4. **Entitate ahulek eta tarteko taulak:** Azkenik `Episodioak`, `Eduki-Genero` eta `Bistaratzea` tauletan sartu dira datuak.
+
+#### Datuak Ezabatzeko Ordena:
+* **Ume-tauletatik aita-tauletara:** Lehenik ume-tauletako erregistroak ezabatu behar dira (`Episodioak`, `Bistaratzea`, `Eduki-Genero`) aita-taulakoak (`Denboraldiak`, `Profila`, `Edukiak`) ezabatu ahal izateko.
