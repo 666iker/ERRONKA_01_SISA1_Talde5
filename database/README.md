@@ -1,1 +1,0 @@
-aqui simple, todo lo que tenga que ver con la base de datos que haremos en access.
