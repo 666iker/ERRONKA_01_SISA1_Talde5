@@ -1,1 +1,0 @@
-aqui lo mismo todo el html con las difernetes paginas separadas y identificadas por nombres simples y lo mismo con las fotos o todo lo que se use
