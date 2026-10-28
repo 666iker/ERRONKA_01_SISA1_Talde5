@@ -5,7 +5,18 @@
 ## 1. Sarrera eta Helburua
 
 Dokumentu honen helburua Netflix estiloko streaming plataforma baten datu-basearen diseinua azaltzea da. Prozesua beharren analisitik hasi eta eredu kontzeptual nahiz erlazional normalizatura arte dokumentatzen da, azkenik Microsoft Access bidezko inplementazioarekin amaituz.
+### 1.1. DBKS Erabiltzearen Abantailak eta Datu-Kudeaketa Desegokiaren Arazoak
 
+Datu-baseen Kudeaketa Sistema (DBKS) bat erabiltzeak abantaila nagusi hauek eskaintzen ditu fitxategi-sistema tradizional baten (adibidez, Excel edo testu-fitxategiak) aurrean:
+
+* **Erredundantzia eta Inkonsekuentzia Ekiditea:** Datuak behin bakarrik gordetzen dira eredu normalizatuan. Horrela, informazio bikoiztua eta datu kontrajarriak izatea saiesten da.
+* **Erreferentzia-Osotasuna eta Segurtasuna:** DBKS-ak bermatzen du existitzen ez den entitate bati ezingo zaiola lotutako erregistrorik esleitu (adibidez, existitzen ez den erabiltzaile bati profil bat sortzea).
+* **Datu-Sarbide Simultaneoa (Korkurrentzia):** Erabiltzaile askok batera atzitu dezakete datu-basea datuen osotasuna komprometitu gabe.
+
+**Datuak modu ez-egokian gordetzearen arazoak (Anomaliak):**
+* **Sarrera-anomaliak:** Ezin izatea plan berri bat erregistratu oraindik erabiltzailerik esleituta ez badago.
+* **Ezabatze-anomaliak:** Profil bat ezabatzean, erabiltzailearen informazio orokor guztia ustekabean galtzea.
+* **Eguneratze-anomaliak:** Erabiltzaile baten posta elektronikoa aldatzean, leku guztietan ez aldatzea eta datu kontrajarriak izatea.
 ---
 
 ## 2. Jarraitutako Urratsak (Diseinu Metodologia)
@@ -63,6 +74,10 @@ Diagraman notazio bikoitz akademikoa erabili da:
 | **`DITU` (Denboraldiak)**| `Serieak` | `(1,1)` | `Denboraldiak` | `(1,N)` | **`1:N`** |
 | **`DITU` (Episodioak)** | `Denboraldiak` | `(1,1)` | `Episodioak` | `(1,N)` | **`1:N`** |
 
+### 3.3. Baztertutako Alternatibak eta Diseinuaren Justifikazioa
+
+* **Herentzia (`ISA`) vs Taula Bakarra:** `EDUKIAK` entitatean herentzia egitura erabili da. Alternatiba `EDUKIAK` taula bakarrean film, serie eta dokumentalen atributu guztiak sartzea zen, baina horrek balio nuluz (`NULL`) betetako zutabe asko sortuko zituzke (adibidez, dokumental batean denboraldi kopurua NULO izatea).
+* **Erlazio Hirukoitza (Ternaria) vs Binarioak:** `BISTARATZEA` rombo bakarrarekin definitu da. Alternatiba binaka lotzea zen, baina hiru entitateak (`Profila`, `GAILUAK`, `EDUKIAK`) une berean lotzean bakarrik identifikatzen da ikustaldi gertaera zehatz bat.
 ---
 
 ## 4. Eredu Erlazionala
@@ -284,3 +299,16 @@ Access-eko **`Datu-baseko tresnak``Erlazioak`** (*Herramientas de base de datos 
    * Aukera hau **beharrezkoa da beti markatzea**. Honi esker, ezingo da sortu adibidez lehendik existitzen ez den erabiltzaile baten profil bat, ezta existitzen ez den plan baten suskripzioa ere.
 3. **Kaskadan ezabatzea eta eguneratzea (*Actualizar/Eliminar en cascada*):**
    * **`Serieak`  `Denboraldiak`  `Episodioak`** loturetan kaskadan ezabatzeko aukera aktibatu da: serie bat ezabatzen denean, bere denboraldi eta kapitulu guztiak automatikoki ezabatuko dira datu-basea garbi mantentzeko.
+  
+   * ### 6.4. Datuak Sartzeko eta Ezabatzeko Prozedura
+
+Access-en erreferentzia-osotasuna aktibatuta dagoenez, datuak manipulatzeko ordena zehatz bat jarraitu behar da:
+
+#### Datuak Sartzeko Ordena (Txertaketa):
+1. **Hasierako entitate independenteak:** Lehenik `Erabiltzaile`, `Gailuak` eta `Generoa` tauletan sartu behar dira datuak (ez dutelako Kanpo-Gakorik / FK).
+2. **Dependentzia zuzena dutenak:** Ondoren `Plana` eta `Profila` (ErabiltzaileID behar dute), eta `Edukiak` taulan.
+3. **Herentzia eta serieak:** Jarraian `Pelikulak`, `Dokumentalak` eta `Serieak` beteko dira (`EdukiaID` erabiliz), eta ondoren `Denboraldiak` (`Serieak` bidez).
+4. **Entitate ahulek eta tarteko taulak:** Azkenik `Episodioak`, `Eduki-Genero` eta `Bistaratzea` tauletan sartuko dira datuak.
+
+#### Datuak Ezabatzeko Ordena:
+* **Ume-tauletatik aita-tauletara:** Lehenik ume-tauletako erregistroak ezabatu behar dira (`Episodioak`, `Bistaratzea`, `Eduki-Genero`) aita-taulakoak (`Denboraldiak`, `Profila`, `Edukiak`) ezabatu ahal izateko, erreferentzia-osotasunaren errorea ez agertzeko.
