@@ -1,10 +1,5 @@
 # Sistema Eragileen Ezartzea (SISA 1)
 
-**Ikaslea:** Alex Sierra  
-**Taldekideak:** Alex, Axular, Iker, Jokin  
-**Maila:** ASIR 1. maila (2026-2027)  
-**Sistema:** Windows Server 2022 Standard (VirtualBox bidez)
-
 ---
 
 ## Sarrera
