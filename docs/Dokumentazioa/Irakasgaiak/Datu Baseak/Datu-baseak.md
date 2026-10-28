@@ -23,7 +23,7 @@ Diseinua lau urrats nagusitan banatu da:
 
 Hona hemen plataformaren egitura kontzeptuala erakusten duen diagramaren irudia:
 
-![Eredu Kontzeptuala](img/5T - Erronka1 (ER diagrama).png)
+![Er diagrama](docs/Dokumentazioa/img/diagrama.png)
 
 
 ### 3.1. Diseinu Erabaki Nagusiak eta Haien Azalpena
