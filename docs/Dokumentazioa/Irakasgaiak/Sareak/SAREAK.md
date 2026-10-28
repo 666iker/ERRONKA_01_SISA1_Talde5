@@ -195,3 +195,4 @@ Mugikorra Wi-Fi sarean konektatuta zegoela, zerbitzariaren konexioa egiaztatu du
 | IE3 | Switch-a, IP helbideak eta konexioak | Sarearen eskema eta ping probak |
 
 Lan honetan sareko oinarrizko kontzeptuak landu ditugu, kableatu fisikoa muntatu dugu eta gailuen arteko konektibitatea egiaztatu dugu.
+
