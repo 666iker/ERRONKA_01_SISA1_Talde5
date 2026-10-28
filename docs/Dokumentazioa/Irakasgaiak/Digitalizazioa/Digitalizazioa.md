@@ -40,7 +40,7 @@ Hardware fisikoa, kableatzea, sentsoreak, switch-ak, PLC-ak eta industriako gail
 | **Integrazioa Proiektuan** | Webgune estatikoa, streaming DB eta Windows Server | Cabling fisikoa, OSI 1/2 mailak eta Wi-Fi sarrera-puntua |
 
 **Integrazioaren garrantzia:** Proiektu honetan, kableatze fisikoa (OT) eta Windows Server / IIS zerbitzaria zein datu-basea (IT) lotzen dira, azpiegitura osoak gailu mugikorren bidez komunikatzeko ahalmena izateko.
-
+![IT eta OT Konbergentzia](/docs/Dokumentazioa/img/it-ot.jpg)
 ---
 
 ## 2.3. Teknologia Gaitzaile Digitalak (TGDak / THD)
