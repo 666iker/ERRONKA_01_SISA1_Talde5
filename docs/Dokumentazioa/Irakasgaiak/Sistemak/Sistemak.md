@@ -1,4 +1,4 @@
-# Sistema Eragileen Ezartzea (SISA 1) - 1. Erronka: Sareflix
+# Sistema Eragileen Ezartzea (SISA 1)
 
 **Ikaslea:** Alex Sierra  
 **Taldekideak:** Alex, Axular, Iker, Jokin  
