@@ -141,7 +141,7 @@ Datu-basearen taulak optimizatzeko eta erredundantziak ezabatzeko egindako norma
 ```text
 ┌─────────────────┐
 │ Profil ID       │
-├─────────────────┤ ──► Dana hemendik
+├─────────────────┤ ──► izena, mota
 │ Erabiltzaile ID │
 └─────────────────┘
 ```
