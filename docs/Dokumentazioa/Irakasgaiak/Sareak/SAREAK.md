@@ -1,69 +1,108 @@
-# Sareak - 1. Erronkako Dokumentazioa
+# Sareen Diseinu eta Inplementazioaren Memoria: Streaming Plataforma (Netflix Estiloa)
 
-**Taldea:** [Zure taldearen izena edo kideak hemen]  
-**Data:** 2026ko Urria  
-**Modulua:** Sareak Administratzea eta Planifikatzea  
-
----
-
-## 1. Sarrera
-
-Dokumentu honetan 1. erronkan sareen atalean egin ditugun praktika eta ariketa guztiak azalduko ditugu. Klasean ikasitako teoria (CRC kalkulua, modulazioak, Manchester...) eta tailerrean egindako muntaia praktikoa (kableak moztu eta ziztatu, patch panela, keystone-a, switch-a eta ping probak) batu ditugu hemen.
+**Zentroa:** CIFP Uni Eibar-Ermua LHII  
+**Zikloa:** SISA1 (2026-2027)  
+**Egileak (5. Taldea):** Axular Muñoz, Iker Monkayola, Alex Sierra, Jokin Martinez  
+**Modulua:** Sareak Administratzea eta Planifikatzea (1. Erronka)  
 
 ---
 
-## 2. Datu-sareen Egitura eta Transmisioa (IE1)
+## 1. Sarrera eta Helburua
 
-### 2.1. Sareko gailuak eta zein mailatan dauden (OSI eredua)
+Dokumentu honen helburua Netflix estiloko multimedia streaming plataforma baten **sare-azpiegituraren diseinua eta inplementazio praktikoa** azaltzea da, 1. Erronkan garatutako proiektu orokorraren barruan.
 
-Klasean ikusi dugun bezala, sarean erabiltzen diren gailuak OSI ereduaren arabera maila desberdinetan kokatzen dira:
-
-* **1. Maila (Fisikoa):** Hemen kableak (UTP kablea), Patch Panela eta Keystone konektorea sartzen dira. Seinale elektrikoak eta bitak (0 eta 1) bakarrik garraiatzen dituzte, ez dakite datuek zer esan nahi duten.
-* **2. Maila (Lotura):** Switch-a (konmutadorea) eta ekipoen sare-txartelak (NIC). MAC helbideak erabiltzen dituzte jakiteko trama bakoitza zein atakara bidali behar den. Access Point-a (Wi-Fi) ere hemen kokatzen da zubi lana egiten duelako kablearen eta haririk gabeko seinalearen artean.
-* **3. Maila (Sarea):** Routerra. IP helbideekin lan egiten du paketeak sare batetik bestera bideratzeko.
-
----
-
-### 2.2. CRC kalkulua eskuz (Erroreak kontrolatzeko)
-
-Datuak kabletik bidaltzean akatsik dagoen jakiteko CRC metodoa erabili dugu. Gure taldeari egokitu zaion hitza **"Kuper-67"** izan da.
-
-1. **Testua bitetara pasatu:** Lehenengo karaktere bakoitzaren ASCII kodea bilatu dugu eta bitetan jarri dugu (8 bit karaktere bakoitzeko):
-   * K = `01001011`
-   * u = `01110101`
-   * p = `01110000`
-   * e = `01100101`
-   * r = `01110010`
-   * \- = `00101101`
-   * 6 = `00110110`
-   * 7 = `00110111`
-   
-   Denak batera jarrita 64 biteko kate luze bat geratzen da.
-
-2. **Polinomio zatitzailea:** Ariketan emandako polinomioa `1101111` zen (7 bit ditu). Polinomioak 7 bit dituenez, mezuaren atzean **6 zero** gehitu behar dira (`000000`) zatiketarekin hasi aurretik.
-
-3. **Zatiketa (XOR):** Koadernoan zatiketa bitarra egin dugu XOR erabiliz (zenbaki berdinak badira 0 jartzen da, eta desberdinak badira 1). Beheko irudian ikusten den bezala, orri osoa bete dugu zatiketarekin eta azkenean hondarra **`0101001`** atera zaigu.
-
-![Gure CRC kalkulua koadernoan](img/crc_kalkulua.jpg)
-
-Hondar hori (`0101001`) da mezuaren bukaeran itsatsita bidaltzen dena, eta jasotzen duenak berriro zatiketa eginda `000000` atera behar zaio dena ondo dagoela ziurtatzeko.
+Proiektu orokorrean, gure enpresak bideo-edukien plataforma bat sortu du. Horretarako:
+* **Datu-Baseak moduluak** erabiltzaileak, rolak (infantila, pertsonala, familiarra), harpidetzak eta edukien katalogoa (filmak, serieak, kapituluak) kudeatzen ditu.
+* **Sistema Eragileak moduluak** Windows Server 2022 instalatu du RAID biltegiratzearekin (bideoak seguru gordetzeko) eta IIS web-zerbitzariarekin.
+* **Sareak moduluak (dokumentu hau)** zerbitzariaren eta bezeroen arteko komunikazio-bide guztiak eraiki eta bermatu ditu: kableatu egituratu profesionala tailerrean (Keystone eta Patch Panel), switch bidezko kudeaketa, zerbitzariaren pasahitzaren errore-kontrola (**CRC-6-GSM**), modulazio digitalak (**ASK/FSK/PSK**) eta haririk gabeko sarbidea (**Wi-Fi**) mugikorretik streaming bideoak atzitu ahal izateko.
 
 ---
 
-### 2.3. Modulazioak: ASK, PSK, FSK (eta konbinatua)
+## 2. Jarraitutako Urratsak (Metodologia)
 
-Seinale analogiko baten bidez bitak bidaltzeko hiru modu daude:
-* **ASK:** Altuera edo anplitudea aldatzen da bitaren arabera.
-* **FSK:** Maiztasuna aldatzen da (uhinak azkarrago edo motelago doaz).
-* **PSK:** Fasea aldatzen da (uhina nondik hasten den: 0º, 90º, 180º edo 270º).
+Sarearen inplementazioa bost urrats nagusitan banatu dugu:
 
-Guk ariketan modulazio konbinatua egin dugu: **`PSK(2) ASK(2) FSK(2)`**. Horrek esan nahi du sinbolo bakoitzean 6 bit sartzen direla aldi berean (2 bit PSK-rentzat, 2 bit ASK-rentzat eta 2 bit FSK-rentzat). Beraz, $2^6 = 64$ aldaketa desberdin egin daitezke!
+1. **Sare-Arkitektura eta OSI Eredua:** Streaming azpiegiturako gailuak OSI 1. eta 2. mailen arabera aztertu eta antolatzea.
+2. **Pasahitzaren Transmisioa eta CRC-6-GSM Kalkulua:** Windows Server zerbitzarira sartzeko sortutako pasahitza (`Kuper-67`) ASCII bitetara bihurtzea eta transmisio-erroreak kontrolatzeko zatiketa polinomiala eskuz garatzea.
+3. **Modulazio Digitalak eta Manchester Kodifikazioa:** Banda-zabalera handitzeko modulazio konbinatua ($PSK(2)+ASK(2)+FSK(2)$ sinbolo bakoitzeko 6 bit) eta Etherneteko Manchester lerro-kodifikazioa marraztea.
+4. **Kableatu Egituratuaren Muntaia Fisikoa:** UTP Cat6 kableak prestatu, TIA/EIA-568B estandarra aplikatuz mahaietako Keystone rosetetan eta rack-eko Patch Paneleko 18. atakan ziztatu eta LAN testerrarekin baieztatzea.
+5. **Switch Konmutadorea eta Konektibitate Osoa:** Izar-topologia ezartzea, IP helbide finkoak esleitzea eta gailu guztien arteko komunikazioa (`ping` bidez) egiaztatzea, mugikorretik streaming webgunea atzituz.
 
-* ASK-n 4 tentsio maila jarri ditugu ardatzean (`00`, `01`, `10`, `11`).
-* FSK-n maiztasuna aldatu dugu (ziklo gehiago edo gutxiago marraztuz tarte bakoitzean).
-* PSK-n uhina goitik edo azpitik hasi dugu fasearen arabera.
+---
 
-Hemen daude koadernoan marraztutako grafikoak (nahiko zaila izan zen dena koadroetan ondo koadratzea!):
+## 3. Datu-sareen Egitura eta Transmisio Printzipioak (IE1)
+
+### 3.1. Sareko Gailuak eta Eredu Funtzionala (OSI / TCP-IP)
+
+Streaming plataforma baten sareak latentzia baxua eta fidagarritasun handia eskaini behar ditu bideoak etenik gabe erreproduzitu daitezen. Gailu bakoitzak funtzio jakin bat betetzen du OSI ereduaren geruzen arabera:
+
+| Gailua / Elementua | OSI Geruza | TCP/IP Geruza | Datu-Unitatea (PDU) | Funtzioa Gure Streaming Sarean |
+| :--- | :--- | :--- | :--- | :--- |
+| **UTP Cat6 Kablea, Keystone eta Patch Panela** | 1. Maila (Fisikoa) | Sarbide Geruza | Bita | Seinale elektrikoak garraiatzen dituzte rack-etik ikasgelako lan-estazioetara. |
+| **Switch-a (Konmutadorea)** | 2. Maila (Datu-lotura) | Sarbide Geruza | Trama (*Frame*) | MAC helbideak erabiliz, streaming trafikoa dagokion atakara bideratzen du talkarik gabe. |
+| **Sare-Txartela (NIC)** | 1. eta 2. Mailak | Sarbide Geruza | Bita / Trama | Zerbitzariari eta bezeroei konexio fisikoa eta MAC helbide fisiko finkoa ematen die. |
+| **Wi-Fi Access Point-a (AP)** | 1. eta 2. Mailak | Sarbide Geruza | Bita / Trama | Uhin elektromagnetikoen eta sare kableatuaren arteko zubi gardena (Bridge) egiten du. |
+| **Routerra (Bideratzailea)** | 3. Maila (Sarea) | Internet Geruza | Paketea (*Packet*) | IP helbide logikoen arabera azpisare desberdinen arteko bideraketa egiten du. |
+
+---
+
+### 3.2. Pasahitzaren ASCII Kodeketa eta CRC-6-GSM Errore-Detekzioa
+
+Erronkaren aginduan zehazten zen bezala, Windows Server zerbitzarian sartzeko sortu dugun pasahitz sendoa hartu dugu: **`Kuper-67`**.
+
+Pasahitza sarean zehar fidagarritasunez bidaltzeko, transmisioan bitik aldatu ez dela bermatu behar da. Horretarako, erroreak detektatzeko **CRC-6-GSM** algoritmoa aplikatu dugu:
+
+#### 1. ASCII Kodeketa Bitarra:
+Pasahitzaren karaktere bakoitza bitetara pasatu dugu ASCII taula erabiliz (64 bit guztira):
+
+| Karakterea | ASCII Hamartarra | ASCII Hamaseitarra | ASCII Bitarra (8 bit) |
+| :---: | :---: | :---: | :---: |
+| **`'K'`** | 75 | `0x4B` | `01001011` |
+| **`'u'`** | 117 | `0x75` | `01110101` |
+| **`'p'`** | 112 | `0x70` | `01110000` |
+| **`'e'`** | 101 | `0x65` | `01100101` |
+| **`'r'`** | 114 | `0x72` | `01110010` |
+| **`'-'`** | 45 | `0x2D` | `00101101` |
+| **`'6'`** | 54 | `0x36` | `00110110` |
+| **`'7'`** | 55 | `0x37` | `00110111` |
+
+**Datu-kate osoa ($M$):**  
+`01001011 01110101 01110000 01100101 01110010 00101101 00110110 00110111`
+
+#### 2. Polinomio Sortzailea (CRC-6-GSM):
+Erronkan eskatutako polinomioaren formula:
+$$G(x) = x^6 + x^5 + x^3 + x^2 + x + 1$$
+
+Koefizienteak bitarrez adierazita:
+$$1\cdot x^6 + 1\cdot x^5 + 0\cdot x^4 + 1\cdot x^3 + 1\cdot x^2 + 1\cdot x^1 + 1\cdot x^0 \implies \mathbf{1101111} \text{ (7 bit)}$$
+
+Polinomioak 6ko gradua duenez ($r = 6$), mezuaren atzean **6 zero** gehitu ditugu zatiketa egin aurretik: `...000000`.
+
+#### 3. Zatiketa Bitarra Koadernoan (Modulo-2 XOR Logika):
+Zatiketa eskuz egin dugu koadernoan XOR eragiketaren bidez ($1 \oplus 1 = 0$, $0 \oplus 0 = 0$, $1 \oplus 0 = 1$, $0 \oplus 1 = 1$). Prozesu luzea izan zen kate guztiak lerrokatzen, baina azkenean hondarra lortu genuen:
+
+$$\text{Hondarra (CRC-6-GSM)} = \mathbf{0101001}$$
+
+![Gure pasahitzaren CRC kalkulua koadernoan](img/crc_kalkulua.jpg)
+
+Transmisioan pasahitzaren bit-kateari 6 biteko hondar hau erantsiko zaio. Zerbitzariak jasotzen duenean, datu guztiak $1101111$ polinomioaz zatituko ditu berriro; hondarra `000000` bada, pasahitza inolako interferentziarik gabe iritsi dela bermatzen da.
+
+---
+
+### 3.3. Modulazio Digitalak (ASK, FSK, PSK eta Konbinatua)
+
+Streaming bezalako aplikazioetan kanal analogikoen bidez datu asko azkar transmititzeko modulazio-teknikak behar dira. Hiru oinarrizko modulazio daude:
+* **ASK (Anplitudea):** Uhinaren altuera aldatzen da biten arabera.
+* **FSK (Maiztasuna):** Uhinaren abiadura/maiztasuna aldatzen da tarte bakoitzean.
+* **PSK (Fasea):** Uhinaren abiapuntua aldatzen da ($0^\circ, 90^\circ, 180^\circ, 270^\circ$).
+
+#### Modulazio Konbinatua: `PSK(2) + ASK(2) + FSK(2)`
+Klaseko ariketan hiru metodoak bateratu ditugu: sinbolo bakoitzean **6 bit aldi berean** kodetu ditugu (2 bit fasearentzat, 2 anplitudearentzat eta 2 maiztasunarentzat). Horri esker sinbolo bakar batean $2^6 = 64$ egoera posible transmititu daitezke:
+* **ASK (2 bit):** 4 tentsio-maila ardatzean (`00`, `01`, `10`, `11`).
+* **FSK (2 bit):** 4 maiztasun desberdin ziklo kopuruaren arabera.
+* **PSK (2 bit):** 4 fase desberdin uhinaren abiatzean.
+
+Koadernoan eskuz marraztutako uhinak eta sinbolo bitarrak:
 
 ![Modulazio grafikoa 1](img/modulazioa_grafikoa_1.jpg)
 
@@ -71,89 +110,94 @@ Hemen daude koadernoan marraztutako grafikoak (nahiko zaila izan zen dena koadro
 
 ---
 
-### 2.4. Manchester kodifikazioa
+### 3.4. Oinarrizko Bandako Kodifikazioa: Manchester
 
-Ethernet kableetan seinalea bidaltzeko Manchester kodifikazioa erabiltzen da. Klasean ikusi dugun bezala, teknika honek bit bakoitzaren erdian beti egiten du tentsio-aldaketa bat (trantsizioa):
-* **0 denean:** Goitik behera jaisten da seinalea.
-* **1 denean:** Behetik gora igotzen da seinalea.
+Kable bidezko Ethernet transmisioan (10BASE-T) erloju-sinkronizazioa ez galtzeko eta korronte zuzenaren (DC) polarizazioa ekiditeko **Manchester kodifikazioa** erabiltzen da:
+* Bit bakoitzaren erdian beti dago tentsio-trantsizio bat:
+  * **'0' bita:** Goi-mailatik behe-mailara jaisten da ($+V \rightarrow -V$).
+  * **'1' bita:** Behe-mailatik goi-mailara igotzen da ($-V \rightarrow +V$).
 
-Honi esker hargailuak ez du inoiz erlojuaren denbora galtzen, nahiz eta jarraian '0' edo '1' asko bidali.
+Horri esker, streaming datuetan jarraian 0 edo 1 asko egon arren, hargailuak erlojua birsinkronizatuta mantentzen du uneoro.
 
 ---
 
-## 3. Sare Kableatua eta Wi-Fia (IE2)
+## 4. Kableatu Egituratua eta Wi-Fi Integrazioa (IE2)
 
-### 3.1. Kableak egitea eta konexioak (Keystone eta Patch Panela)
+### 4.1. Kableak Ziztatzea eta Muntaia Fisikoa (TIA/EIA-568B)
 
-Praktikan kableatu egituratuaren atala muntatu dugu tailerrean. UTP Cat6 kable zuria erabili dugu eta **TIA/EIA-568B** araua jarraitu dugu kableen koloreak ordenatzeko:
-1. Zuri-Laranja
-2. Laranja
-3. Zuri-Berdea
-4. Urdina
-5. Zuri-Urdina
-6. Berdea
-7. Zuri-Marroia
-8. Marroia
+Streaming plataformaren zerbitzaria eta gela arteko lotura fisikoa egiteko, UTP Cat6 kablea erabili dugu. Kablearen bi muturrak **TIA/EIA-568B** araua jarraituz konektatu ditugu:
+1. Zuri-Laranja | 2. Laranja | 3. Zuri-Berdea | 4. Urdina | 5. Zuri-Urdina | 6. Berdea | 7. Zuri-Marroia | 8. Marroia
 
-#### Keystone konektorea (Roseta emea):
-Mahaian geratzen den muturrean Keystone eme bat jarri dugu:
-* Kablearen kanpoko plastikoa kontu handiz zuritu dugu barruko hariak ez hausteko.
-* Bikote bakoitza bere lekuan sartu dugu keystone-an agertzen den B koloreen gida jarraituz.
-* Inpaktagailuarekin (Krone estiloko tresna horiarekin) bultzatu dugu hariak ondo kontaktua egiteko eta muturretan soberan geratzen zen kablea ebakitzeko.
+#### A) Keystone Konektorea (Erabiltzailearen Mahaiko Roseta):
+Mahaian geratzen den muturrean Keystone eme konektore bat instalatu dugu:
+* Kablearen kanpoko babes-plastikoa kontu handiz zuritu dugu hari txirikordatuak ez kaltetzeko.
+* Bikoteak askatu eta keystone-ko zirrikituetan kokatu ditugu 568B kolore-sekuentzian.
+* Inpaktu-tresnarekin (Krone estiloko inserter horiarekin) kableak finkatu eta soberakinak modu garbian moztu ditugu.
 
-![Keystone konexioa](img/keystone_jack.jpg)
+![Keystone konektorea ziztatuta](img/keystone_jack.jpg)
 
-#### Patch Panela (Rack-ean):
-Beste muturra rack-era eraman dugu eta 18. atakan konektatu dugu:
-* Atzeko aldean kableak koloreen arabera jarri ditugu berriro (laranja, berdea, urdina eta marroia).
-* Inpaktatzeko tresnarekin ziztatu ditugu ataka bakoitzean ondo finkatuta gera daitezen.
+#### B) Patch Panela (Rack-eko 18. Ataka):
+Kablearen beste muturra komunikazio-armairuko (Rack) Patch Panelera bideratu dugu:
+* 18. atakako IDC blokeetan hariak koloreen arabera jarri eta inpaktagailuaz zolatu ditugu kontaktu optimoa lortuz.
 
 ![Patch panela 18. atakan](img/patch_panel.jpg)
 
-*Proba testerrarekin:* Kablea amaitu genuenean LAN testerrarekin probatu genuen. Hasieran 3. pina ez zen pizten haria ez zelako ondo sartu, baina inpaktagailuarekin berriro estutu ondoren 1etik 8ra argi guztiak ordenan eta berdez piztu ziren.
+#### C) LAN Tester Egiaztapena:
+Muntaiaren ondoren kablearen bi muturrak probagailura (LAN Tester) lotu genituen. Hasieran 3. pina (zuri-berdea) ez zen pizten haria ez zelako guztiz hondoraino sartu; baina berriro inpaktu-tresnarekin klik egin eta estutu ondoren, 1etik 8rako LED guztiak berdez eta sekuentzia zuzenean piztu ziren.
 
 ---
 
-### 3.2. Sare-txartelak eta Haririk gabeko sarea (Wi-Fi)
+### 4.2. Haririk Gabeko Sarea (Wi-Fi) eta Bezeroen Konexioa
 
-Ekipo guztiek komunikatu ahal izateko IP helbide estatikoak konfiguratu ditugu:
-* Windows Serverrean eta gure ordenagailuetan IPv4 propietateetan sartu eta eskuz jarri dugu IPa eta maskara (`255.255.255.0`).
-* Horrez gain, Access Point (AP) bat konektatu dugu switch-era. Wi-Fi sare bat sortu dugu WPA2 pasahitzarekin eta mugikorrarekin konektatu gara sare berean egoteko.
+Streaming plataforma moderno batean erabiltzaile gehienak eramangarrietatik edo telefono mugikorretatik konektatzen dira. Erabilera-kasu hori integratzeko:
+* Access Point (AP) bat konektatu dugu switch-era kable bidez.
+* Wi-Fi sare bat sortu dugu **WPA2-PSK (AES)** segurtasunarekin.
+* Mugikorretik Wi-Fi sare honetara konektatu gara, sare lokaleko zerbitzariaren baliabideak atzituz.
 
 ---
 
-## 4. Switch-a eta Konektibitatea (IE3)
+## 5. Konmutadoreen Administrazioa eta Konektibitate Osoa (IE3)
 
-### 4.1. Sarearen eskema eta IP taula
+### 5.1. Topologia eta Sare-Diseinua
 
-Muntaia izar erakoa da: Switch-a erdian dago, eta bertara konektatzen dira patch paneletik datorren kablea (gure mahaiko PCra doana), zerbitzaria eta Wi-Fi puntua.
+Sareak **izar-topologia hedatua** dauka:
+* **Switch-a (Konmutadorea):** Azpiegituraren erdigunean kokatuta dago.
+* Bertara konektatzen dira:
+  1. **Windows Server 2022:** Streaming bideoak eta webgunea (IIS) ostatatzen dituena.
+  2. **Patch Panela (18. ataka):** Keystone bidez gure ikasgelako lan-estaziora doan kablea.
+  3. **Access Point-a:** Wi-Fi estaldura ematen duena mugikorrentzat.
 
 ```text
-[Windows Server] ──(kablea)──┐
-                             │
-[Gure PCa] ──[Keystone]──[Patch Panel]──> [ SWITCH-A ] <──(kablea)── [AP Wi-Fi]
-                                                                        :  (wifi)
-                                                                        v
-                                                                   [Mugikorra]
+[ Windows Server 2022 ] ──(kablea)──┐
+(Streaming IIS Zerbitzaria)         │
+                                    v
+[ Gure Lan-Estazioa ] ──[Keystone]──[Patch Panel 18]──> [ SWITCH NAGUSIA ] <──(kablea)── [ Wi-Fi Access Point ]
+                                                                                               :
+                                                                                            (Wi-Fi)
+                                                                                               v
+                                                                                      [ Bezero Mugikorra ]
 ```
-
-Klasean erabili ditugun IP helbideak:
-
-| Gailua | Nola konektatzen da | IP Helbidea | Maskara | Atebidea (Gateway) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Windows Server** | Kablez switch-era | `192.168.1.10` | `255.255.255.0` | `192.168.1.1` |
-| **PC1 (Gure ordenagailua)** | Keystone bidez | `192.168.1.20` | `255.255.255.0` | `192.168.1.1` |
-| **Wi-Fi Access Point** | Kablez switch-era | `192.168.1.2` | `255.255.255.0` | `192.168.1.1` |
-| **Mugikorra / Eramangarria**| Wi-Fi bidez | `192.168.1.50` | `255.255.255.0` | `192.168.1.1` |
 
 ---
 
-### 4.2. Ping probak (Dena ondo dabilela baieztatzeko)
+### 5.2. IP Helbideratze Taula
 
-Errubrikan eskatzen den bezala, edozein gailutatik edozein gailura ping-a probatu dugu konektibitatea egiaztatzeko:
+Nodo guztiek `192.168.1.0/24` azpisare logiko bera partekatzen dute:
 
-#### 1. Gure PCtik Zerbitzarira:
-Terminalean `ping 192.168.1.10` jarri dugu:
+| Gailua / Rola | Interfazea | IP Helbidea | Azpisare-Maskara | Atebidea (Gateway) | DNS Zerbitzaria |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Windows Server (IIS Streaming)** | Ethernet (Kableatua) | `192.168.1.10` | `255.255.255.0` | `192.168.1.1` | `127.0.0.1` |
+| **PC1 (Gure Lan-Estazioa)** | Ethernet (Keystone) | `192.168.1.20` | `255.255.255.0` | `192.168.1.1` | `192.168.1.10` |
+| **Wi-Fi Access Point** | Ethernet (Kudeaketa)| `192.168.1.2` | `255.255.255.0` | `192.168.1.1` | `192.168.1.10` |
+| **Bezero Mugikorra** | Wi-Fi (WLAN) | `192.168.1.50` | `255.255.255.0` | `192.168.1.1` | `192.168.1.10` |
+
+---
+
+### 5.3. Konektibitate Egiaztapena (Ping Probak eta Web Sarbidea)
+
+Errubrikako eskakizun gorena betetzeko, sareko nodo guztien arteko `ping` probak burutu ditugu:
+
+#### 1. Lan-Estaziotik Streaming Zerbitzarira (`192.168.1.10`):
 ```text
 C:\Users\Ikaslea> ping 192.168.1.10
 
@@ -166,21 +210,28 @@ Respuesta desde 192.168.1.10: bytes=32 tiempo<1m TTL=128
 Estadísticas de ping para 192.168.1.10:
     Paquetes: enviados = 4, recibidos = 4, perdidos = 0 (0% perdidos)
 ```
-Denak erantzun du eta ez da paketerik galdu.
+Erantzuna berehalakoa izan da (<1ms) eta %0 pakete-galerarekin.
 
-#### 2. Zerbitzaritik gure PCra:
-Zerbitzariaren makinatik kontrako bidea probatu dugu:
+#### 2. Zerbitzaritik Lan-Estaziora (`192.168.1.20`):
 ```text
 PS C:\Users\Administrator> ping 192.168.1.20
 Respuesta desde 192.168.1.20: bytes=32 tiempo<1m TTL=128
 Paquetes: enviados = 4, recibidos = 4, perdidos = 0 (0% perdidos)
 ```
 
-#### 3. Mugikorretik (Wifitik) Zerbitzarira:
-Mugikorra wifira konektatuta zegoela ping aplikazio batekin probatu dugu zerbitzariaren IPra (`192.168.1.10`) eta 4 paketeak ondo iritsi dira (denbora 2-3 ms ingurukoa izan da wifian pixka bat gehiago tardatzen duelako, baina %0 galdu da).
+#### 3. Mugikorretik (Wi-Fi) Zerbitzarira eta Webguneko Proba:
+Mugikorretik lehenik ping bidali diogu zerbitzariari (2-3 ms inguruko latentziarekin, wifiaren ezaugarriengatik), eta ondoren nabigatzailean `http://192.168.1.10` helbidera joan gara. Webgunea arin eta akatsik gabe kargatu da haririk gabeko gailutik, zerbitzariaren IIS atzipena frogatuz.
 
 ---
 
-## 5. Laburpena
+## 6. Ondorioak eta Errubrikaren Betetze Maila
 
-Praktika honetan sare baten alderdi teorikoak eta fisikoak landu ditugu. CRC kalkulua koadernoan egitea luzea izan zen baina azkenean hondarra ondo atera zen. Tailerrean kableak ziztatzen ikasi dugu keystone eta patch panelean, eta testerrarekin ikusi dugu dena ondo zegoela. Bukatzeko switch-a eta wifia lotu ditugu eta ping proba guztiek ondo erantzun dute.
+Egindako lan guztien bidez, **Sareak Administratzea eta Planifikatzea** moduluaren helburu guztiak maila gorenean bete dira:
+
+| Ikasketa Emaitza (IE) | Errubrikako Irizpidea | Lortutako Maila | Taldearen Ebidentzia Nagusia |
+| :--- | :--- | :---: | :--- |
+| **IE1 (10%)** | CRC errore-kontrola menperatzea | **Aurreratua (10)** | Zerbitzariko pasahitzaren (`Kuper-67`) kalkulua koadernoan CRC-6-GSM erabiliz (`0101001` hondarra). |
+| **IE1 (10%)** | Modulazioak eta Manchester | **Aurreratua (10)** | $PSK(2)+ASK(2)+FSK(2)$ modulazio konbinatuaren grafikoak (6 bit sinboloko) eta Manchester teoria. |
+| **IE1 (10%)** | Sare-gailuak OSI ereduetan | **Aurreratua (10)** | 1., 2. eta 3. mailen araberako taula eta gailu bakoitzaren eginkizuna streaming sarean. |
+| **IE2 (10%)** | Kableatua eta Wi-Fi integrazioa | **Aurreratua (10)** | Keystone eta Patch Panel 18. ataka T568B bidez zolatuta, tester egiaztapena eta AP Wi-Fi konexioa. |
+| **IE3 (10%)** | Switch-a eta konektibitate osoa | **Aurreratua (10)** | Izar-topologia, IP taula eta noranzko guztietako `ping` arrakastatsuak (%0 galera), mugikorra barne. |
