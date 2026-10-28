@@ -85,19 +85,19 @@ Diagraman notazio bikoitz akademikoa erabili da:
 Eredu kontzeptuala taula fisikoetara pasatu ondoren, lortutako eredu erlazionalaren eskema:
 # ERLAZIONALA
 
-* **Plana** (**`PlanID`**, `izena`, `prezioa`, **`erabiltzaileID`**, `Hasiera data`, `amaiera data`)
-* **Erabiltzaile** (**`Erabiltzaile ID`**, `sortze_data`, `pasahitza`, `Posta`)
-* **Profila** (**`ProfilID`**, `Izena`, `mota`, `erabiltzaile ID`)
+* **Erabiltzaile** (**`ErabiltzaileID`**, `sortze_data`, `pasahitza`, `posta`)
+* **Plana** (**`PlanID`**, `izena`, `prezioa`, `Hasiera_data`, `Amaiera_data`, `ErabiltzaileID`*)
+* **Profila** (**`ProfilID`**, `izena`, `mota`, `ErabiltzaileID`*)
 * **Gailuak** (**`GailuID`**, `mota`, `izena`)
-* **Edukiak** (**`Edukia ID`**, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
-* **Bistaratzea** (**`Ikustaldi_denbora`**, `ProfilID`, `GailuID`, `EdukiaID`)
-* **Generoa** (**`GeneroID`**, `izena`, `subgenero`)
-* **Eduki-Genero** (**`Genero_nagusia`**, `EdukiaID`, `generoID`)
-* **Dokumentala** (**`Gaia`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
-* **Serieak** (**`Denboraldi_kopurua`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
-* **Pelikulak** (**`Iraupena`**, `EdukiaID`, `mota`, `adina_gutxienekoa`, `titulua`, `estrenatze data`)
-* **Denboraldiak** (**`denboraldiID`**, `Sinopsia`, `estrenatze data`, `EdukiaID`)
-* **Episodioak** (**`Titulua`**, `Episodio zenbakia`, `iraupena`, `denboraldiID`)
+* **Edukiak** (**`EdukiaID`**, `titulua`, `estrenatze_data`, `adin_gutxienekoa`)
+* **Pelikulak** (**`EdukiaID`***, `iraupena`)
+* **Serieak** (**`EdukiaID`***, `denboraldi_kopurua`)
+* **Dokumentalak** (**`EdukiaID`***, `gaia`)
+* **Denboraldiak** (**`denboraldiID`**, `sinopsia`, `estrenatze_data`, `EdukiaID`*)
+* **Episodioak** (**`denboraldiID`***, **`episodio_zenbakia`**, `titulua`, `iraupena`)
+* **Generoa** (**`GeneroID`**, `izena`, `aita_GeneroID`*)
+* **Eduki-Genero** (**`EdukiaID`***, **`GeneroID`***, `Genero_nagusia`)
+* **Bistaratzea** (**`ProfilID`***, **`GailuID`***, **`EdukiaID`***, `Ikustaldi_denbora`)
 
 ---
 
