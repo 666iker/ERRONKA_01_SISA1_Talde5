@@ -40,7 +40,7 @@ Hona hemen plataformaren egitura kontzeptuala erakusten duen diagramaren irudia:
 ### 3.1. Diseinu Erabaki Nagusiak eta Haien Azalpena
 
 * **`SUSKRIBZIOA` Erronbo Moduan:** 
-  `SUSKRIBZIOA` erlazio moduan jarri da erabiltzailearen eta planaren artean. Ez da berezko entitate independente bat; erabiltzaile batek plan bat kontratatzean sortzen den lotura da. `hasiera_data` eta `amaiera_data` atributuak erlazio honen berezko datuak dira.
+  `SUSKRIBZIOA` erlazio moduan jarri da erabiltzailearen eta planaren artean (2 plan mota ezberdin: Estandar eta Premium). Ez da berezko entitate independente bat; erabiltzaile batek plan bat kontratatzean sortzen den lotura da. `hasiera_data` eta `amaiera_data` atributuak erlazio honen berezko datuak dira.
 
 * **Herentzia Hierarkia (`ISA`) `EDUKIAK` Entitatean:** 
   `EDUKIAK` entitate orokorretik (supermota) hiru azpimota sortu dira: `PELIKULAK`, `SERIEAK` eta `DOKUMENTALAK`. Datu arruntai (`titulua`, `estreinatze_data`, `adina_gutxienekoa`) behin bakarrik gordetzeko `EDUKIAK` taulan, eta balio nulurik (NULL) ez izateko.
