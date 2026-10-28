@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. Erronka - Datu-Basea: ER Diagrama eta Eredu Erlazionala</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-bar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.svg" alt="1. Erronka Logotipoa">
+                </a>
+            </div>
+            <nav>
+                <ul class="menu-zerrenda">
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa</a></li>
+                    <li><a href="datubasea.html" class="aktiboa">Datu-Basea</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section>
+            <h1>Datu-Basea: ER Diagrama, Eredu Erlazional Normalizatua eta Ofimatika</h1>
+            <p>1. Erronkako jarraibideen arabera, diseinatu beharreko datu-baseak <strong>streaming eduki plataforma baten beharrak</strong> asetu behar ditu. Horretarako, erabiltzaileak, rolak, planak, suskripzioak, edukiak eta bistaratzeak (bisualizazioak) kudeatzen dituen egitura diseinatu eta normalizatu dugu:</p>
+
+            <ul class="zerrenda-arrunta">
+                <li><strong>Erabiltzaileak eta Rolak:</strong> Erabiltzaile batek hainbat rol izan ditzake bere kontuan: <em>Infantila</em>, <em>Pertsonala</em>, <em>Familiarra</em>...</li>
+                <li><strong>Saio-hasiera eta Bistaratzea rolaren bidez:</strong> Kontuan izan da erabiltzaile batek saioa hasten duenean bere <strong>rola</strong> aukeratzen duela, eta <strong>rol horrekin egiten duela edukiaren bistaratzea</strong>. Horregatik, <code>BISTARATZEAK</code> taula zuzenean lotuta dago <code>ERABILTZAILE_ROLAK</code> taularekin (<code>id_profila</code> gako arrotzaren bidez).</li>
+                <li><strong>Planak eta Suskripzioak:</strong> Erabiltzaileek harpidetza-plan bat kontratatzen dute (<em>Oinarrizkoa, Estandarra, Premium</em>) suskripzio baten bidez.</li>
+                <li><strong>Edukiak:</strong> Katalogoak <em>Pelikulak</em>, <em>Serieak</em> eta <em>Dokumentalak</em> biltzen ditu.</li>
+                <li><strong>Ofimatika Suitean Inplementatua:</strong> Diseinatutako eredu erlazionala ofimatika suite batean (LibreOffice Base / Microsoft Access) inplementatu da.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>1. Entitate-Erlazio Diagrama (ER Diagrama)</h2>
+            <p>Jarraian datu-basearen <strong>ER diagrama kontzeptuala</strong> ikus daiteke, entitateak, erlazioak eta kardinalitateak adieraziz:</p>
+
+            <div class="diagrama-kutxa">
+                <img src="img/er-diagrama.svg" alt="Datu-Basearen ER Diagrama">
+                <p>1. Irudia: Entitate-Erlazio (ER) Diagrama. Kontuan izan BISTARATZEA erlazioak ERABILTZAILE_ROLA eta EDUKIA lotzen dituela.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. Eredu Erlazional Normalizatua (3FN) eta Ofimatika Inplementazioa</h2>
+            <p>ER diagramatik ondorioztatutako <strong>eredu erlazional normalizatua (3. Forma Normala - 3FN)</strong> 7 taulaz osatuta dago, eta <strong>ofimatika suite batean (Access)</strong> inplementatu dugu:</p>
+
+            <div class="kode-kutxa">EREDU ERLAZIONAL NORMALIZATUA (TAULEN ESKEMA):
+1. PLANAK (id_plana [PK], plan_izena, hileko_prezioa, bideo_kalitatea, max_pantailak)
+2. ERABILTZAILEAK (id_erabiltzailea [PK], izena, abizenak, emaila, pasahitza)
+3. SUSKRIPZIOAK (id_suskripzioa [PK], id_erabiltzailea [FK], id_plana [FK], hasiera_data, amaiera_data, egoera)
+4. ROLAK (id_rola [PK], rol_mota, iragazki_maila, deskribapena)
+5. ERABILTZAILE_ROLAK (id_profila [PK], id_erabiltzailea [FK], id_rola [FK], profil_izena, pin_kodea)
+6. EDUKIAK (id_edukia [PK], izenburua, mota, generoa, iraupena_min, sailkapena)
+7. BISTARATZEAK (id_bistaratzea [PK], id_profila [FK], id_edukia [FK], bistaratze_data, ikusitako_minutuak, amaituta)</div>
+        </section>
+
+        <section>
+            <h2>3. Eredu Erlazionaleko Taulak (Normalizatuak)</h2>
+            <p>Hona hemen ofimatika suitean sortutako 7 taulak eta gordetako erregistroen adibideak:</p>
+
+            <h3>3.1. ERABILTZAILEAK Taula</h3>
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id_erabiltzailea <span class="gako-pk">PK</span></th>
+                            <th>izena</th>
+                            <th>abizenak</th>
+                            <th>emaila</th>
+                            <th>pasahitza</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>U01</strong></td>
+                            <td>Axular</td>
+                            <td>Muñoz</td>
+                            <td>munoz.axular@uni.eus</td>
+                            <td>esneider2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>U02</strong></td>
+                            <td>Iker</td>
+                            <td>Monkayola</td>
+                            <td>monkayola.iker@uni.eus</td>
+                            <td>IkerQuesito10</td>
+                        </tr>
+                        <tr>
+                            <td><strong>U03</strong></td>
+                            <td>Alex</td>
+                            <td>Sierra</td>
+                            <td>sierra.alex@uni.eus</td>
+                            <td>AlexMesen67</td>
+                        </tr>
+                        <tr>
+                            <td><strong>U04</strong></td>
+                            <td>Jokin</td>
+                            <td>Martinez</td>
+                            <td>martinez.jokin@uni.ikasleak.eus</td>
+                            <td>Jokinki67</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.2. ROLAK Taula (Rol Moten Katalogoa)</h3>
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id_rola <span class="gako-pk">PK</span></th>
+                            <th>rol_mota</th>
+                            <th>katalogo_iragazkia</th>
+                            <th>deskribapena</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>R01</strong></td>
+                            <td>Infantila</td>
+                            <td>Oinarrizko katalogoa (TP)</td>
+                            <td>Eduki egokituak eta babestuak</td>
+                        </tr>
+                        <tr>
+                            <td><strong>R02</strong></td>
+                            <td>Familiarra</td>
+                            <td>Familia katalogoa</td>
+                            <td>Taldean edo familian ikusteko profila</td>
+                        </tr>
+                        <tr>
+                            <td><strong>R03</strong></td>
+                            <td>Pertsonala</td>
+                            <td>Katalogo osoa</td>
+                            <td>Erabiltzaile bakoitzaren profil pertsonala</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.3. ERABILTZAILE_ROLAK Taula (Erabiltzaile batek hainbat rol ditu)</h3>
+            <p>Erabiltzaile batek saioa hasten duenean, taula honetako bere <strong>rola (<code>id_profila</code>)</strong> aukeratzen du:</p>
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id_profila <span class="gako-pk">PK</span></th>
+                            <th>id_erabiltzailea <span class="gako-fk">FK</span></th>
+                            <th>id_rola <span class="gako-fk">FK</span></th>
+                            <th>profil_izena</th>
+                            <th>pin_kodea</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PR01</strong></td>
+                            <td>U01 (Axular)</td>
+                            <td>R03 (Pertsonala)</td>
+                            <td>Axular_Pertsonala</td>
+                            <td>1234</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PR02</strong></td>
+                            <td>U01 (Axular)</td>
+                            <td>R01 (Infantila)</td>
+                            <td>Axular_Infantila</td>
+                            <td>0000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PR03</strong></td>
+                            <td>U01 (Axular)</td>
+                            <td>R02 (Familiarra)</td>
+                            <td>Etxekoak_Familia</td>
+                            <td>1111</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PR04</strong></td>
+                            <td>U02 (Iker)</td>
+                            <td>R03 (Pertsonala)</td>
+                            <td>Iker_Profila</td>
+                            <td>4321</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PR05</strong></td>
+                            <td>U03 (Alex)</td>
+                            <td>R03 (Pertsonala)</td>
+                            <td>Alex_Pertsonala</td>
+                            <td>2468</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PR06</strong></td>
+                            <td>U04 (Jokin)</td>
+                            <td>R02 (Familiarra)</td>
+                            <td>Jokin_Familia</td>
+                            <td>1357</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.4. PLANAK Taula</h3>
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id_plana <span class="gako-pk">PK</span></th>
+                            <th>plan_izena</th>
+                            <th>hileko_prezioa</th>
+                            <th>bideo_kalitatea</th>
+                            <th>max_pantailak</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>PL01</strong></td>
+                            <td>Oinarrizkoa</td>
+                            <td>5,49 &euro;</td>
+                            <td>HD (720p)</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PL02</strong></td>
+                            <td>Estandarra</td>
+                            <td>9,99 &euro;</td>
+                            <td>Full HD (1080p)</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PL03</strong></td>
+                            <td>Premium 4K</td>
+                            <td>14,99 &euro;</td>
+                            <td>Ultra HD (4K)</td>
+                            <td>4</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.5. SUSKRIPZIOAK Taula</h3>
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id_suskripzioa <span class="gako-pk">PK</span></th>
+                            <th>id_erabiltzailea <span class="gako-fk">FK</span></th>
+                            <th>id_plana <span class="gako-fk">FK</span></th>
+                            <th>hasiera_data</th>
+                            <th>amaiera_data</th>
+                            <th>egoera</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>S001</strong></td>
+                            <td>U01 (Axular)</td>
+                            <td>PL03 (Premium 4K)</td>
+                            <td>2026-09-01</td>
+                            <td>2027-09-01</td>
+                            <td><span class="etiketa-prezioa">Aktibo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>S002</strong></td>
+                            <td>U02 (Iker)</td>
+                            <td>PL02 (Estandarra)</td>
+                            <td>2026-10-01</td>
+                            <td>2026-11-01</td>
+                            <td><span class="etiketa-prezioa">Aktibo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>S003</strong></td>
+                            <td>U03 (Alex)</td>
+                            <td>PL03 (Premium 4K)</td>
+                            <td>2026-09-15</td>
+                            <td>2027-09-15</td>
+                            <td><span class="etiketa-prezioa">Aktibo</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>S004</strong></td>
+                            <td>U04 (Jokin)</td>
+                            <td>PL01 (Oinarrizkoa)</td>
+                            <td>2026-08-15</td>
+                            <td>2026-09-15</td>
+                            <td>Iraungita</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.6. EDUKIAK Taula (Pelikulak, Serieak eta Dokumentalak)</h3>
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id_edukia <span class="gako-pk">PK</span></th>
+                            <th>izenburua</th>
+                            <th>mota</th>
+                            <th>generoa</th>
+                            <th>iraupena_min</th>
+                            <th>sailkapena</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>E01</strong></td>
+                            <td>Irati</td>
+                            <td>Pelikula</td>
+                            <td>Fantasia / Historia</td>
+                            <td>114 min</td>
+                            <td>Pertsonala</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E02</strong></td>
+                            <td>Txanpon Etxea</td>
+                            <td>Seriea</td>
+                            <td>Intriga</td>
+                            <td>50 min / atala</td>
+                            <td>Pertsonala</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E03</strong></td>
+                            <td>Go!azen 11.0</td>
+                            <td>Seriea</td>
+                            <td>Musika / Abentura</td>
+                            <td>45 min / atala</td>
+                            <td>Infantila</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E04</strong></td>
+                            <td>Teknologiaren Ispilua</td>
+                            <td>Dokumentala</td>
+                            <td>Zientzia eta Sareak</td>
+                            <td>75 min</td>
+                            <td>Familiarra</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>3.7. BISTARATZEAK Taula (Aukeratutako Rolarekin egindako Bisualizazioak)</h3>
+            <p>Taula honek erakusten du nola erabiltzaileak saioa hastean aukeratu duen <strong>rolarekin (<code>id_profila</code>)</strong> egiten duen edukiaren bistaratzea:</p>
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id_bistaratzea <span class="gako-pk">PK</span></th>
+                            <th>id_profila (Aukeratutako Rola) <span class="gako-fk">FK</span></th>
+                            <th>id_edukia <span class="gako-fk">FK</span></th>
+                            <th>bistaratze_data</th>
+                            <th>ikusitako_minutuak</th>
+                            <th>amaituta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>B001</strong></td>
+                            <td>PR01 (Axular - <strong>Rol Pertsonala</strong>)</td>
+                            <td>E01 (Irati - Pelikula)</td>
+                            <td>2026-10-18 21:30</td>
+                            <td>114 min</td>
+                            <td>Bai</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B002</strong></td>
+                            <td>PR02 (Axular - <strong>Rol Infantila</strong>)</td>
+                            <td>E03 (Go!azen 11.0 - Seriea)</td>
+                            <td>2026-10-19 17:15</td>
+                            <td>45 min</td>
+                            <td>Bai</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B003</strong></td>
+                            <td>PR04 (Iker - <strong>Rol Pertsonala</strong>)</td>
+                            <td>E02 (Txanpon Etxea - Seriea)</td>
+                            <td>2026-10-20 22:00</td>
+                            <td>50 min</td>
+                            <td>Bai</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B004</strong></td>
+                            <td>PR05 (Alex - <strong>Rol Pertsonala</strong>)</td>
+                            <td>E01 (Irati - Pelikula)</td>
+                            <td>2026-10-21 16:20</td>
+                            <td>90 min</td>
+                            <td>Ez</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B005</strong></td>
+                            <td>PR06 (Jokin - <strong>Rol Familiarra</strong>)</td>
+                            <td>E04 (Teknologiaren Ispilua - Dokumentala)</td>
+                            <td>2026-10-21 20:00</td>
+                            <td>75 min</td>
+                            <td>Bai</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Ofimatika Suitean Inplementazioa (Access)</h2>
+            <p>Datu-basea ofimatika suite batean inplementatzeko jarraitutako urratsak:</p>
+            <ol class="zerrenda-zenbatua">
+                <li><strong>Datu-base fitxategia sortu:</strong> LibreOffice Base (<code>Erronka1_Streaming_DB.odb</code>) edo Microsoft Access (<code>Erronka1_Streaming_DB.accdb</code>) ireki eta datu-base berria sortu dugu.</li>
+                <li><strong>7 Taulak diseinu-ikuspegian sortu:</strong> Eremu bakoitzari bere datu-mota egokia (<code>VARCHAR</code>, <code>INTEGER</code>, <code>DECIMAL</code>, <code>DATE</code>, <code>BOOLEAN</code>) eta gako nagusia (<code>PK</code>) esleitu dizkiogu.</li>
+                <li><strong>Erlazioak (Relationships) finkatu:</strong> <em>Tresnak &rarr; Erlazioak</em> leihoan gako arrotzak (<code>FK</code>) lotu ditugu osotasun erreferentziala (<em>Integridad Referencial</em>) aktibatuz.</li>
+                <li><strong>Formularioak eta Kontsultak:</strong> Erabiltzaileek rola aukeratu eta bistaratzeak erregistratzeko inprimakia eta SQL kontsultak prestatu ditugu.</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-edukia">
+            <div class="footer-blokea">
+                <h4>1. Erronka — SISA1</h4>
+                <p>Klaseko Proiektu Teknikoa (5. Taldea)</p>
+                <p><strong>Ikasturtea:</strong> 2026-2027</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Ikastetxea eta Kokapena</h4>
+                <p><strong>Zentroa:</strong> CIFP Uni Eibar-Ermua LHII</p>
+                <p><strong>Udalerria:</strong> Eibar, 20600 (Gipuzkoa)</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Webguneko Atalak</h4>
+                <ul>
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2 eta CRC)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa (IT/OT, THD, Cloud)</a></li>
+                    <li><a href="datubasea.html">Datu-Basea (ER eta Taulak)</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-egilea">
+            <p>&copy; 2026 1. Erronka (SISA1) - Egileak: 5. Taldea</p>
+        </div>
+    </footer>
+
+</body>
+</html>

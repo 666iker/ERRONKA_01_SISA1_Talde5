@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. Erronka - Sareak: OSI 1-2, CRC-6-GSM eta Modulazioa</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-bar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.svg" alt="1. Erronka Logotipoa">
+                </a>
+            </div>
+            <nav>
+                <ul class="menu-zerrenda">
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html" class="aktiboa">Sareak (OSI 1-2)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa</a></li>
+                    <li><a href="datubasea.html">Datu-Basea</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section>
+            <h1>Sareak: OSI 1. eta 2. Mailak, CRC-6-GSM eta Modulazioak</h1>
+            <p>Atal honetan 1. Erronkako Windows Server zerbitzaria eta klaseko ekipoak sarera konektatzeko erabili dugun azpiegitura fisikoa (OSI 1. maila) eta datu-lotura maila (OSI 2. maila) azaltzen dira.</p>
+
+            <h2>1. OSI Ereduaren Lehen Bi Mailak: Patch Panel eta Switch Lotura</h2>
+            <p>Klasean ikasleok egindako UTP Cat6 kableekin (T568B estandarra jarraituz) gure ekipoak <strong>Patch Panelera</strong> konektatu ditugu, eta bertatik latiguillo bidez <strong>Switchera</strong>:</p>
+
+            <ul class="zerrenda-arrunta">
+                <li><strong>1. Maila — Maila Fisikoa (Physical Layer):</strong> Bitak seinale elektriko edo elektromagnetiko bihurtzeaz arduratzen da. Proiektuan ikasleok grimpatutako RJ-45 konektoreak, UTP kableak, <strong>Patch Panela</strong>, Manchester kodifikazioa eta ASK/FSK/PSK modulazioak maila honetan kokatzen dira.</li>
+                <li><strong>2. Maila — Datu-Lotura Maila (Data Link Layer):</strong> Bitak trametan (frames) antolatzen ditu, gailuen <strong>MAC helbideak</strong> kudeatzen ditu <strong>Switch</strong>-aren bidez eta transmisio-erroreak detektatzen ditu <strong>CRC (Cyclic Redundancy Check)</strong> algoritmoa erabiliz.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Pasahitza ASCIIra Bihurtzea eta CRC-6-GSM Gehitzea</h2>
+            <p>Sistemara sartzeko erabilitako pasahitzetako bat <strong><code>Kuper-67</code></strong> da. Lehenik eta behin, karaktere bakoitza bere ASCII balio hamartar, hamaseitar eta bitarrera (8 bit) pasatu dugu:</p>
+
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Karakterea</th>
+                            <th>ASCII Hamartarra</th>
+                            <th>ASCII Hamaseitarra (Hex)</th>
+                            <th>ASCII Bitarra (8 bit)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>'K'</strong> (Kalkulurako aukeratua)</td>
+                            <td>75</td>
+                            <td>0x4B</td>
+                            <td><span class="etiketa-prezioa">01001011</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>'u'</strong></td>
+                            <td>117</td>
+                            <td>0x75</td>
+                            <td>01110101</td>
+                        </tr>
+                        <tr>
+                            <td><strong>'p'</strong></td>
+                            <td>112</td>
+                            <td>0x70</td>
+                            <td>01110000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>'e'</strong></td>
+                            <td>101</td>
+                            <td>0x65</td>
+                            <td>01100101</td>
+                        </tr>
+                        <tr>
+                            <td><strong>'r'</strong></td>
+                            <td>114</td>
+                            <td>0x72</td>
+                            <td>01110010</td>
+                        </tr>
+                        <tr>
+                            <td><strong>'-'</strong></td>
+                            <td>45</td>
+                            <td>0x2D</td>
+                            <td>00101101</td>
+                        </tr>
+                        <tr>
+                            <td><strong>'6'</strong></td>
+                            <td>54</td>
+                            <td>0x36</td>
+                            <td>00110110</td>
+                        </tr>
+                        <tr>
+                            <td><strong>'7'</strong></td>
+                            <td>55</td>
+                            <td>0x37</td>
+                            <td>00110111</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>CRC-6-GSM Kalkulua Pausoz Pauso ('K' = 01001011)</h3>
+            <p>Eskatutako polinomio sortzailea <strong>CRC-6-GSM</strong> da: <strong>x<sup>6</sup> + x<sup>5</sup> + x<sup>3</sup> + x<sup>2</sup> + x + 1</strong>.</p>
+            <ul class="zerrenda-arrunta">
+                <li><strong>Polinomio sortzailea bitarrez G(x):</strong> 1·x<sup>6</sup> + 1·x<sup>5</sup> + 0·x<sup>4</sup> + 1·x<sup>3</sup> + 1·x<sup>2</sup> + 1·x<sup>1</sup> + 1·x<sup>0</sup> = <strong><code>1101111</code></strong> (7 bit, 6. mailakoa).</li>
+                <li><strong>Mezua M(x):</strong> <code>01001011</code> ('K' letra).</li>
+                <li><strong>6 zero gehituta (2<sup>6</sup>·M):</strong> <code>01001011 000000</code>.</li>
+            </ul>
+
+            <div class="kode-kutxa">CRC-6-GSM ZATIKETA BITARRA (XOR eragiketa):
+Mezua + 6 zero:  01001011000000  | Zatitzailea G(x): 1101111
+                  1101111        |--------------------------
+                  -------        |
+                   001001000000  | 1. XOR urratsa
+                     1101111     |
+                     -------     |
+                     0100111000  | 2. XOR urratsa
+                      1101111    |
+                      -------    |
+                      010000100  | 3. XOR urratsa
+                       1101111   |
+                       -------   |
+                       01011010  | 4. XOR urratsa
+                        1101111  |
+                        -------  |
+                        0110101  | 5. XOR urratsa
+                         1101111 |
+                         ------- |
+                         0001010 --> HONDARRA (CRC-6-GSM, 6 bit) = 001010
+
+BIDALIKO DEN TRAMA OSOA (Mezua + CRC-6):
+[ 01001011 ] + [ 001010 ] = 01001011001010 (14 bit)</div>
+        </section>
+
+        <section>
+            <h2>3. Manchester Kodifikazioa eta Modulazioen Marrazkiak (ASK, FSK, PSK)</h2>
+            <p>Lortutako 14 biteko trama (<strong><code>01001011 001010</code></strong>) kabletik eta uhinetatik bidaltzeko, honako kodifikazio eta modulazio grafikoak marraztu eta webgunera igo ditugu:</p>
+
+            <div class="diagrama-kutxa">
+                <img src="img/modulazioa-manchester.svg" alt="Manchester kodifikazioa eta ASK, FSK, PSK modulazioen marrazkia">
+            </div>
+
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Teknika Mota</th>
+                            <th>Izena</th>
+                            <th>Funtzionamendua Marrazkian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Kodifikazio Digitala</td>
+                            <td><strong>Manchester (IEEE 802.3)</strong></td>
+                            <td>Bit bakoitzaren erdian trantsizio bat dago: <strong>0</strong> = Goitik-Behera (&darr;), <strong>1</strong> = Behetik-Gora (&uarr;). Erlojuaren sinkronizazioa bermatzen du Ethernet kableetan.</td>
+                        </tr>
+                        <tr>
+                            <td>Modulazio Analogikoa</td>
+                            <td><strong>ASK (Amplitude Shift Keying)</strong></td>
+                            <td>Uhin garraiatzailearen <strong>anplitudea</strong> aldatzen da: <strong>1</strong> denean uhina dago, eta <strong>0</strong> denean anplitudea zero da (lerro laua).</td>
+                        </tr>
+                        <tr>
+                            <td>Modulazio Analogikoa</td>
+                            <td><strong>FSK (Frequency Shift Keying)</strong></td>
+                            <td>Uhinaren <strong>maiztasuna (frekuentzia)</strong> aldatzen da: <strong>0</strong> bitak maiztasun baxua du (ziklo gutxi) eta <strong>1</strong> bitak maiztasun altua (ziklo bikoitza).</td>
+                        </tr>
+                        <tr>
+                            <td>Modulazio Analogikoa</td>
+                            <td><strong>PSK (Phase Shift Keying)</strong></td>
+                            <td>Uhin garraiatzailearen <strong>fasea</strong> 180 gradu aldatzen da bit-aldaketa dagoenean (<strong>1</strong> fase positiboan hasten da eta <strong>0</strong> alderantzizko fasean).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>4. Hari Gabeko Gailu Batetik Testeatzea (Mugikorra eta Eramangarria)</h2>
+            <p>Webgunea Windows Server-eko IIS zerbitzarian argitaratu ondoren, Switch-era konektatutako Wi-Fi sarbide-puntuaren (Access Point) bidez hari gabeko gailuetatik testeatu dugu:</p>
+
+            <ol class="zerrenda-zenbatua">
+                <li><strong>Windows Server IIS konfigurazioa:</strong> Webgune estatikoa zerbitzari lokalean jarri da martxan (<code>192.168.1.10:80</code>).</li>
+                <li><strong>Hari gabeko konexioa (Wi-Fi):</strong> Telefono mugikorra eta ordenagailu eramangarria klaseko Wi-Fi sarera konektatu ditugu (sare bereko IP helbidea jasoz, adib. <code>192.168.1.55</code>).</li>
+                <li><strong>Konektagarritasun proba:</strong> <code>ping 192.168.1.10</code> komandoarekin pakete-galerarik ez dagoela egiaztatu da.</li>
+                <li><strong>Nabigatzailean bistaratzea:</strong> Mugikorreko eta eramangarriko nabigatzaileetan orri guztiak, taulak eta modulazio-marrazkiak ondo ikusten direla egiaztatu da (CSS <code>@media</code> erantzunkorrari esker).</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-edukia">
+            <div class="footer-blokea">
+                <h4>1. Erronka — SISA1</h4>
+                <p>Klaseko Proiektu Teknikoa (5. Taldea)</p>
+                <p><strong>Ikasturtea:</strong> 2026-2027</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Ikastetxea eta Kokapena</h4>
+                <p><strong>Zentroa:</strong> CIFP Uni Eibar-Ermua LHII</p>
+                <p><strong>Udalerria:</strong> Eibar, 20600 (Gipuzkoa)</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Webguneko Atalak</h4>
+                <ul>
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2 eta CRC)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa (IT/OT, THD, Cloud)</a></li>
+                    <li><a href="datubasea.html">Datu-Basea (ER eta Taulak)</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-egilea">
+            <p>&copy; 2026 1. Erronka (SISA1) - Egileak: 5. Taldea</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -82,14 +82,23 @@ Jarraian koadernoan eskuz marraztutako uhinak eta sinbolo bitarrak ikus daitezke
 
 ---
 
-### 1.4. Oinarrizko Bandako Kodifikazioa: Manchester
+### 1.4. Oinarrizko Bandako Kodifikazioa: Manchester eta Manchester Diferentziala
 
-Kable bidezko Ethernet transmisioan (10BASE-T) erloju-sinkronizazioa ez galtzeko eta tentsio konstantea ez metatzeko **Manchester kodifikazioa** erabiltzen da:
-* Bit bakoitzaren erdian beti gertatzen da tentsio-aldaketa bat:
-  * **'0' bita:** Goi-mailatik behe-mailara jaisten da ($+V \rightarrow -V$).
-  * **'1' bita:** Behe-mailatik goi-mailara igotzen da ($-V \rightarrow +V$).
+Kable bidezko Ethernet transmisioan (10BASE-T) erloju-sinkronizazioa ez galtzeko eta korronte zuzenaren (DC) metaketa saihesteko bi lerro-kodifikazio hauek landu eta koadernoan marraztu ditugu:
 
-Modu honetan, jarraian '0' edo '1' asko bidalita ere, hargailuak uneoro daki noiz hasten eta amaitzen den bit bakoitza.
+1. **Manchester Normala (`N`):**
+   * Bit bakoitzaren erdian beti dago tentsio-aldaketa bat erlojua sinkronizatzeko:
+     * **'0' bita:** Goi-mailatik behe-mailara jaisten da ($+V \rightarrow -V$). Gezia behera doa ($\downarrow$).
+     * **'1' bita:** Behe-mailatik goi-mailara igotzen da ($-V \rightarrow +V$). Gezia gora doa ($\uparrow$).
+
+2. **Manchester Diferentziala (`D`):**
+   * Erdian beti dago trantsizio bat erloju gisa, baina bitaren balioa **bit-hasierako trantsizioak** zehazten du:
+     * **'0' bita:** Bitaren hasieran tentsio-aldaketa (trantsizioa) dago.
+     * **'1' bita:** Bitaren hasieran ez dago inolako aldaketarik (aurreko tentsio berdinarekin jarraitzen du).
+
+Koadernoan `"Kuper-67"` pasahitzaren karaktere guztiak eta CRC kalkulutik ateratako hondarra (**`101001`**) bi kodifikazioetan (Normala `N` eta Diferentziala `D`) marraztu ditugu:
+
+![Manchester eta Manchester Diferentziala koadernoan](img/manchester_koadernoa.jpg)
 
 ---
 
@@ -196,7 +205,7 @@ Sareen atalean egindako lanekin errubrikako irizpide tekniko guztiak maila goren
 | Ikasketa Emaitza (IE) | Errubrikako Irizpidea | Lortutako Maila | Taldearen Ebidentzia Nagusia |
 | :--- | :--- | :---: | :--- |
 | **IE1 (10%)** | CRC errore-kontrola menperatzea | **Aurreratua (10)** | `Kuper-67` pasahitzaren CRC-6-GSM zatiketa eskuz koadernoan ebatzia (`0101001` hondarra). |
-| **IE1 (10%)** | Modulazioak eta Manchester | **Aurreratua (10)** | $PSK(2)+ASK(2)+FSK(2)$ modulazio konbinatuaren grafikoak (6 bit sinboloko) eta Manchester seinalea. |
+| **IE1 (10%)** | Modulazioak eta Manchester | **Aurreratua (10)** | $PSK(2)+ASK(2)+FSK(2)$ grafikoak eta Manchester Normala (`N`) zein Diferentziala (`D`) koadernoan. |
 | **IE1 (10%)** | Sare-gailuak OSI ereduetan | **Aurreratua (10)** | 1., 2. eta 3. mailen araberako taula eta gailu bakoitzaren zeregina. |
 | **IE2 (10%)** | Kableatua eta Wi-Fi integrazioa | **Aurreratua (10)** | Keystone eta Patch Panel 18. ataka T568B bidez zolatuta, tester egiaztapena eta Wi-Fi AP konexioa. |
 | **IE3 (10%)** | Switch-a eta konektibitate osoa | **Aurreratua (10)** | Izar-topologia, IP taula eta noranzko guztietako `ping` arrakastatsuak (%0 galera). |

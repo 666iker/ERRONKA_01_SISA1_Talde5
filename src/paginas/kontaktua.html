@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. Erronka - Windows Server Azpiegitura, Planifikazioa eta Taldea</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-bar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.svg" alt="1. Erronka Logotipoa">
+                </a>
+            </div>
+            <nav>
+                <ul class="menu-zerrenda">
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa</a></li>
+                    <li><a href="datubasea.html">Datu-Basea</a></li>
+                    <li><a href="kontaktua.html" class="aktiboa">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero-kutxa">
+            <div class="hero-testua">
+                <h1>Windows Server Azpiegitura, Planifikazioa eta 5. Taldea</h1>
+                <p>Orri honetan 1. Erronka aurrera eramateko prestatu dugun <strong>Windows Server azpiegitura</strong> (integratutako IIS web-zerbitzaria, RAID bolumenak eta segurtasun-politika), <strong>papereko planifikazioaren digitalizazioa eta jarraipena</strong>, eta taldekideen informazioa bildu ditugu.</p>
+                <a href="#formularioa" class="botoi-gorria">Taldearekin Harremanetan Jarri</a>
+            </div>
+        </section>
+
+        <section>
+            <h2>1. Windows Server Azpiegitura: Web Zerbitzaria, RAID eta Segurtasuna</h2>
+            <p>Erronkaren baldintzak betetzeko, azpiegitura osoa <strong>Windows Server</strong> batean prestatu dugu honako urrats eta konfigurazio hauekin:</p>
+
+            <ol class="zerrenda-zenbatua">
+                <li>
+                    <strong>Integratutako Web-Zerbitzaria (IIS - Internet Information Services):</strong>
+                    Windows Server-eko <em>Server Manager &rarr; Add Roles and Features</em> laguntzailearen bidez <strong>Web Server (IIS)</strong> rola instalatu da. Webgune estatikoaren fitxategiak zerbitzariaren biltegian argitaratu dira eta 80. atakan (HTTP) entzuten jarri da sare lokaleko gailuetatik (kablez zein Wi-Fi bidez) atzitzeko.
+                </li>
+                <li>
+                    <strong>Egoerak eskatzen dituen Bolumenak (RAID Konfigurazioa):</strong>
+                    Datuen segurtasuna eta erabilgarritasuna bermatzeko, disko fisikoak <em>Disko Dinamiko (Dynamic Disks)</em> bihurtu ditugu <em>Disk Management</em> tresnan:
+                    <ul>
+                        <li><strong>C: Bolumena (Sistema):</strong> Windows Server sistema eragilea eta IIS zerbitzua.</li>
+                        <li><strong>E: Bolumena (RAID-1 / Mirrored Volume):</strong> Bi diskotan ispilatutako bolumena webgune estatikoaren fitxategiak eta LibreOffice Base datu-basea gordetzeko. Disko batek huts eginez gero, zerbitzuak martxan jarraitzen du.</li>
+                        <li><strong>F: Bolumena (RAID-5 / Segurtasun Kopiak):</strong> Parekidetasun bidezko bolumena segurtasun-kopiak (Backup) eta erregistroak gordetzeko.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Segurtasun Politika (Local / Group Security Policy):</strong>
+                    Zerbitzaria eta datuak babesteko honako segurtasun-politika ezarri da:
+                    <ul>
+                        <li><strong>Pasahitzen Politika:</strong> Konplexutasun-baldintza aktibatuta (letra larriak, xeheak eta zenbakiak), gutxienez 8 karaktereko luzera eta 60 eguneko iraungipena.</li>
+                        <li><strong>Kontuen Blokeo Politika:</strong> 3 saio-hasiera okerren ondoren kontua 15 minutuz blokeatzea indarrezko erasoak (brute-force) ekiditeko.</li>
+                        <li><strong>NTFS Baimenak eta Firewall-a:</strong> Webguneko karpetan <code>Administrators</code> taldeak soilik du idazketa-baimena; web-erabiltzaileek (<code>IIS_IUSRS</code>) irakurketa-baimena baino ez dute.</li>
+                    </ul>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>2. Planifikazioaren Jarraipena eta Taldekideen Ardurak</h2>
+            <p>Paperean jasotako hasierako plangintza digitalizatu ondoren, hona hemen 5. Taldeko kide bakoitzaren arloa eta jarraipen-egoera:</p>
+
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Arlo Teknikoa</th>
+                            <th>Arduraduna</th>
+                            <th>Burututako Zereginak</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Sareak (OSI 1-2, CRC-6, Modulazioa)</strong></td>
+                            <td>Axular Munoz</td>
+                            <td>Kableak (Patch Panel &rarr; Switch), ASCII, CRC-6-GSM, Manchester/ASK/FSK/PSK eta Wi-Fi proba</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Datu-Basea (ER, 3FN, Ofimatika)</strong></td>
+                            <td>Jokin Martinez</td>
+                            <td>ER diagrama, 7 taula normalizatuak (rolak, bistaratzeak...) eta Access</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Digitalizazioa eta Windows Server</strong></td>
+                            <td>Iker Monkayola, Alex Sierra</td>
+                            <td>IT/OT, THD, Cloud, Windows Server IIS, RAID bolumenak eta Segurtasun Politika</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="formularioa">
+            <h2>3. Harremanetarako eta Ebaluaziorako Formularioa</h2>
+            <p>Proiektuaren inguruko iruzkinik, zalantzarik edo hobekuntza-proposamenik bidali nahi izanez gero, bete honako formulario hau:</p>
+
+            <div class="formulario-kutxa">
+                <form action="#" method="post">
+                    <div class="eremu-multzoa">
+                        <label for="izena">Izen-abizenak:</label>
+                        <input type="text" id="izena" name="izena" placeholder="Idatzi zure izena..." required>
+                    </div>
+
+                    <div class="eremu-multzoa">
+                        <label for="email">Helbide Elektronikoa:</label>
+                        <input type="email" id="email" name="email" placeholder="izena@uni.eus" required>
+                    </div>
+
+                    <div class="eremu-multzoa">
+                        <label for="atala">Kontsultagai den Proiektuko Atala:</label>
+                        <select id="atala" name="atala">
+                            <option value="sareak">Sareak (OSI 1-2, CRC-6-GSM eta Modulazioa)</option>
+                            <option value="digitalizazioa">Digitalizazioa (IT/OT, THD eta Cloud)</option>
+                            <option value="datubasea">Datu-Basea (ER Diagrama, Taulak eta Ofimatika)</option>
+                            <option value="azpiegitura">Windows Server (IIS, RAID eta Segurtasun Politika)</option>
+                            <option value="planifikazioa">Planifikazioa eta Jarraipena</option>
+                        </select>
+                    </div>
+
+                    <div class="eremu-multzoa">
+                        <label for="mezua">Iruzkina edo Galdera Teknikoa:</label>
+                        <textarea id="mezua" name="mezua" rows="4" placeholder="Idatzi hemen zure oharra edo galdera..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="botoi-gorria">Bidali Iruzkina</button>
+                    <button type="reset" class="botoi-grisa">Garbitu</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-edukia">
+            <div class="footer-blokea">
+                <h4>1. Erronka — SISA1</h4>
+                <p>Klaseko Proiektu Teknikoa (5. Taldea)</p>
+                <p><strong>Ikasturtea:</strong> 2026-2027</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Ikastetxea eta Kokapena</h4>
+                <p><strong>Zentroa:</strong> CIFP Uni Eibar-Ermua LHII</p>
+                <p><strong>Udalerria:</strong> Eibar, 20600 (Gipuzkoa)</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Webguneko Atalak</h4>
+                <ul>
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2 eta CRC)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa (IT/OT, THD, Cloud)</a></li>
+                    <li><a href="datubasea.html">Datu-Basea (ER eta Taulak)</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-egilea">
+            <p>&copy; 2026 1. Erronka (SISA1) - Egileak: 5. Taldea</p>
+        </div>
+    </footer>
+
+</body>
+</html>

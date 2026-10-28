@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" width="100%" height="auto">
+  <rect width="900" height="540" rx="8" fill="#141414" stroke="#333333" stroke-width="2"/>
+
+  <text x="450" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#e50914" text-anchor="middle">
+    MANCHESTER KODIFIKAZIOA ETA MODULAZIOAK (ASK, FSK, PSK) — 'K' (01001011) + CRC-6 (001010)
+  </text>
+
+  <rect x="140" y="42" width="400" height="20" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+  <text x="340" y="56" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">ASCII 'K' (75 hamartar) = 01001011</text>
+
+  <rect x="540" y="42" width="300" height="20" fill="#3b1115" stroke="#e50914" stroke-width="1"/>
+  <text x="690" y="56" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#ff6b6b" text-anchor="middle">CRC-6-GSM = 001010</text>
+
+  <g stroke="#2a2a2a" stroke-width="1" stroke-dasharray="4,4">
+    <line x1="140" y1="65" x2="140" y2="510"/>
+    <line x1="190" y1="65" x2="190" y2="510"/>
+    <line x1="240" y1="65" x2="240" y2="510"/>
+    <line x1="290" y1="65" x2="290" y2="510"/>
+    <line x1="340" y1="65" x2="340" y2="510"/>
+    <line x1="390" y1="65" x2="390" y2="510"/>
+    <line x1="440" y1="65" x2="440" y2="510"/>
+    <line x1="490" y1="65" x2="490" y2="510"/>
+    <line x1="540" y1="65" x2="540" y2="510"/>
+    <line x1="590" y1="65" x2="590" y2="510"/>
+    <line x1="640" y1="65" x2="640" y2="510"/>
+    <line x1="690" y1="65" x2="690" y2="510"/>
+    <line x1="740" y1="65" x2="740" y2="510"/>
+    <line x1="790" y1="65" x2="790" y2="510"/>
+    <line x1="840" y1="65" x2="840" y2="510"/>
+  </g>
+  <line x1="540" y1="42" x2="540" y2="510" stroke="#e50914" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+  <g font-family="monospace" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <text x="165" y="82">0</text>
+    <text x="215" y="82">1</text>
+    <text x="265" y="82">0</text>
+    <text x="315" y="82">0</text>
+    <text x="365" y="82">1</text>
+    <text x="415" y="82">0</text>
+    <text x="465" y="82">1</text>
+    <text x="515" y="82">1</text>
+    <text x="565" y="82" fill="#ff6b6b">0</text>
+    <text x="615" y="82" fill="#ff6b6b">0</text>
+    <text x="665" y="82" fill="#ff6b6b">1</text>
+    <text x="715" y="82" fill="#ff6b6b">0</text>
+    <text x="765" y="82" fill="#ff6b6b">1</text>
+    <text x="815" y="82" fill="#ff6b6b">0</text>
+  </g>
+
+  <text x="20" y="120" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#38bdf8">1. Bitak (NRZ)</text>
+  <line x1="140" y1="120" x2="840" y2="120" stroke="#333333" stroke-width="1"/>
+  <polyline fill="none" stroke="#38bdf8" stroke-width="2.5"
+    points="140,138 190,138 190,100 240,100 240,138 340,138 340,100 390,100 390,138 440,138 440,100 540,100 540,138 640,138 640,100 690,100 690,138 740,138 740,100 790,100 790,138 840,138"/>
+
+  <text x="20" y="200" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#10b981">2. Manchester</text>
+  <text x="20" y="216" font-family="Arial, sans-serif" font-size="10" fill="#888888">(0: ↓ , 1: ↑)</text>
+  <line x1="140" y1="205" x2="840" y2="205" stroke="#333333" stroke-width="1"/>
+  <polyline fill="none" stroke="#10b981" stroke-width="2.5"
+    points="
+      140,185 165,185 165,225 190,225
+      190,225 215,225 215,185 240,185
+      240,185 265,185 265,225 290,225
+      290,185 315,185 315,225 340,225
+      340,225 365,225 365,185 390,185
+      390,185 415,185 415,225 440,225
+      440,225 465,225 465,185 490,185
+      490,225 515,225 515,185 540,185
+      540,185 565,185 565,225 590,225
+      590,185 615,185 615,225 640,225
+      640,225 665,225 665,185 690,185
+      690,185 715,185 715,225 740,225
+      740,225 765,225 765,185 790,185
+      790,185 815,185 815,225 840,225
+    "/>
+
+  <text x="20" y="295" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f59e0b">3. ASK Modulazioa</text>
+  <text x="20" y="311" font-family="Arial, sans-serif" font-size="10" fill="#888888">(Anplitude aldaketa)</text>
+  <line x1="140" y1="295" x2="840" y2="295" stroke="#333333" stroke-width="1"/>
+  <path fill="none" stroke="#f59e0b" stroke-width="2.2"
+    d="M 140,295 L 190,295
+       Q 202.5,255 215,295 Q 227.5,335 240,295
+       L 340,295
+       Q 352.5,255 365,295 Q 377.5,335 390,295
+       L 440,295
+       Q 452.5,255 465,295 Q 477.5,335 490,295
+       Q 502.5,255 515,295 Q 527.5,335 540,295
+       L 640,295
+       Q 652.5,255 665,295 Q 677.5,335 690,295
+       L 740,295
+       Q 752.5,255 765,295 Q 777.5,335 790,295
+       L 840,295" />
+
+  <text x="20" y="385" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ec4899">4. FSK Modulazioa</text>
+  <text x="20" y="401" font-family="Arial, sans-serif" font-size="10" fill="#888888">(Maiztasun aldaketa)</text>
+  <line x1="140" y1="385" x2="840" y2="385" stroke="#333333" stroke-width="1"/>
+  <path fill="none" stroke="#ec4899" stroke-width="2"
+    d="M 140,385
+       Q 152.5,355 165,385 Q 177.5,415 190,385
+       Q 196.25,350 202.5,385 Q 208.75,420 215,385 Q 221.25,350 227.5,385 Q 233.75,420 240,385
+       Q 252.5,355 265,385 Q 277.5,415 290,385
+       Q 302.5,355 315,385 Q 327.5,415 340,385
+       Q 346.25,350 352.5,385 Q 358.75,420 365,385 Q 371.25,350 377.5,385 Q 383.75,420 390,385
+       Q 402.5,355 415,385 Q 427.5,415 440,385
+       Q 446.25,350 452.5,385 Q 458.75,420 465,385 Q 471.25,350 477.5,385 Q 483.75,420 490,385
+       Q 496.25,350 502.5,385 Q 508.75,420 515,385 Q 521.25,350 527.5,385 Q 533.75,420 540,385
+       Q 552.5,355 565,385 Q 577.5,415 590,385
+       Q 602.5,355 615,385 Q 627.5,415 640,385
+       Q 646.25,350 652.5,385 Q 658.75,420 665,385 Q 671.25,350 677.5,385 Q 683.75,420 690,385
+       Q 702.5,355 715,385 Q 727.5,415 740,385
+       Q 746.25,350 752.5,385 Q 758.75,420 765,385 Q 771.25,350 777.5,385 Q 783.75,420 790,385
+       Q 802.5,355 815,385 Q 827.5,415 840,385" />
+
+  <text x="20" y="475" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#a855f7">5. PSK Modulazioa</text>
+  <text x="20" y="491" font-family="Arial, sans-serif" font-size="10" fill="#888888">(Fase aldaketa 180°)</text>
+  <line x1="140" y1="475" x2="840" y2="475" stroke="#333333" stroke-width="1"/>
+  <path fill="none" stroke="#a855f7" stroke-width="2.2"
+    d="M 140,475
+       Q 152.5,510 165,475 Q 177.5,440 190,475
+       Q 202.5,440 215,475 Q 227.5,510 240,475
+       Q 252.5,510 265,475 Q 277.5,440 290,475
+       Q 302.5,440 315,475 Q 327.5,510 340,475
+       Q 352.5,440 365,475 Q 377.5,510 390,475
+       Q 402.5,510 415,475 Q 427.5,440 440,475
+       Q 452.5,440 465,475 Q 477.5,510 490,475
+       Q 502.5,440 515,475 Q 527.5,510 540,475
+       Q 552.5,510 565,475 Q 577.5,440 590,475
+       Q 602.5,440 615,475 Q 627.5,510 640,475
+       Q 652.5,440 665,475 Q 677.5,510 690,475
+       Q 702.5,510 715,475 Q 727.5,440 740,475
+       Q 752.5,440 765,475 Q 777.5,510 790,475
+       Q 802.5,510 815,475 Q 827.5,440 840,475" />
+</svg>

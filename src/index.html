@@ -3,39 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SISA 1 - Erronka 01 | Taldea 5</title>
+    <title>1. Erronka - Klaseko Proiektu Teknikoa (SISA1)</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <!-- Goiburua / Header -->
     <header>
-        <h1>Informazioaren Digitalizazio Webgunea</h1>
-        <p>SISA 1 - Erronka 01 | Talde 5</p>
+        <div class="container nav-bar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.svg" alt="1. Erronka Logotipoa">
+                </a>
+            </div>
+            <nav>
+                <ul class="menu-zerrenda">
+                    <li><a href="index.html" class="aktiboa">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa</a></li>
+                    <li><a href="datubasea.html">Datu-Basea</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <!-- Nabigazio Menua / Menú Nav -->
-    <nav>
-        <ul>
-            <li><a href="index.html">Hasiera</a></li>
-            <li><a href="paginas/redes.html">Sareak (OSI / CRC)</a></li>
-            <li><a href="paginas/db.html">Datu-Basea</a></li>
-            <li><a href="paginas/digitalizazioa.html">Digitalizazioa (THD)</a></li>
-            <li><a href="paginas/sistemas.html">Sistemak (IIS / RAID)</a></li>
-        </ul>
-    </nav>
+    <main class="container">
 
-    <!-- Eduki Nagusia / Main -->
-    <main>
-        <section class="intro">
-            <h2>Proiektuaren Aurkezpena</h2>
-            <p>Enpresa baten egitura informatikoa osatzeko proposamen teknikoa eta digitalizazio gunea.</p>
+        <section class="hero-kutxa">
+            <div class="hero-testua">
+                <h1>1. Erronka — Klaseko Proiektu Teknikoaren Webgune Estatikoa</h1>
+                <p>Webgune estatiko honen bitartez, <strong>SISA1 zikloko 5. Taldeak</strong> 1. Erronkan garatutako dokumentazio teknikoa eta emaitzak publikatu ditu. Proiektu honetan Sareetako lehen bi OSI mailak, Digitalizazioko kontzeptuak, Streaming plataforma baten beharrak asetzen dituen Datu-Basea, Planifikazioaren digitalizazioa eta Windows Server azpiegitura (IIS, RAID eta Segurtasun Politika) jorratzen dira.</p>
+                <a href="sareak.html" class="botoi-gorria">Sareak: OSI 1-2 eta CRC-6</a>
+                <a href="datubasea.html" class="botoi-grisa">Datu-Basea: ER eta Taulak</a>
+            </div>
         </section>
+
+        <section>
+            <h2>Webgunean Publikatutako Atal Teknikoak</h2>
+            <p>Erronkaren jarraibideak betez, honako lau arlo nagusi hauek landu eta dokumentatu ditugu:</p>
+
+            <div class="rol-sarea">
+                <div class="rol-txartela">
+                    <div class="rol-ikonoa" style="background-color: #e50914;">🔌</div>
+                    <h3>Sareak (OSI 1-2)</h3>
+                    <p>Kableatua Patch Panelera eta Switchera, pasahitza ASCIIra, CRC-6-GSM, Manchester eta ASK/FSK/PSK marrazkiak eta Wi-Fi proba.</p>
+                </div>
+
+                <div class="rol-txartela">
+                    <div class="rol-ikonoa" style="background-color: #38bdf8;">☁️</div>
+                    <h3>Digitalizazioa</h3>
+                    <p>IT eta OT sistemen arteko desberdintasunak eta konbergentzia, THD teknologiak eta Cloud Computing ereduak.</p>
+                </div>
+
+                <div class="rol-txartela">
+                    <div class="rol-ikonoa" style="background-color: #f59e0b;">🗄️</div>
+                    <h3>Datu-Basea</h3>
+                    <p>Streaming plataforma baten beharretarako ER diagrama, eredu erlazional normalizatua (taulak) eta ofimatika inplementazioa.</p>
+                </div>
+
+                <div class="rol-txartela">
+                    <div class="rol-ikonoa" style="background-color: #10b981;">🖥️</div>
+                    <h3>Windows Server</h3>
+                    <p>IIS web-zerbitzaria, RAID bolumenen konfigurazioa, segurtasun politikak eta planifikazioaren jarraipena.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Windows Server Azpiegitura: IIS, RAID Bolumenak eta Segurtasun Politika</h2>
+            <p>Webgune estatiko hau argitaratzeko eta proiektuko datuak modu seguruan gordetzeko, <strong>Windows Server</strong> sistema eragilean oinarritutako azpiegitura prestatu dugu:</p>
+
+            <ul class="zerrenda-arrunta">
+                <li><strong>Integratutako Web-Zerbitzaria (IIS - Internet Information Services):</strong> Windows Server-ek lehenetsita dakarren <em>Web Server (IIS)</em> rola instalatu dugu Server Manager bitartez. Webgune estatikoaren HTML, CSS eta SVG fitxategiak <code>C:\inetpub\wwwroot\Erronka1</code> karpetan kokatu dira, sare lokalean HTTP (80 ataka) bidez zerbitzatuz.</li>
+                <li><strong>Disko Bolumenak eta RAID Konfigurazioa:</strong> Datuen erabilgarritasuna eta tolerantzia akatsei bermatzeko, Windows Server-eko <em>Disk Management</em> tresna erabiliz disko dinamikoetan oinarritutako bolumenak sortu ditugu: sistema eragilerako bolumen nagusia eta datuetarako <strong>RAID-1 (Mirrored Volume / Ispilu Bolumena)</strong> eta <strong>RAID-5</strong> egiturak.</li>
+                <li><strong>Segurtasun Politika (GPO eta Sarbide Kontrola):</strong> Zerbitzaria babesteko segurtasun politika zorrotza ezarri da: pasahitzen konplexutasuna eta iraungitzea, saio-hasiera okerren ondoriozko kontu-blokeoa, NTFS baimenak webguneko karpetetan (irakurketa baimena soilik erabiltzaile anonimoentzat) eta Windows Firewall arauak.</li>
+            </ul>
+
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Azpiegitura Osagaia</th>
+                            <th>Konfigurazio Teknikoa Windows Server-en</th>
+                            <th>Helburua Proiektuan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Web Zerbitzaria (IIS)</strong></td>
+                            <td>Rol: <code>Web Server (IIS)</code> | Direktorioa: <code>E:\Webgunea\Erronka1</code> | Ataka: <code>TCP 80 (HTTP)</code></td>
+                            <td>Klaseko webgune estatikoa sare lokaleko kable eta Wi-Fi gailuetara zerbitzatzea.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RAID-1 Bolumena (Ispilua)</strong></td>
+                            <td>2 disko dinamiko (Mirrored Volume) — Drive letra: <code>E:</code> (NTFS)</td>
+                            <td>Webgunea eta LibreOffice Base datu-basea bikoiztuta gordetzea; disko bat hondatuz gero daturik ez galtzeko.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Segurtasun Politika (Pasahitzak)</strong></td>
+                            <td>Gutxienez 8 karaktere, konplexutasuna aktibatuta, blokeoa 3 saiakera okerren ondoren</td>
+                            <td>Baimenik gabeko sarbideak saihestea zerbitzarian eta sareko kontuetan.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>NTFS Baimenak eta Firewall</strong></td>
+                            <td>Administratzaileak: <em>Kontrol Osoa</em> | IIS_IUSRS: <em>Irakurketa soilik</em> | Firewall: 80 ataka irekita</td>
+                            <td>Erabiltzaileek webgunea ikusi ahal izatea baina fitxategiak aldatzeko aukerarik gabe.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>Erronka 1: Dokumentazio Orrien Aurkibidea</h2>
+            <p>Sakatu beheko esteketan atal bakoitzaren garapen tekniko osoa ikusteko:</p>
+
+            <ol class="zerrenda-zenbatua">
+                <li>
+                    <strong><a href="sareak.html">1. Sareak (OSI 1 eta 2 mailak, CRC-6-GSM eta Modulazioa):</a></strong>
+                    Ikasleek egindako kableen lotura Patch Panelera eta Switchera, pasahitzaren bihurketa ASCIIra, CRC-6-GSM (x<sup>6</sup>+x<sup>5</sup>+x<sup>3</sup>+x<sup>2</sup>+x+1) kalkulua, ASK/PSK/FSK modulazioak, Manchester kodifikazioaren marrazkiak eta hari gabeko proba mugikorretik.
+                </li>
+                <li>
+                    <strong><a href="digitalizazioa.html">2. Digitalizazioa (IT/OT, THD eta Cloud):</a></strong>
+                    IT eta OT kontzeptuen azalpena, Teknologia Gaitu Digitalak (THD) eta Cloud Computing eredua.
+                </li>
+                <li>
+                    <strong><a href="datubasea.html">3. Datu-Basea (ER Diagrama, Eredu Erlazionala eta Ofimatika):</a></strong>
+                    Streaming eduki plataforma baten beharrak asetzeko ER diagrama eta eredu erlazional normalizatua (erabiltzaileak, rolak: infantila, pertsonala, familiarra; planak, suskripzioak, edukiak eta aukeratutako rolarekin egindako bistaratzeak) ofimatika suitean inplementatuta.
+                </li>
+                <li>
+                    <strong><a href="kontaktua.html">4. Azpiegitura, Planifikazioaren Jarraipena eta Taldearen Kontaktua:</a></strong>
+                    Windows Server azpiegituraren xehetasunak, lan-taldearen antolaketa eta harremanetarako inprimakia.
+                </li>
+            </ol>
+        </section>
+
     </main>
 
-    <!-- Oina / Footer -->
     <footer>
-        <p>&copy; 2026 SISA 1 - Talde 5. Eskubide guztiak erreserbatuta.</p>
+        <div class="container footer-edukia">
+            <div class="footer-blokea">
+                <h4>1. Erronka — SISA1</h4>
+                <p>Klaseko Proiektu Teknikoa (5. Taldea)</p>
+                <p><strong>Ikasturtea:</strong> 2026-2027</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Ikastetxea eta Kokapena</h4>
+                <p><strong>Zentroa:</strong> CIFP Uni Eibar-Ermua LHII</p>
+                <p><strong>Udalerria:</strong> Eibar, 20600 (Gipuzkoa)</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Webguneko Atalak</h4>
+                <ul>
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2 eta CRC)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa (IT/OT, THD, Cloud)</a></li>
+                    <li><a href="datubasea.html">Datu-Basea (ER eta Taulak)</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-egilea">
+            <p>&copy; 2026 1. Erronka - Egileak: 5. Taldea</p>
+        </div>
     </footer>
 
 </body>
