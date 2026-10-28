@@ -34,7 +34,6 @@ Instalazioa amaitu ondoren, Server Manager-etik oinarrizko datuak konfiguratu di
 - **Windows Defender Firewall:** Profil publikoan aktibatuta dago.
 
 ![Zerbitzariaren propietateak eta IP konfigurazioa](irudiak/01_zerbitzaria_propietateak_ip.png)
-_1. Irudia: Zerbitzariaren datu orokorrak eta IP helbidea (192.168.70.21)._
 
 ### 1.3 Eguneraketak eta Instantanea (Snapshot)
 
@@ -54,7 +53,6 @@ Ez dugu administratzaile kontu orokorra erabili behar lan arruntetarako. Horrega
 - **Administratzailea:** Berez datorren kontua kudeaketa nagusirako bakarrik utzita.
 
 ![Erabiltzaileak lusrmgr-en](irudiak/03_erabiltzaileak.png)
-_2. Irudia: Sortutako erabiltzaile lokalak._
 
 Taldeei dagokienez, erabiltzaileak banaka kudeatu beharrean taldeen bidez antolatzea askoz eraginkorragoa denez, bi talde nagusi sortu ditut Sareflix plataformarako:
 
@@ -62,7 +60,6 @@ Taldeei dagokienez, erabiltzaileak banaka kudeatu beharrean taldeen bidez antola
 - **`premium erabiltzaileak`**: Harpidetza berezia duten bezeroen taldea, baimen gehiagorekin.
 
 ![Talde lokalak](irudiak/04_taldeak_erabiltzaileak_premium.png)
-_3. Irudia: Erabiltzaileak eta Premium Erabiltzaileak taldeak._
 
 ### 2.2 Segurtasun eta Pasahitz Politikak (`secpol.msc`)
 
@@ -77,7 +74,6 @@ Zibersegurtasuna zaintzeko eta inork pasahitz txarrak ez jartzeko, Tokiko Segurt
 - **Cifrado reversible:** `Deshabilitada` segurtasunagatik.
 
 ![Pasahitz direktibak](irudiak/05_pasahitz_politikak_secpol.png)
-_4. Irudia: Directiva de contraseñas ezarpenak secpol.msc kontsolan._
 
 #### Kontu Blokeo Direktibak (Account Lockout):
 
@@ -89,7 +85,6 @@ Indar gordineko erasoak (brute force) mozteko:
 - **Administratzailea blokeatzea:** `Habilitada` utzi dut segurtasun handiagoa izateko.
 
 ![Kontu blokeo politikak](irudiak/07_blokeo_direktibak_secpol.png)
-_5. Irudia: Kontuen blokeo direktibak secpol.msc-n._
 
 ### 2.3 Sareak Moduluarekiko Integrazioa
 
@@ -111,7 +106,6 @@ Sareflix-eko edukia zerbitzatzeko Windowsen dakarren **IIS (Internet Information
 6. **Egiaztapena:** Sare berean dagoen beste gailu batetik (edo mugikorretik Wi-Fi bidez) nabigatzailean `http://192.168.70.21:8080/` jarrita, Sareflix-en orria zuzenean kargatzen da.
 
 ![IIS intranet gunea eta 8080 portua](irudiak/06_iis_intranet_8080.png)
-_6. Irudia: IIS kontsolan sortutako 'intranet' gunea 8080 atakan entzuten._
 
 ---
 
@@ -128,7 +122,6 @@ Diskoen kudeatzailean (`diskmgmt.msc`) sartu eta ikusi daiteke nola banatu ditud
 - **Beste 5 diskoak (Disko 1etik Disko 5era):** Bakoitzak 4,98 GB ditu. Horiek guztiak **Dinamiko** bihurtu nituen, Windowsek RAIDak sortzen utz diezagun.
 
 ![Diskoen kudeaketa eta RAIDak](irudiak/02_diskoak_raid1_raid5.png)
-_7. Irudia: Administrador de discos: Disko 0 basikoa, Disko 1-2 RAID 1ean eta Disko 3-4-5 RAID 5ean._
 
 ### 3.2 RAID 1 (Ispilua - Volumen Reflejado)
 
@@ -165,10 +158,8 @@ RAIDak hardware akatsetatik babesten du, baina norbaitek artxiboak nahita edo na
 - **Helmuga:** Babeskopietarako disko dedikatu bat erabili dut (`WIN-LGO 2026_10_28 10:42 DISK_01`), **59,86 GB**-ko tamainakoa.
 
 ![Windows Server Backup konfigurazioa](irudiak/08_windows_server_backup_programatua.png)
-_8. Irudia: Egunero 9:00etan programatutako babeskopia osoa._
 
 ![Babeskopiaren diskoaren xehetasunak](irudiak/09_backup_disko_xehetasunak.png)
-_9. Irudia: Babeskopietarako erabilitako 59,86 GB-ko disko espezifikoa._
 
 ### 3.6 Berreskuratze Plana (DRP)
 
