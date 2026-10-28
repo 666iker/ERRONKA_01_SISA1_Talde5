@@ -40,7 +40,7 @@ Hona hemen plataformaren egitura kontzeptuala erakusten duen diagramaren irudia:
   `GENEROAK` erlazioa `EDUKIAK` kutxa nagusira konektatu da. Honela, pelikulez gain, serieek eta dokumentalek ere generoa izatea lortzen da lerro bakar batekin, herentzia baliatuz.
 
 * **Generoen Errekurtsibitatea (`SUBGENEROA`):** 
-  `GENEROAK` entitateari bucle bat (erlazio errekurtsiboa) jarri zaio, genero nagusien eta subgeneroen arteko hierarkiak sortzeko (adibidez: *Akzioa* $\rightarrow$ *Artes Marzialak*).
+  `GENEROAK` entitateari bucle bat (erlazio errekurtsiboa) jarri zaio, genero nagusien eta subgeneroen arteko hierarkiak sortzeko (adibidez: *Akzioa* $\rightarrow$ *Arte Marzialak*).
 
 * **`BISTARATZEA` Erlazio Hirukoitza (Ternaria):** 
   Rombo bakar batek hiru entitate lotzen ditu: `PROFILA`, `GAILUAK` eta `EDUKIAK`. Ikustaldi bat erregistratzeko hiru faktoreak batera jakin behar dira: **Nork** ikusi duen (Profila), **Zer** ikusi duen (Edukia) eta **Nondik** ikusi duen (Gailua).
