@@ -10,4 +10,5 @@
 
 ## Webgunea
 
-- 🔴 [Webgunera joan](./webgunea/index.html) 
+- 🔴 [Webgunera joan](./src/index.html) 
+
