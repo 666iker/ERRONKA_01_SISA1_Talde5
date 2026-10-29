@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. Erronka - Markatze-Lengoaiak: Webgunearen Egitura eta Garapena</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-bar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.svg" alt="1. Erronka Logotipoa">
+                </a>
+            </div>
+            <nav>
+                <ul class="menu-zerrenda">
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa</a></li>
+                    <li><a href="datubasea.html">Datu-Basea</a></li>
+                    <li><a href="markatze.html" class="aktiboa">Markatze-Lengoaiak</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="hero-kutxa">
+            <div class="hero-testua">
+                <h1>Markatze-Lengoaiak: Webgunearen Egitura Semantikoa eta Diseinua</h1>
+                <p>Orri honetan <strong>Markatze-Lengoaiak</strong> irakasgaian landutako ezagutza guztiak biltzen dira: 1. Erronkako webgune estatikoa nola diseinatu eta programatu dugun, erabilitako <strong>HTML5 egitura semantikoa</strong>, <strong>CSS3 estilo-sistema zentralizatua</strong>, osagai teknikoak (taulak, formularioak, zerrendak, kode-kutxak) eta <strong>diseinu erantzunkorra (Responsive Design)</strong>.</p>
+                <a href="#html-egitura" class="botoi-gorria">HTML5 Egitura Semantikoa</a>
+                <a href="#css-diseinua" class="botoi-grisa">CSS3 Estiloak eta Diseinua</a>
+            </div>
+        </section>
+
+        <!-- 1. ATALA: PROIEKTUAREN KARPETA EGITURA -->
+        <section id="egitura-orokorra">
+            <h2>1. Proiektuaren Direktorio-Egitura eta Fitxategien Antolaketa</h2>
+            <p>Webgune estatiko garbi, modular eta mantengarria lortzeko, fitxategiak fitxategi-mota eta helburuaren arabera antolatu ditugu <code>src/</code> direktorioan:</p>
+
+            <div class="kode-kutxa">src/
+│
+├── index.html              # Hasierako aurkezpen orria eta erronkaren laburpena
+├── sareak.html             # Sareetako atala: OSI 1-2, ASCII, CRC-6 eta modulazioa
+├── digitalizazioa.html     # Digitalizazio atala: IT/OT, THD teknologiak eta Cloud
+├── datubasea.html          # Datu-base atala: ER diagrama eta 7 taula normalizatuak
+├── markatze.html           # Markatze-lengoaiak: Webgunearen garapen teknikoa
+├── kontaktua.html          # Windows Server azpiegitura, taldea eta inprimakia
+│
+├── css/
+│   └── style.css           # Estilo-orri bakarra eta zentralizatua orri guztientzat
+│
+└── img/
+    ├── logo.svg            # Taldearen logotipo bektoriala (SVG)
+    └── modulazioa-manchester.svg # Seinaleen modulazio eta kodifikazio bektorea</div>
+
+            <p>Fitxategiak horrela banatzeak hainbat abantaila eskaintzen ditu:</p>
+            <ul class="zerrenda-arrunta">
+                <li><strong>Estilo zentralizatua:</strong> CSS fitxategi bakarra (<code>css/style.css</code>) erabiliz, kolore edo tamaina aldaketa batek automatikoki orri guztiei eragiten die.</li>
+                <li><strong>Bektore arinak (SVG):</strong> Logotipoak eta modulazio-marrazkiak SVG formatuan gorde dira; horri esker, edozein pantaila-bereizmenetan kalitate-galerarik gabe eta karga-abiadura azkarrez bistaratzen dira.</li>
+                <li><strong>Nabigazio erlatiboa:</strong> Orri guztiak <code>src/</code> erroan daudenez, orrien arteko estekak zuzenak dira (adibidez, <code>href="sareak.html"</code>), inolako bide konplexurik gabe.</li>
+            </ul>
+        </section>
+
+        <!-- 2. ATALA: HTML5 EGITURA SEMANTIKOA -->
+        <section id="html-egitura">
+            <h2>2. HTML5 Egitura Semantikoa eta Orrien Txantiloia (IE1)</h2>
+            <p>Webgune osoan koherentzia mantentzeko eta irisgarritasun estandarrak betetzeko, orri bakoitzak <strong>HTML5 egitura semantiko</strong> bera jarraitzen du. Horrek etiketa generikoen (antzinako <code>&lt;div&gt;</code> gehiegizkoen) ordez, beren esanahia adierazten duten etiketak erabiltzea dakar:</p>
+
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Etiketa Semantikoa</th>
+                            <th>Kokapena Webgunean</th>
+                            <th>Funtzioa eta Arrazoi Teknikoa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>&lt;!DOCTYPE html&gt;</code></td>
+                            <td>Fitxategiaren 1. lerroan</td>
+                            <td>Dokumentua HTML5 estandarrean idatzita dagoela jakinarazten dio nabigatzaileari.</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;html lang="eu"&gt;</code></td>
+                            <td>Dokumentuaren erroa</td>
+                            <td>Edukiaren hizkuntza nagusia euskara dela adierazten du (pantaila-irakurleek eta bilatzaileek ahoskera zuzena aplikatzeko).</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;head&gt;</code></td>
+                            <td>Dokumentuaren goiburua</td>
+                            <td>Metadatuak (<code>charset="UTF-8"</code>, <code>viewport</code>), orriaren izenburua (<code>&lt;title&gt;</code>) eta kanpoko CSS fitxategiaren lotura (<code>&lt;link&gt;</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;header&gt;</code></td>
+                            <td>Orriaren goiko banda finkoa</td>
+                            <td>Logotipoa eta webguneko orri nagusiak lotzen dituen nabigazio-barra nagusia (<code>&lt;nav&gt;</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;nav&gt;</code></td>
+                            <td>Header barruan</td>
+                            <td>Orrien artean nabigatzeko esteka-zerrenda egituratua (<code>&lt;ul&gt;</code> eta <code>&lt;li&gt;</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;main&gt;</code></td>
+                            <td>Gorputz zentrala</td>
+                            <td>Orriaren eduki nagusi eta bakarra. Orri bakoitzak <code>&lt;main class="container"&gt;</code> bakarra dauka.</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;section&gt;</code></td>
+                            <td>Main barruan</td>
+                            <td>Gai bakoitza modu independentean taldekatzeko atalak (bakoitzak bere <code>&lt;h2&gt;</code> izenburuarekin).</td>
+                        </tr>
+                        <tr>
+                            <td><code>&lt;footer&gt;</code></td>
+                            <td>Orriaren oin-aldea</td>
+                            <td>Zentroaren informazioa, zikloa, ikasturtea, aurkibide osagarria eta egileen copyright oharra.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Txantiloi Semantikoaren Kodearen Adibidea</h3>
+            <p>Hona hemen webguneko orri bakoitzaren oinarrizko hezurdura:</p>
+
+            <div class="kode-kutxa">&lt;!DOCTYPE html&gt;
+&lt;html lang="eu"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Orriaren Titulua - 1. Erronka&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;header&gt;
+        &lt;div class="container nav-bar"&gt;
+            &lt;div class="logo"&gt;
+                &lt;a href="index.html"&gt;&lt;img src="img/logo.svg" alt="Logotipoa"&gt;&lt;/a&gt;
+            &lt;/div&gt;
+            &lt;nav&gt;
+                &lt;ul class="menu-zerrenda"&gt;
+                    &lt;li&gt;&lt;a href="index.html"&gt;Hasiera&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href="sareak.html"&gt;Sareak&lt;/a&gt;&lt;/li&gt;
+                    &lt;!-- Gainerako estekak --&gt;
+                &lt;/ul&gt;
+            &lt;/nav&gt;
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;main class="container"&gt;
+        &lt;section&gt;
+            &lt;h1&gt;Orriaren Izenburu Nagusia&lt;/h1&gt;
+            &lt;p&gt;Atalaren sarrera paragrafoa...&lt;/p&gt;
+        &lt;/section&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Azpiatala&lt;/h2&gt;
+            &lt;p&gt;Garapen teknikoa...&lt;/p&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;footer&gt;
+        &lt;!-- Oin-orriaren blokeak eta egile-eskubideak --&gt;
+    &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</div>
+        </section>
+
+        <!-- 3. ATALA: NABIGAZIOA ETA ESTEKAK -->
+        <section id="nabigazioa">
+            <h2>3. Nabigazio-Menua eta Orrien Arteko Erlazioak (IE2)</h2>
+            <p>Webgune baten erabilgarritasunaren (UX - User Experience) gako nagusietako bat nabigazio arin eta argia eskaintzea da. Horretarako, hainbat teknika uztartu ditugu:</p>
+
+            <ul class="zerrenda-arrunta">
+                <li><strong>Orri aktiboaren adierazpena (<code>.aktiboa</code> klasea):</strong> Erabiltzaileak uneoro jakin dezan webguneko zein orrialdetan dagoen, orri bakoitzeko dagokion <code>&lt;a&gt;</code> estekari <code>class="aktiboa"</code> ezarri diogu. Estilo-orrian gorriz (<code>#e50914</code>) nabarmentzen da, erabiltzaileari kokapen-erreferentzia garbia emanez.</li>
+                <li><strong>Menu itsaskorra (Sticky Header):</strong> CSS bidez <code>position: sticky; top: 0; z-index: 100;</code> konfiguratu dugu goiburuan. Horri esker, erabiltzaileak orrian behera korritzen duenean (adibidez <code>datubasea.html</code>-ko 7 taula luzeetan), menua beti pantailaren goialdean finko geratzen da, beste atal batera salto egiteko orriaren hasierara igo beharrik gabe.</li>
+                <li><strong>Barne-Aingurak (Anchor links):</strong> <code>kontaktua.html</code> orriko hero atalean <code>href="#formularioa"</code> motako barne-esteka ezarri dugu, botoia sakatzean zuzenean orriaren barruko formulario-eremura jaisteko. Era berean, orri honetako goiko botoiek <code>#html-egitura</code> eta <code>#css-diseinua</code> ataletara eramaten dute.</li>
+                <li><strong>Nabigazio erlatiboa:</strong> Orri guztiak maila berean kokatuta daudenez, bide erlatibo garbiak erabili ditugu (<code>href="datubasea.html"</code>, <code>href="css/style.css"</code>, <code>src="img/logo.svg"</code>), proiektua edozein zerbitzarira edo karpetara mugituta ere bideak hautsi ez daitezen.</li>
+            </ul>
+        </section>
+
+        <!-- 4. ATALA: ERABILITAKO ELEMENTU TEKNIKOAK -->
+        <section id="elementu-teknikoak">
+            <h2>4. Webgunean Erabilitako HTML Osagai Aurreratuak</h2>
+            <p>1. Erronkako irakasgai bakoitzeko eduki teknikoak modu argi eta profesionalean aurkezteko, HTML5-ek eskaintzen dituen elementu desberdinak erabili ditugu:</p>
+
+            <h3>A) Datu-Taulak (<code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>)</h3>
+            <p>Informazio trinkoa eta erlazionala egituratzeko erabili ditugu:</p>
+            <ul class="zerrenda-arrunta">
+                <li><code>sareak.html</code>: Pasahitzaren ASCII, hamaseitar eta bitar baliokideak erakusteko taula.</li>
+                <li><code>digitalizazioa.html</code>: IT eta OT inguruneen arteko konparaketa eta Cloud zerbitzuen taulak.</li>
+                <li><code>datubasea.html</code>: Streaming plataformaren <strong>7 taula normalizatuak</strong> (eremuak, datu-motak, murrizketak eta deskribapenak). Gako nagusiak (<code>&lt;span class="gako-pk"&gt;PK&lt;/span&gt;</code>) eta kanpo-gakoak (<code>&lt;span class="gako-fk"&gt;FK&lt;/span&gt;</code>) bereizteko txarteltxoak diseinatu ditugu.</li>
+                <li><code>kontaktua.html</code>: Taldekideen eginkizun teknikoen banaketa taulan.</li>
+            </ul>
+
+            <div class="kode-kutxa">&lt;!-- Datu-baseko taula baten HTML egitura adibidea --&gt;
+&lt;div class="taula-edukiontzia"&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;Eremua&lt;/th&gt;
+                &lt;th&gt;Datu-Mota&lt;/th&gt;
+                &lt;th&gt;Gakoa&lt;/th&gt;
+                &lt;th&gt;Murrizketa&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;strong&gt;id_erabiltzailea&lt;/strong&gt;&lt;/td&gt;
+                &lt;td&gt;INTEGER&lt;/td&gt;
+                &lt;td&gt;&lt;span class="gako-pk"&gt;PK&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;AUTO_INCREMENT, NOT NULL&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;</div>
+
+            <h3>B) Zerrenda Egituratuak (<code>&lt;ul&gt;</code> eta <code>&lt;ol&gt;</code>)</h3>
+            <p>Informazio kontzeptuala eta sekuentziala bereizteko bi zerrenda mota nagusi erabili ditugu:</p>
+            <ul class="zerrenda-arrunta">
+                <li><strong>Zerrenda desordenatuak (<code>&lt;ul class="zerrenda-arrunta"&gt;</code>):</strong> Kontzeptu independenteetarako (adibidez, IT eta OT ezaugarriak, RAID motak). CSS bidez ezkerreko ertz gorri bereizgarria (<code>border-left: 4px solid #e50914</code>) eman zaie.</li>
+                <li><strong>Zerrenda zenbatuak (<code>&lt;ol class="zerrenda-zenbatua"&gt;</code>):</strong> Hurrenkera kronologikoa duten prozeduretarako (adibidez, <code>index.html</code>-ko aurkibidea, Wi-Fi bidezko konektagarritasun-frogaren urratsak eta Windows Server-eko konfigurazio-faseak).</li>
+                <li><strong>Zerrenda habiaratuak:</strong> <code>kontaktua.html</code> orrian <code>&lt;ol&gt;</code> zerrenda nagusiaren barruan <code>&lt;ul&gt;</code> azpizerrendak txertatu ditugu konfigurazio-atal bakoitzaren azpipuntuak zehazteko.</li>
+            </ul>
+
+            <h3>C) Harremanetarako Formulario Semantikoa (<code>&lt;form&gt;</code>)</h3>
+            <p><code>kontaktua.html</code> orrian erabiltzailearen elkarrekintzarako inprimakia txertatu da, HTML5 kontrol estandarrekin:</p>
+            <ul class="zerrenda-arrunta">
+                <li><code>&lt;label for="..."&gt;</code>: Irisgarritasuna bermatzeko eremu bakoitza bere etiketarekin lotuta dago <code>id</code> bidez.</li>
+                <li><code>&lt;input type="text"&gt;</code> eta <code>&lt;input type="email"&gt;</code>: Erabiltzailearen izena eta posta elektronikoa biltzeko, <code>required</code> atributuarekin balidazio automatikoa aplikatuz.</li>
+                <li><code>&lt;select&gt;</code> eta <code>&lt;option&gt;</code>: Erabiltzaileak kontsultatu nahi duen departamentua edo irakasgaia (Sareak, Digitalizazioa, Datu-baseak, Azpiegitura) aukeratzeko zabalgarria.</li>
+                <li><code>&lt;textarea rows="5"&gt;</code>: Mezu luzeagoak sartzeko testu-eremua.</li>
+                <li><code>&lt;button type="submit"&gt;</code> eta <code>&lt;button type="reset"&gt;</code>: Datuak bidaltzeko eta eremuak garbitzeko botoiak.</li>
+            </ul>
+
+            <h3>D) Kontsola eta Kode-Kutxak (<code>.kode-kutxa</code>)</h3>
+            <p>Datu tekniko zehatzak lerrokatuta mantentzeko karaktere-zabalera finkoko iturria (monospace) eta <code>white-space: pre</code> propietatea erabili ditugu. Horrela lortu dugu:</p>
+            <ul class="zerrenda-arrunta">
+                <li><code>sareak.html</code> orrian CRC-6 zatiketa bitarra zutabez zutabe lerrokatuta bistaratzea, nabigatzaileak espazio bikoitzak jan gabe.</li>
+                <li><code>datubasea.html</code> orrian eredu erlazionalaren eskema eta taulen arteko gako-loturak kontsola itxuran azaltzea.</li>
+            </ul>
+
+            <h3>E) Testuaren Formatu Berezidunak</h3>
+            <p>Zientzia eta teknologia ikurrak zuzen adierazteko etiketak erabili ditugu:</p>
+            <ul class="zerrenda-arrunta">
+                <li><code>&lt;sup&gt;</code>: Berretzaileak adierazteko (adibidez, CRC-6-GSM polinomio sortzailea: <code>x&lt;sup&gt;6&lt;/sup&gt; + x&lt;sup&gt;5&lt;/sup&gt; + x&lt;sup&gt;3&lt;/sup&gt; + x&lt;sup&gt;2&lt;/sup&gt; + x + 1</code>).</li>
+                <li><code>&lt;code&gt;</code>: Testu arruntaren barruko komandoak, fitxategi-izenak eta IP helbideak nabarmentzeko (adibidez, <code>ping 192.168.1.10</code>).</li>
+                <li><code>&lt;strong&gt;</code> eta <code>&lt;em&gt;</code>: Garrantzia eta enfasi semantikoa emateko.</li>
+            </ul>
+        </section>
+
+        <!-- 5. ATALA: CSS3 ESTILO-SISTEMA -->
+        <section id="css-diseinua">
+            <h2>5. CSS3 Estilo-Sistema Zentralizatua (<code>css/style.css</code>) (IE1)</h2>
+            <p>Webgune osoaren itxura bisuala zentralizatuta dago <code>css/style.css</code> fitxategian. Proiektuak streaming plataforma baten inguruan diharduenez, estetika iluna eta korporatiboa aukeratu dugu (Netflix plataforman inspiratutako beltz eta gorri konbinazioa):</p>
+
+            <div class="taula-edukiontzia">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Proiektuko Kolorea</th>
+                            <th>Kode Hamaseitarra</th>
+                            <th>Erabilera Webgunean</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Beltz Iluna</strong></td>
+                            <td><code>#141414</code></td>
+                            <td>Orriaren atzeko plano nagusia (<code>body</code>). Begientzako erosoa eta kontraste handikoa.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Txartel Beltza</strong></td>
+                            <td><code>#1f1f1f</code> / <code>#262626</code></td>
+                            <td>Hero atala, txartelak, zerrendetako elementuak eta taulen atzeko planoa.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gorri Korporatiboa</strong></td>
+                            <td><code>#e50914</code></td>
+                            <td>Botoi nagusiak, orri aktiboaren marka menuan, h2 azpimarrak eta taula-goiburuen testua.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Zuri Garbia</strong></td>
+                            <td><code>#ffffff</code></td>
+                            <td>Izenburu nagusiak (<code>h1</code>, <code>h2</code>), menu estekak eta botoien testuak.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gris Argia</strong></td>
+                            <td><code>#cccccc</code> / <code>#888888</code></td>
+                            <td>Paragrafoetako testu arrunta eta oin-orriko oharrak, irakurgarritasun lasaia bermatzeko.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Urdina eta Laranja</strong></td>
+                            <td><code>#38bdf8</code> / <code>#f59e0b</code></td>
+                            <td>Gako nagusiak (PK - laranja) eta kanpo-gakoak (FK - urdina) bereizteko txarteltxoak.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>CSS Hautatzaileen Antolaketa</h3>
+            <p>Estiloak hiru motatako hautatzaileen arabera antolatu dira garbitasuna bermatzeko:</p>
+            <ol class="zerrenda-zenbatua">
+                <li>
+                    <strong>Etiketa-hautatzaile orokorrak:</strong>
+                    HTML etiketa oinarrizkoei aplikatzen zaizkie itxura bateratua lortzeko:
+                    <div class="kode-kutxa">* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #141414;
+    color: #ffffff;
+    line-height: 1.6;
+}</div>
+                    <code>box-sizing: border-box</code> arauari esker, elementuen betegarriak (padding) eta ertzek (border) ez dute elementuaren azken zabalera handitzen, maketazio-akatsak ekidinez.
+                </li>
+                <li>
+                    <strong>Klase-hautatzaileak (<code>.class</code>):</strong>
+                    Berrerabilgarriak diren osagaietarako euskarazko izen adierazgarriekin:
+                    <ul class="zerrenda-arrunta">
+                        <li><code>.container</code>: Orriaren eduki guztia zentratuta mantentzen du (<code>max-width: 1120px; margin: 0 auto;</code>).</li>
+                        <li><code>.nav-bar</code> eta <code>.menu-zerrenda</code>: Flexbox bidez logotipoa ezkerrean eta menua eskuinean lerrokatzen ditu.</li>
+                        <li><code>.hero-kutxa</code>: Orriaren aurkezpen-bloke nagusia, ertz borobildu eta atzeko plano ilunagoarekin.</li>
+                        <li><code>.rol-sarea</code> eta <code>.rol-txartela</code>: Hasierako orriko 5 arlo teknikoak txartel moduan bistaratzen dituen sare malgua.</li>
+                        <li><code>.botoi-gorria</code> eta <code>.botoi-grisa</code>: Ekintza-botoi deigarriak trantsizio eta hover efektuarekin.</li>
+                        <li><code>.taula-edukiontzia</code>: Taulak biltzen dituen kaxa, mugikorretan alboko korritze-barra (<code>overflow-x: auto</code>) gaitzen duena.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Identifikadore-hautatzaileak (<code>#id</code>):</strong>
+                    Orrian behin bakarrik agertzen diren elementu espezifikoetarako, hala nola barne-nabigazioko aingurak (<code>#formularioa</code>, <code>#html-egitura</code>, <code>#css-diseinua</code>) eta formularioko eremuen etiketak (<code>#izena</code>, <code>#email</code>, <code>#mezua</code>).
+                </li>
+            </ol>
+        </section>
+
+        <!-- 6. ATALA: DISEINU ERANTZUNKORRA -->
+        <section id="diseinu-erantzunkorra">
+            <h2>6. Diseinu Erantzunkorra eta Mugikorretarako Egokitzapena (Responsive)</h2>
+            <p>Gaur egungo webgune batek edozein gailutan (ordenagailu, tableta edo telefono mugikorrean) modu egokian bistaratu behar du. Hori lortzeko bi zutabe nagusi erabili ditugu:</p>
+
+            <ul class="zerrenda-arrunta">
+                <li><strong>Metadatuen Viewport konfigurazioa:</strong> HTML orri guztietako <code>&lt;head&gt;</code> atalean <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> jarri dugu, nabigatzaileak orria pantailaren benetako zabalerara egokitu dezan eskala artifizialik gabe.</li>
+                <li><strong>CSS Flexbox eta Grid:</strong> Goiburuko menua (<code>.nav-bar</code>), aurkezpeneko kutxa (<code>.hero-kutxa</code>), arlo teknikoen txartelak (<code>.rol-sarea</code>) eta oin-orria (<code>.footer-edukia</code>) Flexbox bidez maketatu dira. Pantaila txikitzen denean elementuak automatikoki egokitzen dira (<code>flex-wrap: wrap</code>).</li>
+                <li><strong>Taulen korritze horizontala:</strong> Datu-baseko eta sareetako taula handiak pantaila estuetatik atera ez daitezen, <code>.taula-edukiontzia</code> klaseari <code>overflow-x: auto;</code> ezarri zaio. Horrela, mugikorrean taula behatzarekin albora mugitu daiteke orriaren gainerako edukia desitxuratu gabe.</li>
+                <li><strong>Media Queries (<code>@media</code>):</strong> Pantaila zabalera 768px baino txikiagoa denean, orriaren egitura zutabe bakarrera pasatzen da:</li>
+            </ul>
+
+            <div class="kode-kutxa">/* 768px baino pantaila txikiagoetarako egokitzapena */
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu-zerrenda {
+        width: 100%;
+    }
+
+    .hero-kutxa {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+}</div>
+
+            <p>Egokitzapen honi esker, Sareak atalean ikasleok <strong>Wi-Fi bidez mugikorretik egindako konektagarritasun-proban</strong> webgunea primeran irakurri eta nabigatu ahal izan zen.</p>
+        </section>
+
+        <!-- 7. ATALA: KALITATEA ETA ARGITARATZEA -->
+        <section id="kalitatea-argitaratzea">
+            <h2>7. Web Kalitatea, Irisgarritasuna eta IIS Zerbitzarian Argitaratzea</h2>
+            <p>Garapen osoan zehar web garapeneko praktika onak eta kalitate-irizpideak errespetatu ditugu:</p>
+
+            <ol class="zerrenda-zenbatua">
+                <li>
+                    <strong>W3C Arauen Araberako Balidazioa:</strong>
+                    Kode semantikoa eta etiketen itxiera zorrotza errespetatu da, nabigatzaile desberdinetan (Chrome, Edge, Firefox, Safari) portaera berdina bermatzeko.
+                </li>
+                <li>
+                    <strong>Karaktere-Kodifikazioa (UTF-8):</strong>
+                    Dokumentu guztietan <code>&lt;meta charset="UTF-8"&gt;</code> ezarrita dagoenez, euskarazko karaktere bereziak (akentuak, tildeak, marratxoak eta ikurrak) arazorik gabe bistaratzen dira.
+                </li>
+                <li>
+                    <strong>Irisgarritasuna (Accessibility):</strong>
+                    Kontraste altuko koloreak erabili dira (testu zuria atzeko plano beltzaren gainean), irudi guztiek beren deskribapena dute <code>alt</code> atributuan eta inprimakiko eremu guztiek <code>&lt;label&gt;</code> erlazionatuak dituzte.
+                </li>
+                <li>
+                    <strong>Windows Server IIS Integrazioa:</strong>
+                    Webgune estatiko osoa Windows Server-eko <strong>Internet Information Services (IIS)</strong> zerbitzarian argitaratu da (<code>E:\Webgunea\Erronka1</code> direktorioan, RAID-1 bolumenean babestuta). Webgune estatikoa denez (HTML5, CSS3 eta SVG fitxategi hutsez osatua), ez du datu-base dinamikorik edo zerbitzari-lengoaia konplexurik behar, eta berehala zerbitzatzen da 80 atakan abiadura bikainarekin.
+                </li>
+            </ol>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-edukia">
+            <div class="footer-blokea">
+                <h4>1. Erronka — SISA1</h4>
+                <p>Klaseko Proiektu Teknikoa (5. Taldea)</p>
+                <p><strong>Ikasturtea:</strong> 2026-2027</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Ikastetxea eta Kokapena</h4>
+                <p><strong>Zentroa:</strong> CIFP Uni Eibar-Ermua LHII</p>
+                <p><strong>Udalerria:</strong> Eibar, 20600 (Gipuzkoa)</p>
+            </div>
+
+            <div class="footer-blokea">
+                <h4>Webguneko Atalak</h4>
+                <ul>
+                    <li><a href="index.html">Hasiera</a></li>
+                    <li><a href="sareak.html">Sareak (OSI 1-2 eta CRC)</a></li>
+                    <li><a href="digitalizazioa.html">Digitalizazioa (IT/OT, THD, Cloud)</a></li>
+                    <li><a href="datubasea.html">Datu-Basea (ER eta Taulak)</a></li>
+                    <li><a href="markatze.html">Markatze-Lengoaiak (HTML5/CSS3)</a></li>
+                    <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container footer-egilea">
+            <p>&copy; 2026 1. Erronka (SISA1) - Egileak: 5. Taldea</p>
+        </div>
+    </footer>
+
+</body>
+</html>
