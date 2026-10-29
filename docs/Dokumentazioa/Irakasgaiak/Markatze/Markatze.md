@@ -4,7 +4,6 @@
 
 Dokumentu honetan 1. Erronkarako sortu dugun webgune estatikoa nola egin dugun azaltzen da. Gure helburua klasean landutako atal guztiak (Sareak, Digitalizazioa, Datu-Basea eta Windows Server) webgune bakar batean biltzea izan da, gero Windows Server-eko IIS zerbitzarian argitaratzeko. Datu-basearen gaia streaming plataforma bat denez, webguneari ere estilo iluna (beltza eta gorria, Netflix modukoa) ematea erabaki dugu.
 
----
 
 ## 1. Karpetaren egitura
 
@@ -19,7 +18,6 @@ Proiektua ondo antolatuta edukitzeko, fitxategiak honela banatu ditugu `Erronka1
 * **`css` karpeta:** Barruan `style.css` fitxategia dago. Orri guztiek CSS fitxategi berbera erabiltzen dute estiloa mantentzeko.
 * **`img` karpeta:** Webguneko irudiak gordetzeko (`logo.svg` eta `modulazioa-manchester.svg`).
 
----
 
 ## 2. HTML orrien egitura: Header, Main eta Footer (IE1)
 
@@ -63,7 +61,6 @@ Orriaren behealdean `<footer>` jarri dugu. Hiru zutabetan banatuta dago (`.foote
 * Hirugarrenean webguneko orrietara joateko esteka zerrenda bat.
 Azpian `.footer-egilea` jarri dugu taldearen copyright-arekin.
 
----
 
 ## 3. Nabigazio-menua eta orrien arteko lotura (IE2)
 
@@ -73,7 +70,6 @@ Orri batetik bestera erraz ibiltzeko, nabigazio-menua `<nav>` barruan egin dugu 
 * **Menu finkoa:** CSSan `header` etiketari `position: sticky; top: 0;` jarri diogu. Horrela, orrian behera egin arren (batez ere `datubasea.html` bezalako orri luzeetan), menua beti goian geratzen da bistan.
 * **Beste esteka batzuk:** Menuko estekez gain, `index.html` orrian botoi gorri eta grisak jarri ditugu atal nagusietara joateko (`.botoi-gorria` eta `.botoi-grisa`), eta `kontaktua.html` orrian barne-esteka bat (`href="#formularioa"`) jarri dugu botoia sakatzean zuzenean beheko formulariora jaisteko.
 
----
 
 ## 4. Orri bakoitzean erabilitako HTML elementuak
 
@@ -83,7 +79,6 @@ Orri batetik bestera erraz ibiltzeko, nabigazio-menua `<nav>` barruan egin dugu 
 * **`datubasea.html`:** ER diagramaren irudia, taulen eskema `.kode-kutxa` batean, eta 7 taulak (`<table>`, `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>`). Taulen goiburuetan gako nagusiak eta kanpo-gakoak bereizteko `<span class="gako-pk">PK</span>` eta `<span class="gako-fk">FK</span>` etiketak sortu ditugu.
 * **`kontaktua.html`:** Windows Server-eko azalpena zerrenda habiaratuekin (`<ol>` baten barruan `<ul>` zerrendak sartuta RAID bolumenak eta segurtasun-politikak azaltzeko), taldekideen lan-banaketaren taula eta harremanetarako `<form>` formularioa (`input type="text"`, `input type="email"`, `select`, `textarea` eta `submit`/`reset` botoiekin).
 
----
 
 ## 5. CSS estiloen antolaketa: Etiketak, Klaseak eta IDak (`css/style.css`) (IE1)
 
