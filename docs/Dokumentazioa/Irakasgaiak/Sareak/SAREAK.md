@@ -148,13 +148,12 @@ Izar-topologia erabili dugu. Switch-a erdian dago eta sareko gailuak bertara kon
 ### 3.2. IP helbideen taula
 
 Gailuak `192.168.1.0/24` azpisarean konfiguratu ditugu.
+Baina Access Pointa-k gelako ip bat izango du.
 
 | Gailua | IP helbidea | Maskara | Atebidea | DNS |
 |---|---|---|---|---|
 | Windows Server | `192.168.1.10` | `255.255.255.0` | `192.168.1.1` | `127.0.0.1` |
-| PC1 | `192.168.1.20` | `255.255.255.0` | `192.168.1.1` | `192.168.1.10` |
-| Access Point-a | `192.168.1.2` | `255.255.255.0` | `192.168.1.1` | `192.168.1.10` |
-| Mugikorra | `192.168.1.50` | `255.255.255.0` | `192.168.1.1` | `192.168.1.10` |
+| Access Point-a | `192.168.70.171` | `255.255.255.0` | `192.168.70.171` | `192.168.70.171` |
 
 ### 3.3. Ping probak
 
@@ -170,17 +169,7 @@ Jasota: 4
 Galduta: 0 (%0)
 ```
 
-**2. Zerbitzaritik PC1era:**
-
-```text
-ping 192.168.1.20
-
-Paketeak bidalita: 4
-Jasota: 4
-Galduta: 0 (%0)
-```
-
-**3. Mugikorretik zerbitzarira:**
+**2. Mugikorretik zerbitzarira:**
 
 Mugikorra Wi-Fi sarean konektatuta zegoela, zerbitzariaren konexioa egiaztatu dugu. Lau paketeak behar bezala iritsi ziren, %0ko galerarekin.
 

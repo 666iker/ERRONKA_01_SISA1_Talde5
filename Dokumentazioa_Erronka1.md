@@ -1,4 +1,4 @@
-# 1. Erronka — Dokumentazio Teknikoa (SISA1 - 5. Taldea)
+﻿# 1. Erronka — Dokumentazio Teknikoa (SISA1 - 5. Taldea)
 
 **Zentroa:** CIFP Uni Eibar-Ermua LHII  
 **Zikloa:** SISA1 (2026-2027)  
@@ -24,6 +24,7 @@ Webgune estatiko honen bitartez, **SISA1 zikloko 5. Taldeak** 1. Erronkan garatu
 - **Sareak (OSI 1-2):** UTP Cat6 kableatua Patch Panelera eta Switchera, pasahitza ASCIIra bihurtzea, CRC-6-GSM errore-detekzioa, Manchester kodifikazioa, ASK/FSK/PSK modulazioak eta Wi-Fi bidezko konektagarritasun-proba.
 - **Digitalizazioa:** IT eta OT sistemen arteko desberdintasunak eta konbergentzia, THD teknologia gaituak (AI, Big Data, IoT, Zibersegurtasuna) eta Cloud Computing ereduak (IaaS, PaaS, SaaS; Hodei Pribatua, Publikoa eta Hibridoa).
 - **Datu-Basea:** Streaming plataforma baten datu-eredua, Entitate-Erlazio (ER) diagrama, 3. Forma Normaleko (3FN) eredu erlazionala (7 taula normalizatu, rol bidezko bistaratze-logikarekin) eta ofimatika inplementazioa.
+- **Markatze-Lengoaiak:** HTML5 egitura semantikoa, CSS3 diseinu erantzunkorra (Flexbox/Grid), formulario aurreratuak, taulak, kode-kutxak eta irisgarritasuna.
 - **Windows Server Azpiegitura:** Web Server (IIS) zerbitzaria 80 atakan, disko dinamikoen kudeaketa (RAID-1 ispilu bolumena eta RAID-5 parekidetasuna), segurtasun-politikak (pasahitzak, kontu-blokeoa, NTFS baimenak) eta planifikazioaren digitalizazioa.
 
 ---
@@ -43,6 +44,7 @@ Erronka1 html/
 ├── sareak.html                 # Sareetako garapen teknikoa
 ├── digitalizazioa.html         # Digitalizazioaren eta Cloud kontzeptuak
 ├── datubasea.html              # Datu-basearen ER diagrama eta taulak
+├── markatze.html               # Markatze-lengoaiak: Webgunearen garapen teknikoa
 ├── kontaktua.html              # Azpiegitura, planifikazioa eta formularioa
 ├── DOKUMENTAZIOA.md            # Proiektuaren dokumentazio tekniko osoa
 │
@@ -73,6 +75,7 @@ Webguneko orri guztiek egitura semantiko bera jarraitzen dute, irisgarritasuna e
                   <li><a href="sareak.html">Sareak (OSI 1-2)</a></li>
                   <li><a href="digitalizazioa.html">Digitalizazioa</a></li>
                   <li><a href="datubasea.html">Datu-Basea</a></li>
+                  <li><a href="markatze.html">Markatze-Lengoaiak</a></li>
                   <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
               </ul>
           </nav>

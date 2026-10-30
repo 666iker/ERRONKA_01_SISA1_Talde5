@@ -2,24 +2,23 @@
 
 **Taldea:** SISA1 - 5. Taldea (Axular Muñoz, Jokin Martinez, Iker Monkayola eta Alex Sierra)
 
-Dokumentu honetan 1. Erronkarako sortu dugun webgune estatikoa nola egin dugun azaltzen da. Gure helburua klasean landutako atal guztiak (Sareak, Digitalizazioa, Datu-Basea eta Windows Server) webgune bakar batean biltzea izan da, gero Windows Server-eko IIS zerbitzarian argitaratzeko. Datu-basearen gaia streaming plataforma bat denez, webguneari ere estilo iluna (beltza eta gorria, Netflix modukoa) ematea erabaki dugu.
+Dokumentu honetan 1. Erronkarako sortu dugun webgune estatikoa nola egin dugun azaltzen da. Gure helburua klasean landutako atal guztiak (Sareak, Digitalizazioa, Datu-Basea, Markatze-Lengoaiak eta Windows Server) webgune bakar batean biltzea izan da, gero Windows Server-eko IIS zerbitzarian argitaratzeko. Datu-basearen gaia streaming plataforma bat denez, webguneari ere estilo iluna (beltza eta gorria, Netflix modukoa) ematea erabaki dugu.
 
----
 
 ## 1. Karpetaren egitura
 
-Proiektua ondo antolatuta edukitzeko, fitxategiak honela banatu ditugu `Erronka1 html` karpetan:
+Proiektua ondo antolatuta edukitzeko, fitxategiak honela banatu ditugu `src/` karpetan:
 
-* **5 HTML fitxategi nagusiak:**
+* **6 HTML fitxategi nagusiak:**
   * `index.html`: Hasierako orria eta proiektuaren laburpena.
   * `sareak.html`: OSI 1 eta 2 mailak, pasahitza ASCIIra pasatzea, CRC-6 kalkulua eta modulazioak.
   * `digitalizazioa.html`: IT/OT, THD teknologiak eta Cloud computing.
   * `datubasea.html`: Streaming plataformaren ER diagrama eta normalizatutako 7 taulak.
+  * `markatze.html`: Markatze-lengoaiak irakasgaiaren atala, webgunea nola garatu den (HTML5 semantika, CSS3 diseinua, osagaiak eta responsive) xeheki azaltzen duena.
   * `kontaktua.html`: Windows Server azpiegitura, taldearen planifikazioa eta kontaktuko formularioa.
 * **`css` karpeta:** Barruan `style.css` fitxategia dago. Orri guztiek CSS fitxategi berbera erabiltzen dute estiloa mantentzeko.
 * **`img` karpeta:** Webguneko irudiak gordetzeko (`logo.svg` eta `modulazioa-manchester.svg`).
 
----
 
 ## 2. HTML orrien egitura: Header, Main eta Footer (IE1)
 
@@ -46,6 +45,7 @@ Webgune osoak itxura berdina izateko, txantiloi moduko bat prestatu dugu lehenen
                 <li><a href="sareak.html">Sareak (OSI 1-2)</a></li>
                 <li><a href="digitalizazioa.html">Digitalizazioa</a></li>
                 <li><a href="datubasea.html">Datu-Basea</a></li>
+                <li><a href="markatze.html">Markatze-Lengoaiak</a></li>
                 <li><a href="kontaktua.html">Azpiegitura eta Taldea</a></li>
             </ul>
         </nav>
@@ -60,10 +60,9 @@ Orri bakoitzaren informazio guztia `<main class="container">` barruan doa. Eduki
 Orriaren behealdean `<footer>` jarri dugu. Hiru zutabetan banatuta dago (`.footer-blokea` klasearekin):
 * Lehenengoan erronkaren datuak eta ikasturtea (2026-2027).
 * Bigarrenean ikastetxearen informazioa (CIFP Uni Eibar-Ermua LHII).
-* Hirugarrenean webguneko orrietara joateko esteka zerrenda bat.
+* Hirugarrenean webguneko orrietara joateko esteka zerrenda bat (orri guztietarako loturekin).
 Azpian `.footer-egilea` jarri dugu taldearen copyright-arekin.
 
----
 
 ## 3. Nabigazio-menua eta orrien arteko lotura (IE2)
 
@@ -71,19 +70,18 @@ Orri batetik bestera erraz ibiltzeko, nabigazio-menua `<nav>` barruan egin dugu 
 
 * **Orri aktiboa markatzea:** Erabiltzaileak une oro jakin dezan zein orritan dagoen, orri bakoitzeko HTMLan `class="aktiboa"` jarri diogu dagokion estekari. Adibidez, `sareak.html` fitxategian *Sareak* botoiak dauka klase hori, eta CSS bidez atzeko plano gorria (`#e50914`) jartzen zaio.
 * **Menu finkoa:** CSSan `header` etiketari `position: sticky; top: 0;` jarri diogu. Horrela, orrian behera egin arren (batez ere `datubasea.html` bezalako orri luzeetan), menua beti goian geratzen da bistan.
-* **Beste esteka batzuk:** Menuko estekez gain, `index.html` orrian botoi gorri eta grisak jarri ditugu atal nagusietara joateko (`.botoi-gorria` eta `.botoi-grisa`), eta `kontaktua.html` orrian barne-esteka bat (`href="#formularioa"`) jarri dugu botoia sakatzean zuzenean beheko formulariora jaisteko.
+* **Beste esteka batzuk:** Menuko estekez gain, `index.html` orrian botoi gorri eta grisak jarri ditugu atal nagusietara joateko (`.botoi-gorria` eta `.botoi-grisa`), eta `kontaktua.html` zein `markatze.html` orrietan barne-estekak (`href="#formularioa"`, `href="#html-egitura"`) jarri ditugu botoia sakatzean zuzenean dagokion atalera jaisteko.
 
----
 
 ## 4. Orri bakoitzean erabilitako HTML elementuak
 
-* **`index.html`:** Hasierako aurkezpen-kutxa (`.hero-kutxa`), 4 arlo teknikoak azaltzeko txartelak (`.rol-sarea` eta `.rol-txartela`), Windows Server-eko laburpen-taula (`<table>`) eta orri guztien aurkibidea `<ol>` zerrenda zenbatu batekin.
+* **`index.html`:** Hasierako aurkezpen-kutxa (`.hero-kutxa`), 5 arlo teknikoak azaltzeko txartelak (`.rol-sarea` eta `.rol-txartela`), Windows Server-eko laburpen-taula (`<table>`) eta orri guztien aurkibidea `<ol>` zerrenda zenbatu batekin.
 * **`sareak.html`:** Pasahitza (`Kuper-67`) ASCIIra pasatzeko taula, polinomioa idazteko `<sup>` etiketa (berretzaileak jartzeko, adibidez `x<sup>6</sup>`), eta CRC-6 zatiketa bitarra erakusteko `<div class="kode-kutxa">` blokea. Azken honi CSSan `white-space: pre` jarri diogu espazioak eta zutabeak ez mugitzeko. Horrez gain, Manchester eta ASK/FSK/PSK modulazioen irudia (`<img>`) eta Wi-Fi probaren pausoak daude.
 * **`digitalizazioa.html`:** IT eta OT desberdintzeko zerrendak (`<ul class="zerrenda-arrunta">`) eta konparazio-taula. THD teknologiak `<ol class="zerrenda-zenbatua">` zerrenda batekin egin ditugu eta Cloud atala (`IaaS`, `PaaS`, `SaaS`) beste taula batekin.
 * **`datubasea.html`:** ER diagramaren irudia, taulen eskema `.kode-kutxa` batean, eta 7 taulak (`<table>`, `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>`). Taulen goiburuetan gako nagusiak eta kanpo-gakoak bereizteko `<span class="gako-pk">PK</span>` eta `<span class="gako-fk">FK</span>` etiketak sortu ditugu.
+* **`markatze.html`:** Webgune osoaren garapen teknikoa azaltzen duen orria: fitxategi-egitura (`src/`, `css/`, `img/`), HTML5 semantika (header, nav, main, section, footer), estilo-sistema zentralizatua (hautatzaileak, kolore-paleta), osagai aurreratuak (taulak, zerrendak, formulario semantikoa, kode-kutxak) eta mugikorretarako egokitzapena (`@media`).
 * **`kontaktua.html`:** Windows Server-eko azalpena zerrenda habiaratuekin (`<ol>` baten barruan `<ul>` zerrendak sartuta RAID bolumenak eta segurtasun-politikak azaltzeko), taldekideen lan-banaketaren taula eta harremanetarako `<form>` formularioa (`input type="text"`, `input type="email"`, `select`, `textarea` eta `submit`/`reset` botoiekin).
 
----
 
 ## 5. CSS estiloen antolaketa: Etiketak, Klaseak eta IDak (`css/style.css`) (IE1)
 
@@ -111,8 +109,8 @@ Gehien erabili ditugun klaseak euskarazko izenekin sortu ditugu, zer egiten dute
 ### 3. IDak (`#id`)
 IDak behin bakarrik agertzen diren elementuetan erabili ditugu:
 * `#formularioa`: `kontaktua.html` orrian formularioaren atalari jarri diogu, goiko botoitik zuzenean bertara salto egiteko.
+* `#html-egitura` eta `#css-diseinua`: `markatze.html` orriko barne-loturak zuzenean dagokion atalera joateko.
 * `#izena`, `#email`, `#atala`, `#mezua`: Formularioko input bakoitza bere `<label for="...">` etiketarekin lotzeko.
 
 ### 4. Mugikorrerako egokitzapena (`@media`)
 CSS fitxategiaren bukaeran `@media (max-width: 768px)` araua gehitu dugu. Pantaila txikietan (adibidez Sareak atalean mugikorretik Wi-Fi proba egitean), `.nav-bar` eta `.hero-kutxa` zutabean jartzen dira (`flex-direction: column`) dena ondo irakurtzeko.
-
