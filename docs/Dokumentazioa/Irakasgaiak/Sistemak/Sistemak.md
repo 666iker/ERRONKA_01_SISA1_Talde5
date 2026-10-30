@@ -34,7 +34,6 @@ Instalazioa amaitu ondoren, Server Manager-etik oinarrizko datuak konfiguratu di
 - **Windows Defender Firewall:** Profil publikoan aktibatuta dago.
 
 ![Zerbitzariaren propietateak eta IP konfigurazioa](irudiak/01_zerbitzaria_propietateak_ip.png)
-*1. Irudia: Zerbitzariaren datu orokorrak eta IP helbidea (192.168.70.21).*
 
 ### 1.3 Eguneraketak eta Instantanea (Snapshot)
 - **Windows Update:** Eguneraketa guztiak deskargatu eta instalatu ditut sistema seguru edukitzeko.
@@ -51,14 +50,12 @@ Ez dugu administratzaile kontu orokorra erabili behar lan arruntetarako. Horrega
 - **Administratzailea:** Berez datorren kontua kudeaketa nagusirako bakarrik utzita.
 
 ![Erabiltzaileak lusrmgr-en](irudiak/03_erabiltzaileak.png)
-*2. Irudia: Sortutako erabiltzaile lokalak.*
 
 Taldeei dagokienez, erabiltzaileak banaka kudeatu beharrean taldeen bidez antolatzea askoz eraginkorragoa denez, bi talde nagusi sortu ditut Sareflix plataformarako:
 - **`erabiltzaileak`**: Zerbitzuko bezero arrunten taldea.
 - **`premium erabiltzaileak`**: Harpidetza berezia duten bezeroen taldea, baimen gehiagorekin.
 
 ![Talde lokalak](irudiak/04_taldeak_erabiltzaileak_premium.png)
-*3. Irudia: Erabiltzaileak eta Premium Erabiltzaileak taldeak.*
 
 ### 2.2 Segurtasun eta Pasahitz Politikak (`secpol.msc`)
 Zibersegurtasuna zaintzeko eta inork pasahitz txarrak ez jartzeko, Tokiko Segurtasun Politikak konfiguratu ditut:
@@ -71,7 +68,6 @@ Zibersegurtasuna zaintzeko eta inork pasahitz txarrak ez jartzeko, Tokiko Segurt
 - **Cifrado reversible:** `Deshabilitada` segurtasunagatik.
 
 ![Pasahitz direktibak](irudiak/05_pasahitz_politikak_secpol.png)
-*4. Irudia: Directiva de contraseñas ezarpenak secpol.msc kontsolan.*
 
 #### Kontu Blokeo Direktibak (Account Lockout):
 Indar gordineko erasoak (brute force) mozteko:
@@ -81,7 +77,6 @@ Indar gordineko erasoak (brute force) mozteko:
 - **Administratzailea blokeatzea:** `Habilitada` utzi dut segurtasun handiagoa izateko.
 
 ![Kontu blokeo politikak](irudiak/07_blokeo_direktibak_secpol.png)
-*5. Irudia: Kontuen blokeo direktibak secpol.msc-n.*
 
 ### 2.3 Sareak Moduluarekiko Integrazioa
 Sareak moduluko ariketan pasahitz bat eskatu ziguten kabletik bidaltzeko. Gure zerbitzariko pasahitz politikekin bat datorren pasahitz seguru bat aukeratu genuen. Pasahitz hori hartuta:
@@ -99,7 +94,6 @@ Sareflix-eko edukia zerbitzatzeko Windowsen dakarren **IIS (Internet Information
 6. **Egiaztapena:** Sare berean dagoen beste gailu batetik (edo mugikorretik Wi-Fi bidez) nabigatzailean `http://192.168.70.21:8080/` jarrita, Sareflix-en orria zuzenean kargatzen da.
 
 ![IIS intranet gunea eta 8080 portua](irudiak/06_iis_intranet_8080.png)
-*6. Irudia: IIS kontsolan sortutako 'intranet' gunea 8080 atakan entzuten.*
 
 ---
 
@@ -114,7 +108,6 @@ Diskoen kudeatzailean (`diskmgmt.msc`) sartu eta ikusi daiteke nola banatu ditud
 - **Beste 5 diskoak (Disko 1etik Disko 5era):** Bakoitzak 4,98 GB ditu. Horiek guztiak **Dinamiko** bihurtu nituen, Windowsek RAIDak sortzen utz diezagun.
 
 ![Diskoen kudeaketa eta RAIDak](irudiak/02_diskoak_raid1_raid5.png)
-*7. Irudia: Administrador de discos: Disko 0 basikoa, Disko 1-2 RAID 1ean eta Disko 3-4-5 RAID 5ean.*
 
 ### 3.2 RAID 1 (Ispilua - Volumen Reflejado)
 - **Erabilitako diskoak:** Disco 1 eta Disco 2 (4,98 GB bakoitza).
@@ -148,10 +141,8 @@ RAIDak hardware akatsetatik babesten du, baina norbaitek artxiboak nahita edo na
 - **Helmuga:** Babeskopietarako disko dedikatu bat erabili dut (`WIN-LGO 2026_10_28 10:42 DISK_01`), **59,86 GB**-ko tamainakoa.
 
 ![Windows Server Backup konfigurazioa](irudiak/08_windows_server_backup_programatua.png)
-*8. Irudia: Egunero 9:00etan programatutako babeskopia osoa.*
 
 ![Babeskopiaren diskoaren xehetasunak](irudiak/09_backup_disko_xehetasunak.png)
-*9. Irudia: Babeskopietarako erabilitako 59,86 GB-ko disko espezifikoa.*
 
 ---
 
@@ -165,13 +156,10 @@ AOMEI Backupper erabili dut fitxategiak eta karpetak beste unitate batera sinkro
 - **Zereginen kudeaketa:** *Gestión de tareas* atalean egiaztatu dut sinkronizazioa arrakastaz burutu dela (09:06:22 exekuzioarekin).
 
 ![AOMEI sinkronizazio moduak](irudiak/11_aomei_modos_sincronizacion.png)
-*10. Irudia: AOMEI Backupper-eko sinkronizazio aukerak.*
 
 ![AOMEI sinkronizazioa C-tik E-ra martxan](irudiak/10_aomei_sincronizacion_c_e.png)
-*11. Irudia: C: diskotik E: (RAID 1) unitatera fitxategiak sinkronizatzen.*
 
 ![AOMEI zeregina burututa](irudiak/12_aomei_tarea_finalizada.png)
-*12. Irudia: Sincronización básica zeregina eginda AOMEIren zereginen kudeatzailean.*
 
 #### B. Duplicati (Fitxategi Kopiak Zifratuarekin)
 Fitxategien segurtasun-kopietarako **Duplicati** aplikazioa erabili dut:
@@ -181,7 +169,6 @@ Fitxategien segurtasun-kopietarako **Duplicati** aplikazioa erabili dut:
 - Bertsio-kudeaketa (versioning) du, eta behar izanez gero fitxategiak berreskuratzea oso erraza da *Restores (Start ->)* botoia sakatuta.
 
 ![Duplicati web interfazea eta babeskopia martxan](irudiak/14_duplicati_web_interfazea.png)
-*13. Irudia: Duplicati ngclient web interfazea (8200 portua) eta tokiko babeskopia martxan (2.758 fitxategi, 2,89 GB).*
 
 ---
 
@@ -201,7 +188,6 @@ Errubrikaren atal honetan eskatzen zen disko osoaren irudia sortzea gutxienez **
 - **Abantaila nagusia:** Irudia sare bidez gordetzen denez, zerbitzaria guztiz hondatuko balitz ere, UrBackup-eko Restore CD edo USB baten bidez makina berri batera saretik zuzenean irauli dezakegu diskoaren irudia.
 
 ![UrBackup bezeroaren egoera eta zerbitzariarekiko konexioa](irudiak/13_urbackup_bezeroa_zerbitzaria.png)
-*14. Irudia: UrBackup bezeroaren egoera-leihoa: 192.168.1.10 zerbitzari lokalera konektatuta eta kopia osoa exekutatzen (%35).*
 
 ---
 
